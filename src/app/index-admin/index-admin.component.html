@@ -1,0 +1,32 @@
+<div class="register-photo">
+  <div class="form-container">
+      <div class="image-holder"></div>
+        <form method="post">
+          <h2 class="text-center"><strong>Administrativo</strong></h2>
+          <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Correo electrónico" /></div>
+          <div class="form-group"><input class="form-control" type="password" name="contrasena" placeholder="Contraseña" /></div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Iniciar sesión</button>
+            <a data-toggle="modal" data-target="#recuperar" href="#" class="forgot">¿Olvidaste tu cantraseña?</a>
+          </div>
+        </form>
+  </div>
+</div>
+<!-- Modal Recuperar -->
+<div class="modal fade" id="recuperar" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2 class="text-center"><strong>¿Olvidaste tu contraseña?</strong></h2>
+              <h6 class="text-center">Ingrese su correo electrónico y le enviaremos un enlace para restablecer su contraseña</h6>
+              <div class="form-group"><input class="form-control" type="email" name="emailRec" placeholder="Correo electrónico" /></div>
+              <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+            </div>
+      </div>
+    </div>
+</div>

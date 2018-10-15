@@ -1,0 +1,107 @@
+<div id="wrapper">
+  <app-menu></app-menu>
+  <div id="content-wrapper">
+    <div class="container-fluid">
+      <app-head [nombre]="modulo"></app-head>
+      <div class="container">
+        <div class="row">
+          <!-- grupo -->
+          <div class="col-sm-4">
+              <div class="form-group row">
+                  <label for="idGrupo" class="col-2 form-label">Grupo:</label>
+                  <div class="col-4">
+                    <input class="form-control" type="text" value="402" id="idGrupo">
+                  </div>
+              </div>
+          </div>
+          <!-- grado -->
+          <div class="col-sm-4">
+              <div class="form-group row">
+                  <label for="idGrado" class="col-2 form-label">Grado:</label>
+                  <div class="col-4">
+                    <input class="form-control" type="text" value="4 año" id="idGrado">
+                  </div>
+              </div>
+          </div>
+          <!-- materia -->
+          <div class="col-sm-4">
+              <div class="form-group row">
+                  <label for="materia" class="col-2 form-label">Materia:</label>
+                  <div class="col-4">
+                    <select class="custom-select custom-select-sm" id="materia">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card mb-3">
+              <div class="card-header">
+                <i class="fas fa-table"></i>
+                 Alumnos
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 10%">
+                                Num. Lista
+                            </th>
+                            <th style="width: 10%">
+                                Apellido Paterno
+                            </th>
+                            <th style="width: 20%">
+                                Apellido Materno
+                            </th>
+                            <th style="width: 20%">
+                                Nombre(s)
+                            </th>
+                            <th style="width: 30%">
+                              Acciones
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of data">
+                            <td>{{item.numero}}</td>
+                            <td>{{item.apellidoP}}</td>
+                            <td>{{item.apellidoM}}</td>
+                            <td>{{item.nombre}}</td>
+                            <td><button [id]="item.numero" type='button' (click)='calificar()' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button><button type='button' (click)='faltas()' class='btn btn-danger' title='Faltas'><i class='fas fa-calendar-times'></i></button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+              <!-- Modal Recuperar -->
+              <div class="modal fade" id="calificar" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h2 class="text-center"><strong>Calificar Alumno</strong></h2>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <h6 class="text-center">Ingrese su correo electrónico y le enviaremos un enlace para restablecer su contraseña</h6>
+                          <div class="form-group"><input class="form-control" type="email" name="emailRec" placeholder="Correo electrónico" /></div>
+                          <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+footer{
+    background-color: #EEEEEE;
+    font-size: medium;
+}
+.copyright .fas{
+    color: red;
+}
+@media (min-width: 768px)
+{
+    footer.sticky-footer {
+        width: calc(100% - 260px);
+    }
+}
