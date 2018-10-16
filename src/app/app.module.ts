@@ -21,6 +21,7 @@ import { PerfilAdministrativoComponent } from './perfil-administrativo/perfil-ad
 import { CalificacionesAlumnosComponent } from './calificaciones-alumnos/calificaciones-alumnos.component';
 import { AdeudosAlumnosComponent } from './adeudos-alumnos/adeudos-alumnos.component';
 import { PerfilAlumnosComponent } from './perfil-alumnos/perfil-alumnos.component';
+import { ModificarPerfilAdministrativoComponent } from './modificar-perfil-administrativo/modificar-perfil-administrativo.component';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -28,6 +29,7 @@ const routes = [
   { path:'docente',component: DashboardDocenteComponent },
   { path:'docente/grupos',component: GruposComponent },
   { path:'docente/perfil',component: PerfilAdministrativoComponent },
+  { path:'docente/ModificarPerfil',component: ModificarPerfilAdministrativoComponent },
   { path: 'alumnos/avisos', component: DashboardAlumnosComponent},
   { path: 'alumnos/estudios', component: EstudiosAlumnosComponent},
   { path: 'alumnos/horario', component: HorarioAlumnosComponent},
@@ -53,7 +55,8 @@ const routes = [
     PerfilAdministrativoComponent,
     CalificacionesAlumnosComponent,
     AdeudosAlumnosComponent,
-    PerfilAlumnosComponent
+    PerfilAlumnosComponent,
+    ModificarPerfilAdministrativoComponent
   ],
   imports: [
     BrowserModule,
