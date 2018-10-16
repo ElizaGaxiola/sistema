@@ -1,3 +1,47 @@
-<p>
-  adeudos-alumnos works!
-</p>
+<div id="wrapper">
+  <app-menu-alum></app-menu-alum>
+  <div id="content-wrapper">
+    <div class="container-fluid">
+      <app-head [nombre]="modulo"></app-head>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card tabla mb-3">
+              <div class="card-header">
+                <i class="fas fa-table"></i>
+                 Adeudo
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 35%">
+                                Concepto
+                            </th>
+                            <th style="width: 30%">
+                                Cantidad
+                            </th>
+                            <th style="width: 35%">
+                                Fecha Límite 
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of data">
+                              <td>{{item.concepto}}</td>
+                              <td>{{item.cantidad}}</td>
+                              <td>{{item.fechalim}}</td>
+                          </tr>
+                          </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

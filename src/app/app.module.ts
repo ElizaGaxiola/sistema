@@ -30,7 +30,8 @@ const routes = [
   { path: 'alumnos/avisos', component: DashboardAlumnosComponent},
   { path: 'alumnos/estudios', component: EstudiosAlumnosComponent},
   { path: 'alumnos/horario', component: HorarioAlumnosComponent},
-  { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent}
+  { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent},
+  { path: 'alumnos/adeudos', component: AdeudosAlumnosComponent}
 ];
 
 @NgModule({
