@@ -184,7 +184,6 @@ p {
     height: auto;
     white-space: nowrap;
 }
-@media (min-width: 991px){
     .sidebar.toggled {
         width: 80px !important;
     }
@@ -221,7 +220,6 @@ p {
         height: 62px;
         width: 50px;
     }
-}
 #menu:hover {
     width: 260px !important;
 }

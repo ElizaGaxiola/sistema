@@ -130,4 +130,6 @@ input[type="search"],select {
     background-color: white;
     opacity: 1;
 }
-
+.card-header {
+    background-color: #ea1060;
+}
