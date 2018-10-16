@@ -3,14 +3,11 @@ import { NgModule } from '@angular/core';
 import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
-
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { Routes, RouterModule } from '@angular/router';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
 import { IndexAdminComponent } from './index-admin/index-admin.component';
 import { HeadComponent } from './head/head.component';
-
-
 import { from } from 'rxjs';
 import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
@@ -38,7 +35,8 @@ const routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     AngularFontAwesomeModule,
-    DataTablesModule
+    DataTablesModule,
+    SelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

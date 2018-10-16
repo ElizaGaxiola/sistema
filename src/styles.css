@@ -29,7 +29,7 @@ a {
     text-decoration: none;
 }
 .scrollbar-dusty-grass::-webkit-scrollbar-track {
-    /*-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #F4F4F4;
     border-radius: 10px; }
   
@@ -39,17 +39,17 @@ a {
   
   .scrollbar-dusty-grass::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    /*-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-image: -webkit-linear-gradient(330deg, #F4F4F4 0%, #566573 100%);
     background-image: linear-gradient(120deg, #F4F4F4 0%, #566573 100%); }
   .thin::-webkit-scrollbar {
     width: 6px; }
 
 
-.form-control, .is-focused .form-control {
+.form-control, .is-focused .form-control, input[type="search"], select {
         background-image: linear-gradient(to top,#5D6D7E 2px,rgba(156,39,176,0) 2px),linear-gradient(to top,#d2d2d2 1px,rgba(210,210,210,0) 1px);
 }
-.form-control {
+.form-control{
     display: block;
     width: 100%;
     padding: .4375rem 0;
@@ -77,3 +77,38 @@ a {
 .btn{
     margin: 5px;
 }
+button.ngx-dropdown-button {
+    background-color: #5D6D7E !important;
+    color: white !important;
+    border-radius: 42px 42px 42px 42px !important;
+    -moz-border-radius: 42px 42px 42px 42px !important;
+    -webkit-border-radius: 42px 42px 42px 42px !important;
+    height: 41px !important;
+}
+.ngx-dorpdown-container {
+    width: 250px !important;
+    margin: 10px 0px 0px 0px;
+}
+.form-group.row {
+    margin-bottom: 10px !important;
+}
+.ngx-dorpdown-container .ngx-dropdown-list-container ul.selected-items li {
+    background-color: #5D6D7E !important;
+}
+button.ngx-dropdown-button:active{
+    background-color: white !important;
+}
+button:focus, .form-control:focus, input[type="search"]:focus, select:focus {
+    outline:0px !important;
+}
+input[type="search"],select {
+    padding: .4375rem 0;
+    line-height: 1.5;
+    color: #495057;
+    background-color: rgba(0,0,0,0);
+    box-shadow: none;
+    border: 0px;
+    text-align: center;
+}
+
+
