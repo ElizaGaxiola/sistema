@@ -24,6 +24,7 @@ const routes = [
   { path:'administrativos',component: IndexAdminComponent},
   { path:'docente',component: DashboardDocenteComponent },
   { path:'docente/grupos',component: GruposComponent },
+  { path:'docente/perfil',component: PerfilAdministrativoComponent },
   { path: 'alumnos/avisos', component: DashboardAlumnosComponent},
   { path: 'alumnos/estudios', component: EstudiosAlumnosComponent},
   { path: 'alumnos/horario', component: HorarioAlumnosComponent}
