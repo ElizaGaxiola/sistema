@@ -126,5 +126,8 @@ input[type="search"],select {
         width: 150px !important;
     }
 }
-
+.form-control:disabled, .form-control[readonly] {
+    background-color: white;
+    opacity: 1;
+}
 
