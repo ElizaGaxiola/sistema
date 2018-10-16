@@ -17,6 +17,7 @@ import { MenuAlumComponent } from './menu-alum/menu-alum.component';
 import { DashboardAlumnosComponent } from './dashboard-alumnos/dashboard-alumnos.component';
 import { EstudiosAlumnosComponent } from './estudios-alumnos/estudios-alumnos.component';
 import { HorarioAlumnosComponent } from './horario-alumnos/horario-alumnos.component';
+import { CalificacionesAlumnosComponent } from './calificaciones-alumnos/calificaciones-alumnos.component';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -25,7 +26,8 @@ const routes = [
   { path:'docente/grupos',component: GruposComponent },
   { path: 'alumnos/avisos', component: DashboardAlumnosComponent},
   { path: 'alumnos/estudios', component: EstudiosAlumnosComponent},
-  { path: 'alumnos/horario', component: HorarioAlumnosComponent}
+  { path: 'alumnos/horario', component: HorarioAlumnosComponent},
+  { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent}
 ];
 
 @NgModule({
@@ -41,7 +43,8 @@ const routes = [
     MenuAlumComponent,
     DashboardAlumnosComponent,
     EstudiosAlumnosComponent,
-    HorarioAlumnosComponent
+    HorarioAlumnosComponent,
+    CalificacionesAlumnosComponent
   ],
   imports: [
     BrowserModule,
