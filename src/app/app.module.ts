@@ -17,6 +17,7 @@ import { MenuAlumComponent } from './menu-alum/menu-alum.component';
 import { DashboardAlumnosComponent } from './dashboard-alumnos/dashboard-alumnos.component';
 import { EstudiosAlumnosComponent } from './estudios-alumnos/estudios-alumnos.component';
 import { HorarioAlumnosComponent } from './horario-alumnos/horario-alumnos.component';
+import { PerfilAdministrativoComponent } from './perfil-administrativo/perfil-administrativo.component';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -41,7 +42,8 @@ const routes = [
     MenuAlumComponent,
     DashboardAlumnosComponent,
     EstudiosAlumnosComponent,
-    HorarioAlumnosComponent
+    HorarioAlumnosComponent,
+    PerfilAdministrativoComponent
   ],
   imports: [
     BrowserModule,
