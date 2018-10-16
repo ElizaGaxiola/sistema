@@ -1,0 +1,88 @@
+<div id="wrapper">
+  <app-menu></app-menu>
+  <div id="content-wrapper">
+    <div class="container-fluid">
+      <app-head [nombre]="modulo"></app-head>
+      <div class="container">
+        <div class="row">
+          <!-- grupo -->
+          <div class="col-sm-6 col-md-4">
+              <div class="form-group row">
+                  <label for="idGrupo" class="col-2 form-label">Promedio:</label>
+                  <div class="col-4">
+                    <input class="form-control" type="text" value="10" id="idGrupo" disabled>
+                  </div>
+              </div>
+          </div>
+          <!-- grado -->
+          <div class="col-sm-12 col-md-4">
+            <div class="form-group row">
+                <label for="materia" class="col-2 form-label">Grupo:</label>
+                <div class="col-4">
+                    <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                </div>
+            </div>
+          </div>
+          <!-- materia -->
+          <div class="col-sm-12 col-md-4">
+              <div class="form-group row">
+                  <label for="materia" class="col-2 form-label">Materia:</label>
+                  <div class="col-4">
+                      <ngx-select-dropdown [config]="config" [options]="dataModel2" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card tabla mb-3">
+              <div class="card-header">
+                <i class="fas fa-table"></i>
+                 Calificaciones
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 14%">
+                                Matricula
+                            </th>
+                            <th style="width: 18%">
+                                Apellido Paterno
+                            </th>
+                            <th style="width: 18%">
+                                Apellido Materno
+                            </th>
+                            <th style="width: 18%">
+                                Nombre
+                            </th>
+                            <th style="width: 18%">
+                                Materia
+                            </th>
+                            <th style="width: 14%">
+                              Calificación
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of data">
+                              <td>{{item.matricula}}</td>
+                              <td>{{item.apellidop}}</td>
+                              <td>{{item.apellidom}}</td>
+                              <td>{{item.nombre}}</td>
+                              <td>{{item.materia}}</td>
+                              <td>{{item.calificacion}}</td>
+                          </tr>
+                          </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

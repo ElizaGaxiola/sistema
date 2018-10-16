@@ -22,6 +22,7 @@ import { CalificacionesAlumnosComponent } from './calificaciones-alumnos/calific
 import { AdeudosAlumnosComponent } from './adeudos-alumnos/adeudos-alumnos.component';
 import { PerfilAlumnosComponent } from './perfil-alumnos/perfil-alumnos.component';
 import { ModificarPerfilAdministrativoComponent } from './modificar-perfil-administrativo/modificar-perfil-administrativo.component';
+import { CalificacionesDocenteComponent } from './calificaciones-docente/calificaciones-docente.component';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -35,7 +36,8 @@ const routes = [
   { path: 'alumnos/horario', component: HorarioAlumnosComponent},
   { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent},
   { path: 'alumnos/adeudos', component: AdeudosAlumnosComponent},
-  { path: 'alumnos/perfil', component: PerfilAlumnosComponent}
+  { path: 'alumnos/perfil', component: PerfilAlumnosComponent},
+  { path: 'docente/calificaciones', component: CalificacionesDocenteComponent}
 ];
 
 @NgModule({
@@ -56,7 +58,8 @@ const routes = [
     CalificacionesAlumnosComponent,
     AdeudosAlumnosComponent,
     PerfilAlumnosComponent,
-    ModificarPerfilAdministrativoComponent
+    ModificarPerfilAdministrativoComponent,
+    CalificacionesDocenteComponent
   ],
   imports: [
     BrowserModule,
