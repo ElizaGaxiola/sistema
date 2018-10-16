@@ -1,5 +1,5 @@
 .profile-card {
-  background: #FFB300;
+  background: #FFB300 !important;
   width: 56px;
   height: 56px;
   position: absolute;
@@ -48,7 +48,7 @@
 
 @keyframes moveUp {
   0% {
-    background: #FFB300;
+    background: #FFB300 !important;
     top: 100%;
   }
   50% {
