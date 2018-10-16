@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./perfil-administrativo.component.css']
 })
 export class PerfilAdministrativoComponent implements OnInit {
-
+  modulo:string='Perfil';
   constructor() { }
 
   ngOnInit() {

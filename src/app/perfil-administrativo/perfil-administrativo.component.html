@@ -1,3 +1,12 @@
-<p>
-  perfil-administrativo works!
-</p>
+<div id="wrapper">
+  <!-- Sidebar -->
+  <app-menu></app-menu>
+  <div id="content-wrapper">
+    <div class="container-fluid">
+      <app-head [nombre]="modulo"></app-head>
+      <aside class="profile-card">
+      </aside>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
