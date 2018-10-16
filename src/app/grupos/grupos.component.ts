@@ -9,28 +9,34 @@ declare var $:any;
 })
 export class GruposComponent implements  OnInit {
   modulo:string="Grupos";
+  //configuración para select
   config = {
     multiple:false,
     //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
     displayKey:"description", 
     search:true 
   }
-  dataModel = ['Matématicas', 'Español', 'Geografía', 'Historia'];  
+  dataModel:any[] = ['Matemáticas','Español','Hitoria']
   dtOptions: DataTables.Settings = {};
+  //datos para datatable
   data: any[]=[
-    { numero: "1", apellidoP:"Acosta", apellidoM: "Rocha", nombre:"Jesús Carlos", acciones:"<button type='button' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button><button type='button' class='btn btn-danger' title='Faltas'><i class='fas fa-calendar-times'></i></button>"},
-    { numero: "2", apellidoP:"Castro", apellidoM: "Galaviz", nombre:"Evelyn Guadalupe", acciones:"<button type='button' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button><button type='button' class='btn btn-danger' title='Faltas'><i class='fas fa-calendar-times'></i></button>"},
-    { numero: "3", apellidoP:"Gaxiola", apellidoM: "Carrillo", nombre:"Elizabeth", acciones:"<button type='button' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button><button type='button' class='btn btn-danger' title='Faltas'><i class='fas fa-calendar-times'></i></button>"},
+    { numero: "1", apellidoP:"Acosta", apellidoM: "Rocha", nombre:"Jesús Carlos"},
+    { numero: "2", apellidoP:"Castro", apellidoM: "Galaviz", nombre:"Evelyn Guadalupe"},
+    { numero: "3", apellidoP:"Gaxiola", apellidoM: "Carrillo", nombre:"Elizabeth"},
   ];
+  modal: string;
+  tituloModal:string;
   constructor() { 
   }
   public faltas(){
-    alert('faltas');
-    $("#calificar").modal();
+    this.tituloModal= "Agregar Faltas"
+    this.modal = "faltas";
+    $("#modal").modal();
   }
   public calificar(){
-    alert('calificar');
-    $("#calificar").modal();
+    this.tituloModal= "Calificar Alumno";
+    this.modal = "calificar";
+    $("#modal").modal();
   }
   ngOnInit(): void {
     this.dtOptions = {
