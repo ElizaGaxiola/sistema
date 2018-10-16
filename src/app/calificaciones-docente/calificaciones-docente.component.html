@@ -45,34 +45,30 @@
                     <table datatable [dtOptions]="dtOptions" class="row-border hover">
                         <thead>
                         <tr>
-                            <th style="width: 14%">
+                            <th style="width: 20%; text-align: center">
                                 Matricula
                             </th>
-                            <th style="width: 18%">
+                            <th style="width: 20%">
                                 Apellido Paterno
                             </th>
-                            <th style="width: 18%">
+                            <th style="width: 20%">
                                 Apellido Materno
                             </th>
-                            <th style="width: 18%">
+                            <th style="width: 20%">
                                 Nombre
                             </th>
-                            <th style="width: 18%">
-                                Materia
-                            </th>
-                            <th style="width: 14%">
+                            <th style="width: 20%; text-align: center">
                               Calificación
                             </th>
                         </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let item of data">
-                              <td>{{item.matricula}}</td>
+                              <td style="text-align: center">{{item.matricula}}</td>
                               <td>{{item.apellidop}}</td>
                               <td>{{item.apellidom}}</td>
                               <td>{{item.nombre}}</td>
-                              <td>{{item.materia}}</td>
-                              <td>{{item.calificacion}}</td>
+                              <td style="text-align: center">{{item.calificacion}}</td>
                           </tr>
                           </tbody>
                     </table>

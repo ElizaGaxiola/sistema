@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-calificaciones-docente',
-  templateUrl: './calificaciones-docente.component.html',
-  styleUrls: ['./calificaciones-docente.component.css']
+  selector: 'app-faltas-docente',
+  templateUrl: './faltas-docente.component.html',
+  styleUrls: ['./faltas-docente.component.css']
 })
-export class CalificacionesDocenteComponent implements OnInit {
-  public modulo: string = "Calificaciones"
+export class FaltasDocenteComponent implements OnInit {
+  public modulo: string = "Faltas"
   //configuración para select
   config = {
     multiple:false,
@@ -19,12 +19,12 @@ export class CalificacionesDocenteComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   //datos para datatable
   data: any[]=[
-    { matricula: "12344", apellidop:"Castro", apellidom:"Galaviz", nombre:"Evelyn Guadalupe",  calificacion:"10", faltas: "0"},
-    { matricula: "12345", apellidop:"Chávez", apellidom:"Lizárraga", nombre:"Jesús Antonio",  calificacion:"10", faltas: "0"},
-    { matricula: "12346", apellidop:"Gaxiola", apellidom:"Carrillo", nombre:"Elizabeth",  calificacion:"10", faltas: "0"},
-    { matricula: "12347", apellidop:"Paredes", apellidom:"Lopez", nombre:"Julio Enrique",  calificacion:"10", faltas: "0"},
-    { matricula: "12348", apellidop:"Valenzuela", apellidom:"Camacho", nombre:"Grace de Jesús",  calificacion:"10", faltas: "0"},
-    { matricula: "12349", apellidop:"Vazquez", apellidom:"Niebla", nombre:"Kevin David", calificacion:"10"},
+    { matricula: "12344", apellidop:"Castro", apellidom:"Galaviz", nombre:"Evelyn Guadalupe", faltas: "0"},
+    { matricula: "12345", apellidop:"Chávez", apellidom:"Lizárraga", nombre:"Jesús Antonio", faltas: "0"},
+    { matricula: "12346", apellidop:"Gaxiola", apellidom:"Carrillo", nombre:"Elizabeth",  faltas: "0"},
+    { matricula: "12347", apellidop:"Paredes", apellidom:"Lopez", nombre:"Julio Enrique",  faltas: "0"},
+    { matricula: "12348", apellidop:"Valenzuela", apellidom:"Camacho", nombre:"Grace de Jesús", faltas: "0"},
+    { matricula: "12349", apellidop:"Vazquez", apellidom:"Niebla", nombre:"Kevin David", faltas:"0"}
   ];
   constructor() { }
 
