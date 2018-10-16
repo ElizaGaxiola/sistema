@@ -16,11 +16,15 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 import { DashboardDocenteComponent } from './dashboard-docente/dashboard-docente.component';
 import { GruposComponent } from './grupos/grupos.component';
+import { MenuAlumComponent } from './menu-alum/menu-alum.component';
+import { DashboardAlumnosComponent } from './dashboard-alumnos/dashboard-alumnos.component';
+
 const routes = [
   { path:'alumnos',component: IndexComponent},
   { path:'administrativos',component: IndexAdminComponent},
   { path:'docente',component: DashboardDocenteComponent },
-  { path:'docente/grupos',component: GruposComponent }
+  { path:'docente/grupos',component: GruposComponent },
+  { path: 'alumnos/avisos', component: DashboardAlumnosComponent}
 ];
 
 @NgModule({
@@ -32,7 +36,9 @@ const routes = [
     FooterComponent,
     MenuComponent,
     DashboardDocenteComponent,
-    GruposComponent
+    GruposComponent,
+    MenuAlumComponent,
+    DashboardAlumnosComponent
   ],
   imports: [
     BrowserModule,
