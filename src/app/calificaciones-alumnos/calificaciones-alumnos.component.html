@@ -1,3 +1,67 @@
-<p>
-  calificaciones-alumnos works!
-</p>
+<div id="wrapper">
+  <app-menu-alum></app-menu-alum>
+  <div id="content-wrapper">
+    <div class="container-fluid">
+      <app-head [nombre]="modulo"></app-head>
+      <div class="container">
+        <div class="row">
+          <!-- grupo -->
+          <div class="col-sm-6 col-md-4">
+              <div class="form-group row">
+                  <label for="idGrupo" class="col-2 form-label">Promedio:</label>
+                  <div class="col-4">
+                    <input class="form-control" type="text" value="10" id="idGrupo" disabled>
+                  </div>
+              </div>
+            </div>
+          <!-- materia -->
+          <div class="col-sm-6 col-md-4 ">
+              <div class="form-group row">
+                  <label for="materia" class="col-2 form-label">Grado:</label>
+                  <div class="col-4">
+                      <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card tabla mb-3">
+              <div class="card-header">
+                <i class="fas fa-table"></i>
+                 Calificaciones
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 35%">
+                                Materia
+                            </th>
+                            <th style="width: 30%">
+                                Calificación
+                            </th>
+                            <th style="width: 35%">
+                                Faltas
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of data">
+                              <td>{{item.materia}}</td>
+                              <td>{{item.calificacion}}</td>
+                              <td>{{item.faltas}}</td>
+                          </tr>
+                          </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

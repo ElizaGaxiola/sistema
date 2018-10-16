@@ -19,6 +19,7 @@ import { EstudiosAlumnosComponent } from './estudios-alumnos/estudios-alumnos.co
 import { HorarioAlumnosComponent } from './horario-alumnos/horario-alumnos.component';
 import { PerfilAdministrativoComponent } from './perfil-administrativo/perfil-administrativo.component';
 import { CalificacionesAlumnosComponent } from './calificaciones-alumnos/calificaciones-alumnos.component';
+import { AdeudosAlumnosComponent } from './adeudos-alumnos/adeudos-alumnos.component';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -47,7 +48,8 @@ const routes = [
     EstudiosAlumnosComponent,
     HorarioAlumnosComponent,
     PerfilAdministrativoComponent,
-    CalificacionesAlumnosComponent
+    CalificacionesAlumnosComponent,
+    AdeudosAlumnosComponent
   ],
   imports: [
     BrowserModule,
