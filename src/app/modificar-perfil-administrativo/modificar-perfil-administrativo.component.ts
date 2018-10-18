@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modificar-perfil-administrativo.component.css']
 })
 export class ModificarPerfilAdministrativoComponent implements OnInit {
-  modulo:string='Modificar Perfil';
+
   constructor() { }
 
   ngOnInit() {

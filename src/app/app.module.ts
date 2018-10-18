@@ -25,6 +25,7 @@ import { ModificarPerfilAdministrativoComponent } from './modificar-perfil-admin
 import { CalificacionesDocenteComponent } from './calificaciones-docente/calificaciones-docente.component';
 import { FaltasDocenteComponent } from './faltas-docente/faltas-docente.component';
 import { PreinscripcionesComponent } from './preinscripciones/preinscripciones.component';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -68,6 +69,7 @@ const routes = [
     PreinscripcionesComponent
   ],
   imports: [
+    BsDatepickerModule.forRoot(),
     BrowserModule,
     RouterModule.forRoot(routes),
     AngularFontAwesomeModule,
