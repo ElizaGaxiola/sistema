@@ -1,0 +1,12 @@
+body > div
+{
+            width:483px;
+            height:298px;
+            background:#676470;
+            transition:all 0.3s ease;
+}
+
+.circle:hover
+{
+border-radius : 50% ;
+}
