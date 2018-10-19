@@ -14,6 +14,7 @@ export class PreinscripcionesDatosComponent implements OnInit {
     search:true 
   }
   dataModel:any[] = ['101','102','103']
+  
   constructor() { }
 
   ngOnInit() {
