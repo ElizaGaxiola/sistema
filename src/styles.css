@@ -133,3 +133,16 @@ input[type="search"],select {
 .card-header {
     background-color: #ea1060;
 }
+.bs-datepicker-head {
+    background-color: #AB2E5F !important;
+    }
+.bs-datepicker-body table td span.selected,  .bs-datepicker-body table td.selected span,  .bs-datepicker-body table td span[class*="select-"]:after,  .bs-datepicker-body table td[class*="select-"] span:after {
+    background-color: #AB2E5F !important;
+    }
+.bs-datepicker-body table td.week span {
+        color: #AB2E5F !important;
+    }
+button.btn.btn-calendar {
+        color: white;
+        margin: 0;
+    }

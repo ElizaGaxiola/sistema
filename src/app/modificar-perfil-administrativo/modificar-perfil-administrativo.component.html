@@ -73,7 +73,7 @@
                                               </div>
                                               <div class="col-md-6">
                                                 <div class="input-group">
-                                                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="Datepicker" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                                                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
                                                   <div class="input-group-btn">
                                                       <button type="button" class="btn btn-calendar" (click)="dp.show() "><i class="fas fa-calendar-alt"></i></button>
                                                   </div>
@@ -85,7 +85,7 @@
                                                 <label>Núm de seguro social</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <p>35156488412345</p>
+                                                <input class="form-control" type="number" value="35156488412345" id="idNumSocial" >
                                               </div>
                                         </div>                                            
                                       </div>
@@ -95,7 +95,7 @@
                                                 <label>Correo electrónico</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <p>maestro@gmail.com</p>
+                                                <input class="form-control" type="email" value="maestro@gmail.com" id="idEmail" >
                                               </div>
                                           </div>  
                                           <div class="row">
@@ -103,7 +103,8 @@
                                               <label>Teléfono</label>
                                             </div>
                                             <div class="col-md-6">
-                                              <p>818 12 12</p>
+                                              <input class="form-control" type="text" value="818 12 12" id="idTelefono">
+                                              <p></p>
                                             </div>
                                           </div>
                                           <div class="row">
@@ -111,11 +112,17 @@
                                                 <label>Celular</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <p>668 2325850</p>
+                                                <input class="form-control" type="text" value="668 2325850" id="idCelular">
+                                                <p></p>
                                               </div>
                                           </div>      
                                       </div>
                                   </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-12 text-center">
+                                  <button type="submit" class="btn btn-fill btn-rose float-right">Guardar</button>
                               </div>
                           </div>   
                       </div>
