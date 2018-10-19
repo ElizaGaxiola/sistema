@@ -28,6 +28,7 @@ import { PreinscripcionesComponent } from './preinscripciones/preinscripciones.c
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PreinscripcionesDatosComponent } from './preinscripciones-datos/preinscripciones-datos.component';
 import { ActasDocenteComponent } from './actas-docente/actas-docente.component';
+import { FullCalendarModule } from 'ng-fullcalendar';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -77,6 +78,7 @@ const routes = [
   imports: [
     BsDatepickerModule.forRoot(),
     BrowserModule,
+    FullCalendarModule,
     RouterModule.forRoot(routes),
     AngularFontAwesomeModule,
     DataTablesModule,
