@@ -27,6 +27,7 @@ import { FaltasDocenteComponent } from './faltas-docente/faltas-docente.componen
 import { PreinscripcionesComponent } from './preinscripciones/preinscripciones.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PreinscripcionesDatosComponent } from './preinscripciones-datos/preinscripciones-datos.component';
+import { ActasDocenteComponent } from './actas-docente/actas-docente.component';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -43,6 +44,7 @@ const routes = [
   { path: 'alumnos/perfil', component: PerfilAlumnosComponent},
   { path: 'docente/calificaciones', component: CalificacionesDocenteComponent},
   { path: 'docente/faltas', component: FaltasDocenteComponent},
+  { path: 'docente/actas', component: ActasDocenteComponent},
   { path: 'preinscripciones', component: PreinscripcionesComponent},
   { path: 'preinscripciones/datos', component: PreinscripcionesDatosComponent}
 ];
@@ -69,7 +71,8 @@ const routes = [
     CalificacionesDocenteComponent,
     FaltasDocenteComponent,
     PreinscripcionesComponent,
-    PreinscripcionesDatosComponent
+    PreinscripcionesDatosComponent,
+    ActasDocenteComponent
   ],
   imports: [
     BsDatepickerModule.forRoot(),

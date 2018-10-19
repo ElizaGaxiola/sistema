@@ -1,14 +1,16 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 declare var jQuery:any;
 declare var $:any;
+
 @Component({
-  selector: 'app-grupos',
-  templateUrl: './grupos.component.html',
-  styleUrls: ['./grupos.component.css']
+  selector: 'app-actas-docente',
+  templateUrl: './actas-docente.component.html',
+  styleUrls: ['./actas-docente.component.css']
 })
-export class GruposComponent implements  OnInit {
-  modulo:string="Grupos";
+export class ActasDocenteComponent implements OnInit {
+  modulo:string="Actas";
+  constructor() { }
   //configuración para select
   config = {
     multiple:false,
@@ -20,26 +22,29 @@ export class GruposComponent implements  OnInit {
   dtOptions: DataTables.Settings = {};
   //datos para datatable
   data: any[]=[
-    { numero: "1", apellidoP:"Acosta", apellidoM: "Rocha", nombre:"Jesús Carlos"},
-    { numero: "2", apellidoP:"Castro", apellidoM: "Galaviz", nombre:"Evelyn Guadalupe"},
-    { numero: "3", apellidoP:"Gaxiola", apellidoM: "Carrillo", nombre:"Elizabeth"},
+    { numero: "1", apellidoP:"Acosta", apellidoM: "Rocha", nombre:"Jesús Carlos", cal:"10"},
+    { numero: "2", apellidoP:"Castro", apellidoM: "Galaviz", nombre:"Evelyn Guadalupe", cal:"10"},
+    { numero: "3", apellidoP:"Gaxiola", apellidoM: "Carrillo", nombre:"Elizabeth", cal:"10"},
   ];
-  modal: string;
-  tituloModal:string;
-  constructor() { 
-  }
-  public faltas(){
-    this.tituloModal= "Agregar Faltas"
-    this.modal = "faltas";
-    $("#modal").modal();
-  }
-  public calificar(){
-    this.tituloModal= "Calificar Alumno";
-    this.modal = "calificar";
-    $("#modal").modal();
-  }
-  ngOnInit(): void {
+  ngOnInit() {
     this.dtOptions = {
+      "ordering": false,
+      dom: 'Bfrtip',
+      buttons: [
+                'copy',
+                {
+                    extend: 'excel',
+                    title: 'Historial Cursos Punto de venta '
+                },
+                {
+                    extend: 'pdf',
+                    title: 'Historial Cursos Punto de venta '
+                },
+                {
+                    extend: 'print',
+                    title: 'Historial Cursos Punto de venta '
+                }
+            ],
       language: {
         "emptyTable": "Sin resultados encontrados",
         "info": " _START_ - _END_ / _TOTAL_ ",
@@ -57,8 +62,9 @@ export class GruposComponent implements  OnInit {
             "last": "Ultimo",
             "next": "Siguiente",
             "previous": "Anterior"
-        }
+        },
       }
     };
   }
+
 }
