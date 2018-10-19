@@ -146,3 +146,12 @@ button.btn.btn-calendar {
         color: white;
         margin: 0;
     }
+button.dt-button {
+        background-color: #AB2E5F !important;
+        background-image: none !important;
+        color: #fff;
+        border-radius: 42px 42px 42px 42px !important;
+        -moz-border-radius: 42px 42px 42px 42px !important;
+        -webkit-border-radius: 42px 42px 42px 42px !important;
+        height: 41px !important;
+    }

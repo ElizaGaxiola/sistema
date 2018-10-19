@@ -19,7 +19,8 @@ export class ActasDocenteComponent implements OnInit {
     search:true 
   }
   dataModel:any[] = ['Matemáticas','Español','Hitoria']
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
+
   //datos para datatable
   data: any[]=[
     { numero: "1", apellidoP:"Acosta", apellidoM: "Rocha", nombre:"Jesús Carlos", cal:"10"},
@@ -34,15 +35,15 @@ export class ActasDocenteComponent implements OnInit {
                 'copy',
                 {
                     extend: 'excel',
-                    title: 'Historial Cursos Punto de venta '
+                    title: 'ACTA'
                 },
                 {
                     extend: 'pdf',
-                    title: 'Historial Cursos Punto de venta '
+                    title: 'ACTA'
                 },
                 {
                     extend: 'print',
-                    title: 'Historial Cursos Punto de venta '
+                    title: 'ACTA'
                 }
             ],
       language: {
