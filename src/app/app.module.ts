@@ -25,7 +25,7 @@ import { ModificarPerfilAdministrativoComponent } from './modificar-perfil-admin
 import { CalificacionesDocenteComponent } from './calificaciones-docente/calificaciones-docente.component';
 import { FaltasDocenteComponent } from './faltas-docente/faltas-docente.component';
 import { PreinscripcionesComponent } from './preinscripciones/preinscripciones.component';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
