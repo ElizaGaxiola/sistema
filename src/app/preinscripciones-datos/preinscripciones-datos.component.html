@@ -3,23 +3,38 @@
       <p style="text-align: center">DATOS PERSONALES</p>
       <hr>
     <div class="row">
-      <div class="form-group col-sm-6" >
+      <div class="form-group col-sm-4" >
         <label for="city">Nombre del Aspirante</label>
         <input class="form-control" id="nombre"  type="text" >
       </div>
-      <div class="form-group col-sm-6" >
+      <div class="form-group col-sm-4" >
         <label for="postal-code">Apellido Paterno</label>
         <input class="form-control" id="apellidop"  type="text">
       </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-sm-6" >
-          <label for="city">Apellido Materno</label>
+      <div class="form-group col-sm-4" >
+          <label for="postal-code">Apellido Materno</label>
           <input class="form-control" id="apellidom"  type="text">
         </div>
-        <div class="form-group col-sm-6" >
-          <label for="postal-code">Turno</label>
-          <input class="form-control" id="turno" type="text" >
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-4" >
+          <label for="city">Curp</label>
+          <input class="form-control" id="curp"  type="text">
+        </div>
+        <div class="form-group col-sm-4" >
+          <label for="postal-code">Sexo</label>
+          <input class="form-control" id="sexo" type="text" >
+        </div>
+        <div class="col-md-2">
+            <label>Fecha de nacimiento</label>
+        </div>
+        <div class="col-md-2">
+          <div class="input-group">
+            <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-calendar" (click)="dp.show() "><i class="fas fa-calendar-alt"></i></button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
