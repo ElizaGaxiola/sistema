@@ -5,48 +5,48 @@
     <div class="row">
       <div class="form-group col-sm-4" >
         <label for="city">Nombre del Aspirante</label>
-        <input class="form-control" id="nombre"  type="text" disabled>
+        <input class="form-control" id="nombre"  type="text" >
       </div>
       <div class="form-group col-sm-4" >
         <label for="postal-code">Apellido Paterno</label>
-        <input class="form-control" id="apellidop"  type="text" disabled>
+        <input class="form-control" id="apellidop"  type="text" >
       </div>
       <div class="form-group col-sm-4" >
           <label for="postal-code">Apellido Materno</label>
-          <input class="form-control" id="apellidom"  type="text" disabled>
+          <input class="form-control" id="apellidom"  type="text" >
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-4" >
           <label for="city">Curp</label>
-          <input class="form-control" id="curp"  type="text" disabled>
+          <input class="form-control" id="curp"  type="text" >
         </div>
         <div class="form-group col-sm-4" >
           <label for="postal-code">Sexo</label>
-          <input class="form-control" id="sexo" type="text" disabled >
+          <input class="form-control" id="sexo" type="text" >
         </div>
         <div class="col-md-4">
             <label>Fecha de nacimiento</label>
-          <div class="input-group">
-            <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" disabled>
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-calendar" (click)="dp.show() " disabled><i class="fas fa-calendar-alt"></i></button>
+            <div class="input-group">
+              <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+              <div class="input-group-btn">
+                  <button  type="button" class="btn btn-calendar" (click)="dp.show() " ><i class="fas fa-calendar-alt"></i></button>
+              </div>
             </div>
-          </div>
         </div>
       </div>
       <div class="row">
           <div class="form-group col-sm-4" >
             <label for="city">País de Nacimiento</label>
-            <input class="form-control" id="pais" type="text" disabled>
+            <input class="form-control" id="pais" type="text" >
           </div>
           <div class="form-group col-sm-4" >
             <label for="postal-code">Estado</label>
-            <input class="form-control" id="estado" type="text" disabled>
+            <input class="form-control" id="estado" type="text" >
           </div>
           <div class="form-group col-sm-4" >
               <label for="postal-code">Localidad</label>
-              <input class="form-control" id="localidad" type="text" disabled>
+              <input class="form-control" id="localidad" type="text" >
             </div>
       </div>
   </div>
@@ -92,7 +92,7 @@
         <div class="row">
           <div class="form-group col-sm-4" >
             <label for="city">Codigo Postal</label>
-            <input class="form-control" id="codigo-postal"  type="text" disabled>
+            <input class="form-control" id="codigo-postal"  type="text" >
           </div>
           <div class="col-sm-12 col-md-4">
               <div class="form-group row">
@@ -149,9 +149,9 @@
               <div class="col-md-4">
                   <label>Fecha de nacimiento</label>
                 <div class="input-group">
-                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
                   <div class="input-group-btn">
-                      <button type="button" class="btn btn-calendar" (click)="dp.show() " ><i class="fas fa-calendar-alt"></i></button>
+                      <button type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
                   </div>
                 </div>
               </div>
