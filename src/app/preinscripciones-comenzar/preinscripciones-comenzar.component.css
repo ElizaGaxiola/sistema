@@ -1,12 +1,9 @@
-.animated { 
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    -ms-animation-fill-mode: both; 
-    -o-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-duration: 1s;
-    -moz-animation-duration: 1s;
-    -ms-animation-duration: 1s;
-    -o-animation-duration: 1s;
-    animation-duration: 1s;
-  }
+
+
+
+button:hover {
+background: rgba(0,0,0,0);
+color: #3a7999;
+box-shadow: inset 0 0 0 3px #3a7999;
+}
+
