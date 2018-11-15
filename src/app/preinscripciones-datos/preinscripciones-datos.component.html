@@ -25,7 +25,9 @@
         </div>
         <div class="form-group col-sm-4" >
           <label for="postal-code">Sexo</label>
-          <input class="form-control" id="sexo" type="text" >
+          <div class="col-4">
+            <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+        </div>
         </div>
         <div class="col-md-4">
             <label>Fecha de nacimiento</label>
@@ -40,11 +42,15 @@
       <div class="row">
           <div class="form-group col-sm-4" >
             <label for="city">País de Nacimiento</label>
-            <input class="form-control" id="pais" type="text" >
+            <div class="col-4">
+                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+            </div>
           </div>
           <div class="form-group col-sm-4" >
             <label for="postal-code">Estado</label>
-            <input class="form-control" id="estado" type="text" >
+            <div class="col-4">
+                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+            </div>
           </div>
           <div class="form-group col-sm-4" >
               <label for="postal-code">Localidad</label>
@@ -55,7 +61,7 @@
 </div>
 <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
     <div class="card-body">
-        <p style="text-align: center">CONTACTO</p>
+        <p style="text-align: center">DATOS DE CONTACTO</p>
         <hr>
       <div class="row">
         <div class="form-group col-sm-2" >
@@ -64,25 +70,25 @@
         </div>
         <div class="form-group col-sm-4" >
           <label for="postal-code">Telefono Fijo</label>
-          <input class="form-control" id="telfijo"  type="text" >
+          <input class="form-control" id="telfijo"  type="number" >
         </div>
         <div class="form-group col-sm-2" >
             <label for="postal-code">Lada</label>
-            <input class="form-control" id="lada2"  type="text" >
+            <input class="form-control" id="lada2"  type="tex" >
         </div>
         <div class="form-group col-sm-4" >
             <label for="postal-code">Telefono Celular</label>
-            <input class="form-control" id="telcel"  type="text" >
+            <input class="form-control" id="telcel"  type="number" >
         </div>
       </div>
       <div class="row">
           <div class="form-group col-sm-6" >
             <label for="city">Correo Electrónico</label>
-            <input class="form-control" id="correo"  type="text" >
+            <input class="form-control" id="correo"  type="email" >
           </div>
           <div class="form-group col-sm-6" >
             <label for="postal-code">Confirmar Correo Electrónico</label>
-            <input class="form-control" id="correo" type="text" >
+            <input class="form-control" id="correo" type="email" >
           </div>
         </div>
     </div>
@@ -94,7 +100,7 @@
         <div class="row">
           <div class="form-group col-sm-4" >
             <label for="city">Codigo Postal</label>
-            <input class="form-control" id="codigo-postal"  type="text" >
+            <input class="form-control" id="codigo-postal"  type="number" >
           </div>
           <div class="col-sm-12 col-md-4">
               <div class="form-group row">
@@ -179,7 +185,10 @@
                   <div class="col-md-12">
                       <label for="postal-code">Subir Imagen del Aspirante </label>
                   </div>
-                  <div class="custom-file col-md-4">
+                    <div class="col-md-12">
+                        <img src="../../assets/images/alumnos/profile.png"  style="width:200px; height:200px; " alt=""/>
+                    </div>
+                  <div class="custom-file col-md-4" style="margin-top: 20px">
                       <input type="file" class="custom-file-input" id="customFileLang" lang="es">
                       <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
                   </div>

@@ -1,3 +1,174 @@
-<p>
-  modificar-perfil-alumno works!
-</p>
+<div id="wrapper">
+  <!-- Sidebar -->
+  <app-menu-alum></app-menu-alum>
+  <div id="content-wrapper">
+    <div class="container-fluid">
+      <app-head [nombre]="modulo"></app-head>
+      <aside class="profile-card scrollbar-dusty-grass thin">
+          <div class="container emp-profile">
+              <form method="post">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="profile-img">
+                              <img src="../../assets/images/alumnos/dylan.jpg" alt=""/>
+                              <div class="file btn btn-lg btn-primary">
+                                Cambiar imagen
+                                <input type="file" name="file"/>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="row">
+                              <div class="profile-head">
+                                  <h5>Dylan Wang</h5>
+                                  <div class="row">
+                                    <div class="col-md-6"><h6>Estudiante</h6></div>
+                                    <div class="col-md-6"><h6>3er Grado</h6></div>
+                                  </div>
+                                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                      <li class="nav-item">
+                                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Datos Personales</a>
+                                      </li>
+                                      <li class="nav-item">
+                                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Datos de contacto</a>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="tab-content profile-tab" id="myTabContent">
+                                      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                          <div class="col-md-6" >
+                                            <label>Matricula</label>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <p>12345</p>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" >
+                                              <label>Nombre</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <input class="form-control" type="text" value="Dylan" id="idNombre" >
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                              <label>Apellido Paterno</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <input class="form-control" type="text" value="Wang" id="idApp" >
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                              <div class="col-md-6">
+                                                <label>Apellido Materno</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="text" value="" id="idApm" >
+                                              </div>
+                                        </div>
+                                        <div class="row">
+                                              <div class="col-md-6">
+                                                <label>Fecha de nacimiento</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="input-group">
+                                                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                                                  <div class="input-group-btn">
+                                                      <button type="button" class="btn btn-calendar" (click)="dp.show() "><i class="fas fa-calendar-alt"></i></button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="row">
+                                              <div class="col-md-6">
+                                                <label>Núm de seguro social</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="number" value="35156488412345" id="idNumSocial" >
+                                              </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <label>Status</label>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <input class="form-control" type="text" value="Activo" id="idStatus" >
+                                          </div>
+                                    </div>                                                 
+                                      </div>
+                                      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                          <div class="row">
+                                              <div class="col-md-6" >
+                                                <label>Correo electrónico</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="email" value="alumno@gmail.com" id="idEmail" >
+                                              </div>
+                                          </div>  
+                                          <div class="row">
+                                            <div class="col-md-6" >
+                                              <label>Teléfono</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <input class="form-control" type="number" value="8 18 12 12" id="idTelefono" >
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-md-6" >
+                                                <label>Celular</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="number" value="6682325850" id="idCelular" >
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-md-6" >
+                                                <label>Domicilio</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="text" value="Ejido Plan de Guadalupe" id="idNumSocial" >
+                                              </div>
+                                          </div> 
+                                          <div class="row">
+                                              <div class="col-md-6" >
+                                                <label>Municipio</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                              </div>
+                                          </div> 
+                                          <div class="row">
+                                              <div class="col-md-6" >
+                                                <label>Estado</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-md-6" >
+                                                <label>código Postal</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="number" value="81309" id="idCp" >
+                                              </div>
+                                          </div>          
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>   
+                      </div>
+                  </div>
+              </form>           
+          </div>
+      </aside>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
+
