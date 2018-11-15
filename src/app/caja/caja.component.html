@@ -1,93 +1,245 @@
 <div id="wrapper">
-  <!-- Sidebar -->
-  <app-menu-admin></app-menu-admin>
-  <div id="content-wrapper">
-    <div class="container-fluid">
-      <app-head [nombre]="modulo"></app-head>
+
+    <!-- Sidebar -->
+  
+    <app-menu-admin></app-menu-admin>
+  
+    <div id="content-wrapper">
+  
       <div class="container-fluid">
-        <div class="row" style="background-color: transparent">
-            <div class="col-md-8">
-                <div class="row">
-                  <form class="form-inline">
-                    <div class="input-group mb-3 col-sm-12">
-                      <div class="input-group-prepend">
-                        <span class="far fa-edit" style="font-size: 30px; color: Dodgerblue;"></span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="Concepto">
-                    </div>
-                    <div class="form-row" style="margin: 10px;">
-                      <div class="input-group mb-2 col-sm-12 col-md-4" style="margin: 10px;">
-                        <div class="input-group-prepend">
-                          <span class="fas fa-dollar-sign" style="font-size: 30px; color: Dodgerblue;"></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Precio">
-                      </div>
-                      <div class="input-group mb-2 col-sm-12 col-md-4" style="margin: 10px;">
-                        <div class="input-group-prepend">
-                          <span class="fas fa-boxes" style="font-size: 30px; color: Dodgerblue;"></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Cantidad">
-                      </div>
-                      <div class="col-sm-12 col-md-3" style="margin: px;">
-                        <button type="submit" class="btn btn-fill btn-rose float-right">Guardar</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card tabla mb-3">
-                          <div class="card-header">
-                            <i class="fas fa-table"></i>
-                             Conceptos
-                          </div>
-                          <div class="card-body">
-                            <div class="table-responsive">
-                                <table datatable [dtOptions]="dtOptions" class="row-border hover">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 20%; text-align: center">
-                                            Matricula
-                                        </th>
-                                        <th style="width: 20%">
-                                            Apellido Paterno
-                                        </th>
-                                        <th style="width: 20%">
-                                            Apellido Materno
-                                        </th>
-                                        <th style="width: 20%">
-                                            Nombre
-                                        </th>
-                                        <th style="width: 20%; text-align: center">
-                                          Calificación
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr *ngFor="let item of data">
-                                          <td style="text-align: center">{{item.matricula}}</td>
-                                          <td>{{item.apellidop}}</td>
-                                          <td>{{item.apellidom}}</td>
-                                          <td>{{item.nombre}}</td>
-                                          <td style="text-align: center">{{item.calificacion}}</td>
-                                      </tr>
-                                      </tbody>
-                                </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                </div>
-      
-              </div>
-              <div class="col-md-3" style="margin-left: 30px;">
+  
+        <app-head [nombre]="modulo"></app-head>
+  
+        <div class="container-fluid">
+  
+          <div class="row" style="background-color: transparent">
+  
+              <div class="col-md-8">
+  
                   <div class="row">
-                    pago
+  
+                    <form class="form-inline">
+  
+                      <div class="input-group mb-3 col-sm-12">
+  
+                        <div class="input-group-prepend">
+  
+                          <span class="far fa-edit" style="font-size: 30px; color: Dodgerblue;"></span>
+  
+                        </div>
+  
+                        <input type="text" class="form-control" placeholder="Concepto">
+  
+                      </div>
+  
+                      <div class="form-row" style="margin: 10px;">
+  
+                        <div class="input-group mb-2 col-sm-12 col-md-4" style="margin: 10px;">
+  
+                          <div class="input-group-prepend">
+  
+                            <span class="fas fa-dollar-sign" style="font-size: 30px; color: Dodgerblue;"></span>
+  
+                          </div>
+  
+                          <input type="text" class="form-control" placeholder="Precio">
+  
+                        </div>
+  
+                        <div class="input-group mb-2 col-sm-12 col-md-4" style="margin: 10px;">
+  
+                          <div class="input-group-prepend">
+  
+                            <span class="fas fa-boxes" style="font-size: 30px; color: Dodgerblue;"></span>
+  
+                          </div>
+  
+                          <input type="text" class="form-control" placeholder="Cantidad">
+  
+                        </div>
+  
+                        <div class="col-sm-12 col-md-3" style="margin: px;">
+  
+                          <button type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
+  
+                        </div>
+  
+                      </div>
+  
+                    </form>
+  
                   </div>
+  
+                  <div class="row">
+  
+                      <div class="col-sm-12">
+  
+                          <div class="card tabla mb-3" style="margin-top: 10px !important">
+  
+                            <div class="card-header">
+  
+                              <i class="fas fa-table"></i>
+  
+                               Conceptos
+  
+                            </div>
+  
+                            <div class="card-body">
+  
+                              <div class="table-responsive">
+  
+                                  <table datatable [dtOptions]="dtOptions" class="row-border hover">
+  
+                                      <thead>
+  
+                                      <tr>
+  
+                                          <th style="width: 20%; text-align: center">
+  
+                                              Cant.
+  
+                                          </th>
+  
+                                          <th style="width: 60%">
+  
+                                              Concepto
+  
+                                          </th>
+  
+                                          <th style="width: 20%">
+  
+                                              Precio
+  
+                                          </th>
+  
+                                      </tr>
+  
+                                      </thead>
+  
+                                      <tbody>
+  
+                                        <tr *ngFor="let item of data">
+  
+                                            <td style="text-align: center">{{item.cantidad}}</td>
+  
+                                            <td>{{item.concepto}}</td>
+  
+                                            <td>{{item.precio}}</td>
+  
+                                        </tr>
+  
+                                        </tbody>
+  
+                                  </table>
+  
+                              </div>
+  
+                            </div>
+  
+                          </div>
+  
+                      </div>
+  
+                  </div>
+  
               </div>
+  
+              <div class="col-md-4">
+  
+                <div class="row text-center" style="margin-left: 10px;">
+  
+                    <form class="form-inline">
+  
+                        <div class="input-group mb-3 col-sm-12">
+  
+                            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  
+                            <div class="input-group-append">
+  
+                              <button class="btn btn-outline-secondary" type="button" style="border: none;">
+  
+                                  <div class="input-group-prepend">
+  
+                                      <span class="fas fa-search" style="font-size: 30px; color: Dodgerblue;"></span>
+  
+                                    </div>
+  
+                              </button>
+  
+                            </div>
+  
+                          </div>
+  
+                        <div class="input-group mb-3 col-sm-12">
+  
+                          <div class="input-group-prepend">
+  
+                            <span class="fas fa-user-tie" style="font-size: 30px; color: Dodgerblue;"></span>
+  
+                          </div>
+  
+                          <input type="text" class="form-control" value="Dylan Wang">
+  
+                        </div>
+  
+                        <div class="input-group mb-3 col-sm-12">
+  
+                          <div class="input-group-prepend">
+  
+                            <span class="fas fa-user" style="font-size: 30px; color: Dodgerblue;"></span>
+  
+                          </div>
+  
+                          <input type="text" class="form-control" placeholder="Responsable">
+  
+                        </div>
+  
+                        <div class="input-group mb-3 col-sm-12">
+  
+                            <div class="input-group-prepend">
+  
+                              <span class="fas fa-calendar" style="font-size: 30px; color: Dodgerblue;"></span>
+  
+                            </div>
+  
+                            <input type="text" class="form-control"  value="15-11-2018">
+  
+                        </div>
+  
+                        <div class="form-row w-100" style="margin: 10px;">
+  
+                            <div class="row dinero w-100">
+  
+                              <div class="col-md-12 din">
+  
+                                  Total:1000.60
+  
+                                </div>
+  
+                            </div>
+  
+                        </div>
+  
+                        <div class="col-sm-12" style="margin: px;">
+  
+                          <button type="submit" class="btn btn-fill btn-rose float-right">Guardar</button>
+  
+                        </div>
+  
+                      </form>
+  
+                </div>
+  
+              </div>
+  
+          </div>
+  
         </div>
+  
       </div>
+  
+      <app-footer></app-footer>
+  
     </div>
-    <app-footer></app-footer>
+  
   </div>
-</div>

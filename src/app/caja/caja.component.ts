@@ -10,17 +10,16 @@ export class CajaComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   //datos para datatable
   data: any[]=[
-    { matricula: "12344", apellidop:"Castro", apellidom:"Galaviz", nombre:"Evelyn Guadalupe",  calificacion:"10", faltas: "0"},
-    { matricula: "12345", apellidop:"Chávez", apellidom:"Lizárraga", nombre:"Jesús Antonio",  calificacion:"10", faltas: "0"},
-    { matricula: "12346", apellidop:"Gaxiola", apellidom:"Carrillo", nombre:"Elizabeth",  calificacion:"10", faltas: "0"},
-    { matricula: "12347", apellidop:"Paredes", apellidom:"Lopez", nombre:"Julio Enrique",  calificacion:"10", faltas: "0"},
-    { matricula: "12348", apellidop:"Valenzuela", apellidom:"Camacho", nombre:"Grace de Jesús",  calificacion:"10", faltas: "0"},
-    { matricula: "12349", apellidop:"Vazquez", apellidom:"Niebla", nombre:"Kevin David", calificacion:"10"},
+    { cantidad: "1", concepto:"Playera", precio:"120.50"},
+    { cantidad: "2", concepto:"Constancias", precio:"10.50"},
   ];
   constructor() { }
 
   ngOnInit(): void {
     this.dtOptions = {
+      searching: false, 
+      paging: false, 
+      info: false, 
       language: {
         "emptyTable": "Sin resultados encontrados",
         "info": " _START_ - _END_ / _TOTAL_ ",

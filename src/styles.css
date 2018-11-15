@@ -156,3 +156,7 @@ button.dt-button {
         -webkit-border-radius: 42px 42px 42px 42px !important;
         height: 41px !important;
     }
+    .card-header { 
+        background-color: #ea1060; 
+        color: white; 
+    } 

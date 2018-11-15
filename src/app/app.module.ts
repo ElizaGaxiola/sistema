@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { PdfViewerModule } from 'ng2-pdf-viewer' ;
+import { DataTableDirective } from 'angular-datatables';
 import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -101,8 +101,7 @@ const routes = [
     RouterModule.forRoot(routes),
     AngularFontAwesomeModule,
     DataTablesModule,
-    SelectDropDownModule,
-    PdfViewerModule
+    SelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

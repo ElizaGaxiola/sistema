@@ -39,7 +39,6 @@
     "jquery": "^1.12.4",
     "jszip": "^3.1.5",
     "ng-fullcalendar": "^1.6.2",
-    "ng2-pdf-viewer": "^5.2.1",
     "ngx-bootstrap": "^3.0.1",
     "ngx-select-dropdown": "^0.7.2",
     "node": "^8.11.4",
