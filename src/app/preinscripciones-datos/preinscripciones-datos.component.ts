@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-preinscripciones-datos',
@@ -7,7 +6,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
   styleUrls: ['./preinscripciones-datos.component.css']
 })
 export class PreinscripcionesDatosComponent implements OnInit {
-  preinscripcionForm: FormGroup; 
   //configuración para select
   config = {
     multiple:false,
@@ -15,21 +13,13 @@ export class PreinscripcionesDatosComponent implements OnInit {
     displayKey:"description", 
     search:true 
   }
-  dataModel:any[] = ['Femenino','Masculino']
-  dataModel2:any[]=[
-    'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 'Chiapas', 'Chihuahua', 'Ciudad de México',
-    'Coahuila', 'Colima', 'Durango', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco', 'México', 'Michoacán', 'Morelos',
-    'Nayarit', 'Nuevo León','Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora',
-    'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'
-  ]
-  dataModel3:any[] = ['Preescolar','Primaria', 'Secundaria', 'Bachillerato', 'Licenciatura', 'Maestria', 'Doctorado']
+  dataModel:any[] = ['101','102','103']
   
-  constructor(private pf: FormBuilder) { }
+  constructor() { 
+    
+  }
+
   ngOnInit() {
-    this.preinscripcionForm=this.pf.group({
-      nombre:['', Validators.required], 
-     
-    });
   }
 
 }
