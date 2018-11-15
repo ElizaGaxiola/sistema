@@ -1,5 +1,8 @@
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper"> 
 <div id="content-wrapper">
+<form [formGroup]="preinscripcionForm" (ngSubmit)="onSubmit()">
 <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
   <div class="card-body">
       <p style="text-align: center">DATOS PERSONALES</p>
@@ -7,11 +10,24 @@
     <div class="row">
       <div class="form-group col-sm-4" >
         <label for="city">Nombre del Aspirante</label>
+        <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.nombre.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.nombre.invalid &&
+        preinscripcionForm.controls.nombre.touched"></i>
         <input class="form-control" id="nombre"  type="text" >
+        <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.nombre.invalid &&
+        preinscripcionForm.controls.nombre.touched">
+              El campo Nombre es obligatorio</p>
       </div>
       <div class="form-group col-sm-4" >
         <label for="postal-code">Apellido Paterno</label>
+        <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.apellidop.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.apellidop.invalid &&
+        preinscripcionForm.controls.apellidop.touched"></i>
         <input class="form-control" id="apellidop"  type="text" >
+        <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.nombre.invalid &&
+        preinscripcionForm.controls.nombre.touched">
+              El campo Nombre es obligatorio</p>
+      </div>
       </div>
       <div class="form-group col-sm-4" >
           <label for="postal-code">Apellido Materno</label>
@@ -49,7 +65,7 @@
           <div class="form-group col-sm-4" >
             <label for="postal-code">Estado</label>
             <div class="col-4">
-                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                <ngx-select-dropdown [config]="config" [options]="dataModel2" aria-placeholder="Seleccionar"></ngx-select-dropdown>
             </div>
           </div>
           <div class="form-group col-sm-4" >
@@ -106,7 +122,7 @@
               <div class="form-group row">
                   <label>Estado:</label>
                   <div class="col-4">
-                      <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                      <ngx-select-dropdown [config]="config" [options]="dataModel2" aria-placeholder="Seleccionar"></ngx-select-dropdown>
                   </div>
               </div>
           </div>
@@ -167,7 +183,7 @@
                   <div class="form-group row">
                       <label >Nivel de Estudios:</label>
                       <div class="col-4">
-                          <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                          <ngx-select-dropdown [config]="config" [options]="dataModel3" aria-placeholder="Seleccionar"></ngx-select-dropdown>
                       </div>
                   </div>
               </div>
@@ -200,6 +216,7 @@
           </div>
         </div>
         <app-footer></app-footer>
+    </form>
   </div>
 </div>
         
