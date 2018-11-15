@@ -31,6 +31,10 @@ import { ActasDocenteComponent } from './actas-docente/actas-docente.component';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import { PreinscripcionesComenzarComponent } from './preinscripciones-comenzar/preinscripciones-comenzar.component';
 import { ModificarPerfilAlumnoComponent } from './modificar-perfil-alumno/modificar-perfil-alumno.component';
+import { MenuAdminComponent } from './menu-admin/menu-admin.component';
+import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+import { CajaComponent } from './caja/caja.component';
+
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
@@ -51,7 +55,9 @@ const routes = [
   { path: 'preinscripciones', component: PreinscripcionesComponent},
   { path: 'preinscripciones/datos', component: PreinscripcionesDatosComponent},
   { path: 'preinscripciones/comenzar', component: PreinscripcionesComenzarComponent},
-  { path:'alumnos/ModificarPerfil',component: ModificarPerfilAlumnoComponent },
+  { path: 'alumnos/ModificarPerfil',component: ModificarPerfilAlumnoComponent },
+  { path: 'administrativos/dashboard',component: DashboardAdminComponent },
+  { path: 'administrativos/caja',component: CajaComponent },
 ];
 
 @NgModule({
@@ -79,7 +85,10 @@ const routes = [
     PreinscripcionesDatosComponent,
     ActasDocenteComponent,
     PreinscripcionesComenzarComponent,
-    ModificarPerfilAlumnoComponent
+    ModificarPerfilAlumnoComponent,
+    MenuAdminComponent,
+    DashboardAdminComponent,
+    CajaComponent,
   ],
   imports: [
     BsDatepickerModule.forRoot(),
