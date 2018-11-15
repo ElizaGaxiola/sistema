@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { PdfViewerModule } from 'ng2-pdf-viewer' ;
 import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -34,6 +35,7 @@ import { ModificarPerfilAlumnoComponent } from './modificar-perfil-alumno/modifi
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { CajaComponent } from './caja/caja.component';
+import { VisualizarPDFComponent } from './visualizar-pdf/visualizar-pdf.component';
 
 
 const routes = [
@@ -58,6 +60,7 @@ const routes = [
   { path: 'alumnos/ModificarPerfil',component: ModificarPerfilAlumnoComponent },
   { path: 'administrativos/dashboard',component: DashboardAdminComponent },
   { path: 'administrativos/caja',component: CajaComponent },
+  { path: 'preinscripciones/guia',component: VisualizarPDFComponent },
 ];
 
 @NgModule({
@@ -89,6 +92,7 @@ const routes = [
     MenuAdminComponent,
     DashboardAdminComponent,
     CajaComponent,
+    VisualizarPDFComponent,
   ],
   imports: [
     BsDatepickerModule.forRoot(),
@@ -97,7 +101,8 @@ const routes = [
     RouterModule.forRoot(routes),
     AngularFontAwesomeModule,
     DataTablesModule,
-    SelectDropDownModule
+    SelectDropDownModule,
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
