@@ -1,32 +1,59 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper"> 
 <div id="content-wrapper">
+<form [formGroup]="preinscripcionForm" (ngSubmit)="onSubmit()">
 <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
-  <div class="card-body">
+    <div class="card-body">
       <p style="text-align: center">DATOS PERSONALES</p>
       <hr>
     <div class="row">
+        
       <div class="form-group col-sm-4" >
         <label for="city">Nombre del Aspirante</label>
-        <input class="form-control" id="nombre"  type="text" >
+        <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.nombre.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.nombre.invalid &&
+            preinscripcionForm.controls.nombre.touched"></i>
+        <input class="form-control" id="nombre" formControlName="nombre" type="text" >
+        <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.nombre.invalid &&
+               preinscripcionForm.controls.nombre.touched">
+              El campo Nombre es obligatorio</p>
       </div>
       <div class="form-group col-sm-4" >
         <label for="postal-code">Apellido Paterno</label>
-        <input class="form-control" id="apellidop"  type="text" >
+        <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.apellidop.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.apellidop.invalid &&
+            preinscripcionForm.controls.apellidop.touched"></i>
+        <input class="form-control" id="apellidop" formControlName="apellidop" type="text" >
+        <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.apellidop.invalid &&
+               preinscripcionForm.controls.apellidop.touched">
+              El campo Apellido Paterno es obligatorio</p>
       </div>
       <div class="form-group col-sm-4" >
           <label for="postal-code">Apellido Materno</label>
-          <input class="form-control" id="apellidom"  type="text" >
+          <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.apellidom.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.apellidom.invalid &&
+            preinscripcionForm.controls.apellidom.touched"></i>
+          <input class="form-control" id="apellidom" formControlName="apellidom" type="text" >
+          <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.apellidom.invalid &&
+               preinscripcionForm.controls.apellidom.touched">
+              El campo Apellido Materno es obligatorio</p>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-4" >
           <label for="city">Curp</label>
-          <input class="form-control" id="curp"  type="text" >
+          <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.curp.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.curp.invalid &&
+            preinscripcionForm.controls.curp.touched"></i>
+          <input class="form-control" id="curp" formControlName="curp" type="text" >
+          <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.curp.invalid &&
+               preinscripcionForm.controls.curp.touched">
+              El campo Curp es obligatorio</p>
         </div>
         <div class="form-group col-sm-4" >
           <label for="postal-code">Sexo</label>
           <div class="col-4">
-            <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+            <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar" id="sexo" formControlName="sexo"></ngx-select-dropdown>
         </div>
         </div>
         <div class="col-md-4">
@@ -41,20 +68,30 @@
       </div>
       <div class="row">
           <div class="form-group col-sm-4" >
-            <label for="city">País de Nacimiento</label>
+            <label for="city">Estado</label>
             <div class="col-4">
                 <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
             </div>
           </div>
           <div class="form-group col-sm-4" >
-            <label for="postal-code">Estado</label>
-            <div class="col-4">
-                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-            </div>
+            <label for="postal-code">Municipio</label>
+            <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.municipio.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.municipio.invalid &&
+                preinscripcionForm.controls.municipio.touched"></i>
+            <input class="form-control" id="municipio" formControlName="municipio" type="text" >
+            <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.municipio.invalid &&
+               preinscripcionForm.controls.municipio.touched">
+              El campo Nombre es obligatorio</p>
           </div>
           <div class="form-group col-sm-4" >
               <label for="postal-code">Localidad</label>
-              <input class="form-control" id="localidad" type="text" >
+              <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.localidad.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.localidad.invalid &&
+                preinscripcionForm.controls.localidad.touched"></i>
+              <input class="form-control" id="localidad" formControlName="localidad" type="text" >
+              <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.localidad.invalid &&
+               preinscripcionForm.controls.localidad.touched">
+              El campo Localidad es obligatorio</p>
             </div>
       </div>
   </div>
@@ -100,7 +137,7 @@
         <div class="row">
           <div class="form-group col-sm-4" >
             <label for="city">Codigo Postal</label>
-            <input class="form-control" id="codigo-postal"  type="number" >
+            <input class="form-control"  id="codpos"  type="number"  >
           </div>
           <div class="col-sm-12 col-md-4">
               <div class="form-group row">
@@ -114,7 +151,7 @@
               <div class="form-group row">
                   <label >Municipio:</label>
                   <div class="col-4">
-                      <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                        <input class="form-control" id="municipio2" formControlName="municipio2" type="text" >
                   </div>
               </div>
           </div>
@@ -193,15 +230,20 @@
                       <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
                   </div>
                   <div class="col-md-12">
-                      <button type="submit" style="background-color: #AB2E5F; margin-top: 30px; color:white; border-radius: 30px; width:90px; height:40px; border: 0px !important">Guardar</button>
+                      <button type="submit" style="background-color: #AB2E5F; margin-top: 30px; color:white; border-radius: 30px; width:90px; height:40px; border: 0px !important" [disabled]=!preinscripcionForm.valid>Guardar</button>
+                      <p class="alert alert-danger" *ngIf="!preinscripcionForm.valid">
+                          Por favor complete los campos
+                      </p>
                   </div>
+                
                 </div>
             </div>
           </div>
         </div>
+
+</form>
         <app-footer></app-footer>
   </div>
 </div>
-        
-       
+  
         

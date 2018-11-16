@@ -36,6 +36,8 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { CajaComponent } from './caja/caja.component';
 import { VisualizarPDFComponent } from './visualizar-pdf/visualizar-pdf.component';
+import { ReactiveFormsModule,FormsModule} from '@angular/forms';
+
 
 
 const routes = [
@@ -95,10 +97,13 @@ const routes = [
     VisualizarPDFComponent,
   ],
   imports: [
+    
     BsDatepickerModule.forRoot(),
     BrowserModule,
     FullCalendarModule,
     RouterModule.forRoot(routes),
+    ReactiveFormsModule,
+    FormsModule,
     AngularFontAwesomeModule,
     DataTablesModule,
     SelectDropDownModule
