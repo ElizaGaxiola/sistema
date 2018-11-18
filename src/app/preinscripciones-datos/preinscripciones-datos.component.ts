@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-preinscripciones-datos',
   templateUrl: './preinscripciones-datos.component.html',
@@ -25,10 +25,26 @@ export class PreinscripcionesDatosComponent implements OnInit {
       apellidop:['', [Validators.required]], 
       apellidom:['', [Validators.required]],
       curp:['',[Validators.required]],
-      sexo:['',[Validators.required]],
-      municipio:['',[Validators.required]],
+      //sexo:['',[Validators.required]],
+      //municipio:['',[Validators.required]],
       localidad:['',[Validators.required]],
-     // correo:['',[Validators.required]]
+      lada:['',[Validators.required]],
+      telfijo:['',[Validators.required]],
+      lada2:['',[Validators.required]],
+      telcel:['',[Validators.required]],
+      correo:['',[Validators.required, Validators.email]],
+      correo2:['',[Validators.required, Validators.email]],
+      fecha:['',[Validators.required]],
+      colonia:['',[ Validators.required]],
+      codpos:['',[ Validators.required]],
+      calle:['',[ Validators.required]],
+      numero:['',[ Validators.required]],
+      nombre1:['',[ Validators.required]],
+      apellidop1:['', [Validators.required]], 
+      apellidom1:['', [Validators.required]],
+      fecha2:['',[Validators.required]],
+      ocupacion:['',[Validators.required]],
+      suimagen:['',[Validators.required]],
     });
   }
   onSubmit(){
@@ -40,10 +56,26 @@ export class PreinscripcionesDatosComponent implements OnInit {
       apellidop: this.preinscripcionForm.get('apellidop').value,
       apellidom: this.preinscripcionForm.get('apellidom').value,
       curp: this.preinscripcionForm.get('curp').value,
-      sexo: this.preinscripcionForm.get('sexo').value,
+      fecha: this.preinscripcionForm.get('fecha').value,
+      //sexo: this.preinscripcionForm.get('sexo').value,
       municipio: this.preinscripcionForm.get('municipio').value,
       localidad: this.preinscripcionForm.get('localidad').value,
-      //correo: this.preinscripcionForm.get('correo').value
+      lada: this.preinscripcionForm.get('lada').value,
+      telfijo: this.preinscripcionForm.get('telfijo').value,
+      lada2: this.preinscripcionForm.get('lada2').value,
+      telcel: this.preinscripcionForm.get('telcel').value,
+      correo: this.preinscripcionForm.get('correo').value,
+      correo2: this.preinscripcionForm.get('correo2').value,
+      codpos: this.preinscripcionForm.get('codpos').value,
+      colonia: this.preinscripcionForm.get('colonia').value,
+      calle: this.preinscripcionForm.get('calle').value,
+      numero: this.preinscripcionForm.get('numero').value,
+      nombre1: this.preinscripcionForm.get('nombre1').value,
+      apellidop1: this.preinscripcionForm.get('apellidop1').value,
+      apellidom1: this.preinscripcionForm.get('apellidom1').value,
+      fecha2: this.preinscripcionForm.get('fecha').value,
+      ocupacion: this.preinscripcionForm.get('ocupacion').value,
+      suimagen: this.preinscripcionForm.get('suimagen').value,
     };
     return savePreinscripcion;
   }

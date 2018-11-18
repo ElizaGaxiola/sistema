@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper">
   <!-- Sidebar -->
   <app-menu-alum></app-menu-alum>
@@ -6,7 +7,7 @@
       <app-head [nombre]="modulo"></app-head>
       <aside class="profile-card scrollbar-dusty-grass thin">
           <div class="container emp-profile">
-              <form method="post">
+              <form [formGroup]="modalumnoForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                       <div class="col-md-6">
                           <div class="profile-img">
@@ -50,25 +51,43 @@
                                         <div class="row">
                                             <div class="col-md-6" >
                                               <label>Nombre</label>
+                                              <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idNombre.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idNombre.invalid &&
+                                              modalumnoForm.controls.idNombre.touched"></i>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="text" value="Dylan" id="idNombre" >
+                                              <input class="form-control"  value="Dylan" formControlName="idNombre" type="text"  id="idNombre" >
+                                              <p class="alert alert-danger" *ngIf="modalumnoForm.control.idNombre.invalid &&
+                                             modalumnoForm.controls.idNombre.touched">
+                                             El campo Nombre es obligatorio</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                               <label>Apellido Paterno</label>
+                                              <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idApp.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idApp.invalid &&
+                                              modalumnoForm.controls.idApp.touched"></i>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="text" value="Wang" id="idApp" >
+                                              <input class="form-control" type="text" value="Wang" formControlName="idApp" id="idApp" >
+                                              <p class="alert alert-danger" *ngIf="modalumnoForm.control.idApp.invalid &&
+                                             modalumnoForm.controls.idApp.touched">
+                                             El campo Apellido Paterno es obligatorio</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                               <div class="col-md-6">
                                                 <label>Apellido Materno</label>
+                                                <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idApm.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idApm.invalid &&
+                                                modalumnoForm.controls.idApm.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="text" value="" id="idApm" >
+                                                <input class="form-control" type="text" value="" formControlName="idApm" id="idApm" >
+                                                <p class="alert alert-danger" *ngIf="modalumnoForm.control.idApm.invalid &&
+                                             modalumnoForm.controls.idApm.touched">
+                                             El campo Apellido Materno es obligatorio</p>
                                               </div>
                                         </div>
                                         <div class="row">
@@ -77,19 +96,25 @@
                                               </div>
                                               <div class="col-md-6">
                                                 <div class="input-group">
-                                                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                                                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" disabled>
                                                   <div class="input-group-btn">
-                                                      <button type="button" class="btn btn-calendar" (click)="dp.show() "><i class="fas fa-calendar-alt"></i></button>
+                                                      <button type="button" class="btn btn-calendar" (click)="dp.show() " disabled><i class="fas fa-calendar-alt"></i></button>
                                                   </div>
                                                 </div>
                                               </div>
                                         </div>
                                         <div class="row">
                                               <div class="col-md-6">
-                                                <label>Núm de seguro social</label>
+                                                <label>Número de seguro social</label>
+                                                <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idNumSocial.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idNumSocial.invalid &&
+                                              modalumnoForm.controls.idNumSocial.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="number" value="35156488412345" id="idNumSocial" >
+                                                <input class="form-control" type="number" value="35156488412345" formControlName="idNumSocial" id="idNumSocial" >
+                                                <p class="alert alert-danger" *ngIf="modalumnoForm.control.idNumSocial.invalid &&
+                                                modalumnoForm.controls.idNumSocial.touched">
+                                                El campo Número de Seguro Social es obligatorio</p>
                                               </div>
                                         </div>
                                         <div class="row">
@@ -97,7 +122,7 @@
                                             <label>Status</label>
                                           </div>
                                           <div class="col-md-6">
-                                            <input class="form-control" type="text" value="Activo" id="idStatus" >
+                                            <input class="form-control" type="text" value="Activo" id="idStatus" disabled>
                                           </div>
                                     </div>                                                 
                                       </div>
@@ -105,33 +130,48 @@
                                           <div class="row">
                                               <div class="col-md-6" >
                                                 <label>Correo electrónico</label>
+                                                <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idEmail.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idEmail.invalid &&
+                                                modalumnoForm.controls.idEmail.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="email" value="alumno@gmail.com" id="idEmail" >
+                                                <input class="form-control" type="email" value="alumno@gmail.com" formControlName="idEmail" id="idEmail" >
+                                                <p class="alert alert-danger" *ngIf="modalumnoForm.control.idEmail.invalid &&
+                                                modalumnoForm.controls.idEmail.touched">
+                                                El campo Email no es válido</p>
                                               </div>
                                           </div>  
                                           <div class="row">
                                             <div class="col-md-6" >
                                               <label>Teléfono</label>
+                                              <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idTelefono.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idTelefono.invalid &&
+                                              modalumnoForm.controls.idTelefono.touched"></i>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="number" value="8 18 12 12" id="idTelefono" >
+                                              <input class="form-control" type="number" value="8 18 12 12" formControlName="idTelefono" id="idTelefono" >
                                             </div>
                                           </div>
                                           <div class="row">
                                               <div class="col-md-6" >
                                                 <label>Celular</label>
+                                                <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idCelular.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idCelular.invalid &&
+                                                modalumnoForm.controls.idCelular.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="number" value="6682325850" id="idCelular" >
+                                                <input class="form-control" type="number" value="6682325850" formControlName="idCelular" id="idCelular" >
                                               </div>
                                           </div>
                                           <div class="row">
                                               <div class="col-md-6" >
                                                 <label>Domicilio</label>
+                                                <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idDom.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idDom.invalid &&
+                                                modalumnoForm.controls.idDom.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="text" value="Ejido Plan de Guadalupe" id="idNumSocial" >
+                                                <input class="form-control" type="text" value="Ejido Plan de Guadalupe" formControlName="idDom" id="idDom" >
                                               </div>
                                           </div> 
                                           <div class="row">
@@ -153,9 +193,12 @@
                                           <div class="row">
                                               <div class="col-md-6" >
                                                 <label>código Postal</label>
+                                                <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.idCp.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.idCp.invalid &&
+                                                modalumnoForm.controls.idCp.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="number" value="81309" id="idCp" >
+                                                <input class="form-control" type="number" value="81309" formControlName="idCp" id="idCp" >
                                               </div>
                                           </div>          
                                       </div>
