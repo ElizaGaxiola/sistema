@@ -1,0 +1,111 @@
+<div id="wrapper">
+    <app-menu-admin></app-menu-admin>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <app-head [nombre]="modulo"></app-head>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+                <button type="submit" (click)='agregar()' class="btn btn-fill btn-rose float-right">Agregar Carrera</button>
+            </div>
+            <div class="col-sm-12">
+              <div class="card tabla mb-3">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                   Carreras
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                          <thead>
+                          <tr>
+                              <th style="width: 33%">
+                                  Descripción
+                              </th>
+                              <th style="width: 34%">
+                                Acciones
+                              </th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let item of data">
+                              <td>{{item.descripcion}}</td>
+                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                          <div class="modal-body">
+                            <div class="card">
+                               <div class="card-header">
+                                  <strong>Modificar Carrera</strong>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                          <div class="form-group">
+                                            <label for="materia">Descripción</label>
+                                            <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                              <button type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                            <div class="modal-body">
+                              <div class="card">
+                                 <div class="card-header">
+                                    <strong>Agregar Nueva Carrera</strong>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                          <div class="form-group">
+                                            <label for="materia">Descripción</label>
+                                            <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                              <button type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
+                                            </div>
+                                          </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                      </div>
+                    </div>
+                  </div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+

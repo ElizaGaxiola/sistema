@@ -1,0 +1,24 @@
+.btn{
+    margin: 5px;
+}
+.card{
+    margin: 0px 0px 0px 0px;
+}
+button.btn.btn-fill.btn-rose.float-right {
+    margin-top: 30px;
+}
+button.btn.btn-fill.btn-rose {
+    margin-top: 30px;
+    margin: 0 auto;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    float: none;
+}
+.modal-body {
+    padding: 3px;
+}
+.card.tabla.mb-3{
+    margin: 10px 0px 0px 0px;
+}

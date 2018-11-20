@@ -43,6 +43,14 @@ import { PerfilSuperuserComponent } from './perfil-superuser/perfil-superuser.co
 import { ModificarPerfilSuperuserComponent } from './modificar-perfil-superuser/modificar-perfil-superuser.component';
 import { EscuelasComponent } from './escuelas/escuelas.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { EdificiosComponent } from './edificios/edificios.component';
+import { AulasComponent } from './aulas/aulas.component';
+import { CarrerasComponent } from './carreras/carreras.component';
+import { PeriodosComponent } from './periodos/periodos.component';
+import { AsignaturasComponent } from './asignaturas/asignaturas.component';
+import { CiclosComponent } from './ciclos/ciclos.component';
+import { SubciclosComponent } from './subciclos/subciclos.component';
+import { CreargruposComponent } from './creargrupos/creargrupos.component';
 
 
 
@@ -74,7 +82,14 @@ const routes = [
   { path: 'superusuario/usuarios', component: UsuariosComponent},
   { path: 'superusuario/perfil', component: PerfilSuperuserComponent},
   { path: 'superusuario/ModificarPerfil', component: ModificarPerfilSuperuserComponent},
-  
+  { path: 'administrativos/asignaturas', component: AsignaturasComponent},
+  { path: 'administrativos/aulas', component: AulasComponent},
+  { path: 'administrativos/edificios', component: EdificiosComponent},
+  { path: 'administrativos/carreras', component: CarrerasComponent},
+  { path: 'administrativos/periodos', component: PeriodosComponent},
+  { path: 'administrativos/ciclos', component:  CiclosComponent},
+  { path: 'administrativos/subciclos', component: SubciclosComponent},
+  { path: 'administrativos/creargrupos', component: CreargruposComponent},
 ];
 
 @NgModule({
@@ -113,6 +128,14 @@ const routes = [
     ModificarPerfilSuperuserComponent,
     EscuelasComponent,
     UsuariosComponent,
+    EdificiosComponent,
+    AulasComponent,
+    CarrerasComponent,
+    PeriodosComponent,
+    AsignaturasComponent,
+    CiclosComponent,
+    SubciclosComponent,
+    CreargruposComponent,
   ],
   imports: [
     
