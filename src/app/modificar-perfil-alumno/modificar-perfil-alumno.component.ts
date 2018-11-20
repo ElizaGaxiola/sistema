@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-modificar-perfil-alumno',
   templateUrl: './modificar-perfil-alumno.component.html',
@@ -21,16 +22,14 @@ constructor(private pf: FormBuilder) { }
 
   ngOnInit() {
     this.modalumnoForm=this.pf.group({
-      idNombre:['',[ Validators.required]],
-      idApp:['',[ Validators.required]],
-      idApm:['',[ Validators.required]],
-      idNumSocial:['',[ Validators.required]],
-      idEmail:['',[ Validators.required, Validators.email]],
+      app:['',[ Validators.required]],
+      nombre:['',[ Validators.required]],
+      apm:['',[ Validators.required]],
+      correo:['',[ Validators.required, Validators.email]],
       idTelefono:['',[ Validators.required]],
       idCelular:['',[ Validators.required]],
-      idCp:['',[ Validators.required]],
-      
-     
+      idDom:['',[ Validators.required]],
+      idCp:['',[ Validators.required]]
     });
   }
   onSubmit(){
@@ -38,15 +37,14 @@ constructor(private pf: FormBuilder) { }
   }
   saveModalumno(){
     const saveModalumno={
-      idNombre: this.modalumnoForm.get('idNombre').value,
-      idApp: this.modalumnoForm.get('idApp').value,
-      idApm: this.modalumnoForm.get('idApm').value,
-      idNumSocial: this.modalumnoForm.get('idNumSocial').value,
-      idEmail: this.modalumnoForm.get('idEmail').value,
+      app: this.modalumnoForm.get('app').value,
+      nombre: this.modalumnoForm.get('nombre').value,
+      apm: this.modalumnoForm.get('apm').value,
+      correo: this.modalumnoForm.get('correo').value,
       idTelefono: this.modalumnoForm.get('idTelefono').value,
       idCelular: this.modalumnoForm.get('idCelular').value,
-      idCp: this.modalumnoForm.get('idCp').value,
-      
+      idDom: this.modalumnoForm.get('idDom').value,
+      idCp: this.modalumnoForm.get('idCp').value
     };
     return saveModalumno;
   }

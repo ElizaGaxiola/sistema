@@ -45,7 +45,7 @@
           <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.curp.valid"></i>
         <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.curp.invalid &&
             preinscripcionForm.controls.curp.touched"></i>
-          <input class="form-control" id="curp" formControlName="curp" type="text" >
+          <input class="form-control" id="curp" formControlName="curp" type="text" pattern="([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)">
           <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.curp.invalid &&
                preinscripcionForm.controls.curp.touched">
               El campo Curp es obligatorio</p>
@@ -71,30 +71,6 @@
               preinscripcionForm.controls.fecha.touched">
              El campo Fecha es obligatorio</p>
         </div>
-      </div>
-      <div class="row">
-          <div class="form-group col-sm-4" >
-            <label for="city">Estado</label>
-            <div class="col-4">
-                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-            </div>
-          </div>
-          <div class="form-group col-sm-4" >
-            <label for="postal-code">Municipio</label>
-            <div class="col-4">
-                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-            </div>
-          </div>
-          <div class="form-group col-sm-4" >
-              <label for="postal-code">Localidad</label>
-              <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.localidad.valid"></i>
-              <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.localidad.invalid &&
-                preinscripcionForm.controls.localidad.touched"></i>
-              <input class="form-control" id="localidad" formControlName="localidad" type="text" >
-              <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.localidad.invalid &&
-               preinscripcionForm.controls.localidad.touched">
-              El campo Localidad es obligatorio</p>
-            </div>
       </div>
   </div>
 </div>
@@ -191,11 +167,11 @@
                   </div>
               </div>
           </div>
-          <div class="col-sm-12 col-md-4">
-              <div class="form-group row">
-                  <label >Municipio:</label>
-                    <input class="form-control" id="municipio2" formControlName="municipio2" type="text" >
-              </div>
+          <div class="form-group col-sm-4" >
+            <label for="postal-code">Municipio</label>
+            <div class="col-4">
+                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+            </div>
           </div>
         </div>
         <div class="row">

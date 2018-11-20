@@ -1,0 +1,111 @@
+<div id="wrapper">
+    <app-menu-superuser></app-menu-superuser>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <app-head [nombre]="modulo"></app-head>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-fill btn-rose float-right">Cerrar actas</button>
+                </div>
+            </div> 
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card tabla mb-3">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                   Escuelas
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                          <thead>
+                          <tr>
+                              <th style="width: 20%">
+                                  Clave
+                              </th>
+                              <th style="width: 20%">
+                                  Nombre
+                              </th>
+                              <th style="width: 20%">
+                                  Email
+                              </th>
+                              <th style="width: 20%">
+                                  Teléfono
+                              </th>
+                              <th style="width: 20%">
+                                Acciones
+                              </th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let item of data">
+                              <td>{{item.clave}}</td>
+                              <td>{{item.nombre}}</td>
+                              <td>{{item.email}}</td>
+                              <td>{{item.telefono}}</td>
+                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                </div>
+                <!-- Modal Recuperar -->
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                          <div class="modal-body">
+                            <div class="card">
+                               <div class="card-header">
+                                  <strong>{{tituloModal}}</strong>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-sm-12">
+                                      <div class="form-group">
+                                        <label for="name">Sección</label>
+                                        <input  class="form-control" id="nombre" type="text">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-12">
+                                      <div class="form-group">
+                                        <label for="materia">Materia</label>
+                                        <input disabled class="form-control" id="materia" type="text" value="Matemáticas">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div *ngIf="modal == 'modificar'" class="form-group col-sm-6">
+                                      <label for="ccmonth">Calificación</label>
+                                      <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                    </div>
+                                    <div *ngIf="modal == 'status'" class="form-group col-sm-6">
+                                        <label for="ccmonth">Status</label>
+                                        <input class="form-control" id="status" type="number" value="0">
+                                      </div>
+                                    <div class="col-sm-6">
+                                      <div class="form-group">
+                                          <button *ngIf="modal == 'modicar'" type="submit" class="btn btn-fill btn-rose float-right">Modificar</button>
+                                          <button *ngIf="modal == 'status'" type="submit" class="btn btn-fill btn-rose float-right">Status</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
