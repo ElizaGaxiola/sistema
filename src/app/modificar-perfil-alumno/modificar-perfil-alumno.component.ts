@@ -8,6 +8,7 @@ import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angula
   styleUrls: ['./modificar-perfil-alumno.component.css']
 })
 export class ModificarPerfilAlumnoComponent implements OnInit {
+  modulo:string='Modificar Perfil';
  //configuración para select
  config = {
   multiple:false,

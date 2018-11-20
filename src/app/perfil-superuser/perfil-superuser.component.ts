@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./perfil-superuser.component.css']
 })
 export class PerfilSuperuserComponent implements OnInit {
-
+  modulo:string='Perfil';
   constructor() { }
 
   ngOnInit() {

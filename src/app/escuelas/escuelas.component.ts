@@ -8,24 +8,22 @@ declare var $:any;
   styleUrls: ['./escuelas.component.css']
 })
 export class EscuelasComponent implements OnInit {
+  modulo:string='Escuelas';
   dtOptions: DataTables.Settings = {};
   data: any[]=[
-    { clave: "1", nombre:"Acosta", email: "Rocha", telefono:"Jesús Carlos"},
+    { clave: "1", nombre:"Acosta", correo: "Rocha", telefono:"Jesús Carlos"},
     
   ];
-  modal: string;
-  tituloModal:string;
+  
   constructor() { 
   }
-  public status(){
-    this.tituloModal= "Status Escuela"
-    this.modal = "status";
-    $("#modal").modal();
+  public agregar(){
+ 
+    $("#modal-agregar").modal();
   }
   public modificar(){
-    this.tituloModal= "Modificar Escuela";
-    this.modal = "modificar";
-    $("#modal").modal();
+    
+    $("#modal-modificar").modal();
   }
 
   ngOnInit(): void {
