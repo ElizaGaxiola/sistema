@@ -37,7 +37,6 @@ import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.compo
 import { CajaComponent } from './caja/caja.component';
 import { VisualizarPDFComponent } from './visualizar-pdf/visualizar-pdf.component';
 import { ReactiveFormsModule,FormsModule} from '@angular/forms';
-import { MenuSuperComponent } from './menu-super/menu-super.component';
 import { DashboardSuperuserComponent } from './dashboard-superuser/dashboard-superuser.component';
 import { MenuSuperuserComponent } from './menu-superuser/menu-superuser.component';
 import { PerfilSuperuserComponent } from './perfil-superuser/perfil-superuser.component';
