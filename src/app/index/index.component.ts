@@ -16,27 +16,27 @@ export class IndexComponent{
   public usuarioData:any = { idUsuario:'', idTipo: '', usuario: '', password:'' };
 
   constructor(private router: Router, private auth: AuthService ) { }
-  public submit() {
+  private autenticar() {
     this.auth.login(this.usuario, this.password )
       .pipe(first())
-      .subscribe((data: {}) => {
-        this.getUser();
-        if (this.usuarioData.idTipo == 2){
-          console.log('Alumno');
-          this.router.navigate(['alumnos/avisos']);
-        }else{
-          this.error = 'Datos erroneos'
-        }
-      });
+      .subscribe(
+        result => this.router.navigate(['alumnos/avisos']),
+        err => this.error = 'Datos erroneos'
+      );
   }
 
-  private getUser(){
+  private submit(){
     this.auth.getUser(this.usuario)
     .subscribe((data: any) => {
       this.usuarioData.idUsuario=data.idUsuario;
       this.usuarioData.idTipo=data.idTipo;
       this.usuarioData.usuario=data.usuario;
       this.usuarioData.password=data.password;
+      if ( this.usuarioData.idTipo == 2){
+        this.autenticar();
+      }else{
+        this.error = 'Datos erroneos';
+      }
     });
   }
 
