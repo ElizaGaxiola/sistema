@@ -53,12 +53,15 @@ import { SubciclosComponent } from './subciclos/subciclos.component';
 import { CreargruposComponent } from './creargrupos/creargrupos.component';
 import { PersonaladminComponent } from './personaladmin/personaladmin.component';
 import { PersonaldocenteComponent } from './personaldocente/personaldocente.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 
 
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
-  { path:'administrativos',component: IndexAdminComponent},
+  { path:'administrativos',component: IndexAdminComponent, canActivate: [AuthGuard]},
   { path:'docente',component: DashboardDocenteComponent },
   { path:'docente/grupos',component: GruposComponent },
   { path:'docente/perfil',component: PerfilAdministrativoComponent },
@@ -95,6 +98,10 @@ const routes = [
   { path: 'administrativos/personal/administrativo', component: PersonaladminComponent},
   { path: 'administrativos/personal/docente', component: PersonaldocenteComponent},
 ];
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -144,7 +151,6 @@ const routes = [
     PersonaldocenteComponent,
   ],
   imports: [
-    
     BsDatepickerModule.forRoot(),
     BrowserModule,
     FullCalendarModule,
@@ -153,9 +159,20 @@ const routes = [
     FormsModule,
     AngularFontAwesomeModule,
     DataTablesModule,
-    SelectDropDownModule
+    SelectDropDownModule,
+    // Add this import here
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4000/alocalhost/Apis/public'],
+        blacklistedRoutes: ['localhost:4000/alocalhost/Apis/public/api/authpi/auth']
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
