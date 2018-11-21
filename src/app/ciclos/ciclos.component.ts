@@ -47,6 +47,6 @@ export class CiclosComponent implements OnInit {
         }
       }
     };
-  }}
+  }
 
 }

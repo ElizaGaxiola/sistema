@@ -12,7 +12,7 @@
               <div class="card tabla mb-3">
                 <div class="card-header">
                   <i class="fas fa-table"></i>
-                    Asignaturas
+                    Ciclos
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -68,7 +68,7 @@
                                           <div class="form-group">
                                             <label for="materia">Fecha Inicio</label>
                                             <div class="input-group">
-                                                <input class="form-control" [minDate]="minDate" formControlName="fecha" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp1="bsDatepicker" [bsConfig]="bsConfig">
+                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp1="bsDatepicker" [bsConfig]="bsConfig">
                                                 <div class="input-group-btn">
                                                     <button  type="button" class="btn btn-calendar" (click)="dp1.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                 </div>
@@ -81,7 +81,7 @@
                                           <div class="form-group">
                                             <label for="materia">Fecha Final</label>
                                             <div class="input-group">
-                                                <input class="form-control" [minDate]="minDate" formControlName="fecha" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
+                                                <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
                                                 <div class="input-group-btn">
                                                     <button  type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                 </div>
@@ -107,7 +107,7 @@
                             <div class="modal-body">
                               <div class="card">
                                  <div class="card-header">
-                                    <strong>Agregar Nueva Asignatura</strong>
+                                    <strong>Agregar Nuevo Ciclo</strong>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                     </button>

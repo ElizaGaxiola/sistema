@@ -51,6 +51,8 @@ import { AsignaturasComponent } from './asignaturas/asignaturas.component';
 import { CiclosComponent } from './ciclos/ciclos.component';
 import { SubciclosComponent } from './subciclos/subciclos.component';
 import { CreargruposComponent } from './creargrupos/creargrupos.component';
+import { PersonaladminComponent } from './personaladmin/personaladmin.component';
+import { PersonaldocenteComponent } from './personaldocente/personaldocente.component';
 
 
 
@@ -90,6 +92,8 @@ const routes = [
   { path: 'administrativos/ciclos', component:  CiclosComponent},
   { path: 'administrativos/subciclos', component: SubciclosComponent},
   { path: 'administrativos/creargrupos', component: CreargruposComponent},
+  { path: 'administrativos/personal/administrativo', component: PersonaladminComponent},
+  { path: 'administrativos/personal/docente', component: PersonaldocenteComponent},
 ];
 
 @NgModule({
@@ -136,6 +140,8 @@ const routes = [
     CiclosComponent,
     SubciclosComponent,
     CreargruposComponent,
+    PersonaladminComponent,
+    PersonaldocenteComponent,
   ],
   imports: [
     

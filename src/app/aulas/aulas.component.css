@@ -24,3 +24,8 @@ button.btn.btn-fill.btn-rose.float-right{
 .card.tabla.mb-3{
     margin: 10px 0px 0px 0px;
 }
+.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+  }

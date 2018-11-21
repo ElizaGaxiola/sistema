@@ -23,7 +23,7 @@
                                   Descripción
                               </th>
                               <th style="width: 33%">
-                                  Id Edificio
+                                  Edificio
                               </th>
                               <th style="width: 34%">
                                 Acciones
@@ -42,7 +42,7 @@
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                  <div class="modal-dialog  modal-dialog-centered" role="document">
                     <div class="modal-content">
                           <div class="modal-body">
                             <div class="card">
@@ -54,7 +54,8 @@
                                 </div>
                                 <div class="card-body">
                                   <div class="row">
-                                      <div class="col-sm-12 col-md-6">
+                                    <div class="center-block">
+                                      <div class="col-sm-12 ">
                                         <div class="form-group">
                                           <label for="materia">Descripción</label>
                                           <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
@@ -62,15 +63,16 @@
                                       </div>
                                       <div class="col-sm-12 col-md-6">
                                           <div class="form-group">
-                                            <label for="materia">Id Edificio</label>
-                                            <input  class="form-control" id="edificio" type="number" value="Matemáticas">
+                                            <label for="materia">Edificio</label>
+                                            <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
                                           </div>
                                         </div>
+                                    </div>
                                   </div>
                                   <div class="row">
-                                      <div class="col-sm-12 col-md-6">
+                                      <div class="col-sm-12 ">
                                           <div class="form-group">
-                                           <button type="submit" class="btn btn-fill btn-rose float-right">Modificar</button>
+                                           <button type="submit" class="btn btn-fill btn-rose">Modificar</button>
                                          </div>
                                       </div>          
                                     </div>
@@ -82,7 +84,7 @@
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
                             <div class="modal-body">
                               <div class="card">
@@ -94,18 +96,20 @@
                                   </div>
                                   <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-6">
+                                      <div class="center-block">
+                                        <div class="col-sm-12 ">
                                           <div class="form-group">
                                             <label for="materia">Descripción</label>
                                             <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
                                           </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-6">
+                                        <div class="col-sm-12 ">
                                             <div class="form-group">
-                                              <label for="materia">Id Edificio</label>
-                                              <input  class="form-control" id="edificio" type="number" value="Matemáticas">
+                                              <label for="materia">Edificio</label>
+                                              <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
                                             </div>
                                           </div>
+                                      </div>
                                     </div>  
                                     <div class="row"> 
                                         <div class="col-sm-12 ">
