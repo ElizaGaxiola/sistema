@@ -38,9 +38,10 @@
                           </thead>
                           <tbody>
                           <tr *ngFor="let item of data">
-                              <td>{{item.descripcion}}</td>
-                              <td>{{item.seccion}}</td>
-                              <td>{{item.carrera}}</td>
+                              <td>{{item.nombre}}</td>
+                              <td>{{item.app}}</td>
+                              <td>{{item.apm}}</td>
+                              <td>{{item.email}}</td>
                               <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
                           </tr>
                           </tbody>

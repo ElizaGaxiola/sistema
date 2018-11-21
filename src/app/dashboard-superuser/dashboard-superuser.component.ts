@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-superuser.component.css']
 })
 export class DashboardSuperuserComponent implements OnInit {
-
+  modulo:string='Dashboard';
   constructor() { }
 
   ngOnInit() {
