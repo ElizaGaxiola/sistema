@@ -6,7 +6,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-                <button type="submit" (click)='agregar()' class="btn btn-fill btn-rose float-right">Agregar Periodo</button>
+                <button type="submit" (click)='agregar()' class="btn btn-fill btn-rose float-right">Agregar Personal</button>
             </div>
             <div class="col-sm-12">
               <div class="card tabla mb-3">
@@ -41,7 +41,7 @@
                               <td>{{item.nombre}}</td>
                               <td>{{item.app}}</td>
                               <td>{{item.apm}}</td>
-                              <td>{{item.email}}</td>
+                              <td>{{item.correo}}</td>
                               <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
                           </tr>
                           </tbody>
@@ -65,14 +65,14 @@
                                       <div class="center-block">
                                         <div class="col-sm-12 ">
                                             <div class="form-group">
-                                                <label for="materia"> Descripción</label>
-                                                <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
+                                                <label for="materia"> Nombre</label>
+                                                <input  class="form-control" id="nombre" type="text" value="Matemáticas">
                                             </div>
                                         </div>
                                         <div class="col-sm-12 ">
                                             <div class="form-group">
-                                                <label for="materia"> Sección</label>
-                                                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                <label for="materia"> Apellido Paterno</label>
+                                                <input  class="form-control" id="app" type="text" value="Matemáticas">
                                               </div>
                                           </div>
                                         </div>
@@ -81,19 +81,27 @@
                                       <div class="center-block">
                                         <div class="col-sm-12 ">
                                             <div class="form-group">
-                                              <label for="materia">Carrera</label>
+                                              <label for="materia">Apellido Materno</label>
                                               <div class="input-group">
-                                                  <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                <input  class="form-control" id="apm" type="text" value="Matemáticas">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 ">
                                             <div class="form-group">
-                                             <button type="submit" class="btn btn-fill btn-rose ">Modificar</button>
-                                           </div>
+                                              <label for="materia">Correo Electrónico</label>
+                                              <div class="input-group">
+                                                <input  class="form-control" id="correo" type="email" value="Matemáticas">
+                                                </div>
+                                            </div>
                                         </div>
-                                        </div>     
-                                      </div>
+                                       </div>     
+                                    </div>
+                                      <div class="col-sm-12 ">
+                                        <div class="form-group">
+                                         <button type="submit" class="btn btn-fill btn-rose ">Modificar</button>
+                                       </div>
+                                    </div>
                                   </div>
                               </div>
                           </div>
@@ -113,40 +121,48 @@
                                     </button>
                                   </div>
                                   <div class="card-body">
-                                      <div class="row">
-                                        <div class="center-block">
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                                  <label for="materia"> Descripción</label>
-                                                  <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
-                                              </div>
-                                          </div>
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                                  <label for="materia"> Sección</label>
-                                                  <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                                </div>
+                                    <div class="row">
+                                      <div class="center-block">
+                                        <div class="col-sm-12 ">
+                                            <div class="form-group">
+                                                <label for="materia"> Nombre</label>
+                                                <input  class="form-control" id="nombre" type="text" value="Matemáticas">
                                             </div>
-                                          </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="center-block">
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                                <label for="materia">Carrera</label>
-                                                <div class="input-group">
-                                                    <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                                  </div>
+                                        </div>
+                                        <div class="col-sm-12 ">
+                                            <div class="form-group">
+                                                <label for="materia"> Apellido Paterno</label>
+                                                <input  class="form-control" id="app" type="text" value="Matemáticas">
                                               </div>
                                           </div>
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                               <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
-                                             </div>
-                                          </div> 
-                                        </div>    
                                         </div>
                                     </div>
+                                    <div class="row">
+                                      <div class="center-block">
+                                        <div class="col-sm-12 ">
+                                            <div class="form-group">
+                                              <label for="materia">Apellido Materno</label>
+                                              <div class="input-group">
+                                                <input  class="form-control" id="apm" type="text" value="Matemáticas">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 ">
+                                            <div class="form-group">
+                                              <label for="materia">Correo Electrónico</label>
+                                              <div class="input-group">
+                                                <input  class="form-control" id="correo" type="email" value="Matemáticas">
+                                                </div>
+                                            </div>
+                                        </div>
+                                       </div>     
+                                    </div>
+                                      <div class="col-sm-12 ">
+                                        <div class="form-group">
+                                         <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
+                                       </div>
+                                    </div>
+                                  </div>
                                 </div>
                             </div>
                       </div>

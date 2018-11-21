@@ -9,6 +9,14 @@ declare var $:any;
 })
 export class SubciclosComponent implements OnInit {
   modulo:string='Subciclos';
+      //configuración para select
+ config = {
+  multiple:false,
+  //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
+  displayKey:"description", 
+  search:true 
+}
+dataModel:any[] = ['101','102','103']
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { descripcion:"Acosta", fechain:"07/08/2018", fechafin:"07/07/2019"},

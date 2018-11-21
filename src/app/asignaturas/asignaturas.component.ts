@@ -10,6 +10,14 @@ declare var $:any;
 })
 export class AsignaturasComponent implements OnInit {
   modulo:string='Asignaturas';
+     //configuración para select
+ config = {
+  multiple:false,
+  //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
+  displayKey:"description", 
+  search:true 
+}
+dataModel:any[] = ['101','102','103']
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { nombre: "1", creditos:"Acosta"},
