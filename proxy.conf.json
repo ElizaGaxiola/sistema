@@ -1,0 +1,6 @@
+{
+    "/api": {
+      "target": "http://localhost/Apis/public/",
+      "secure": false
+    }
+  }

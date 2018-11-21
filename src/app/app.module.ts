@@ -56,47 +56,48 @@ import { PersonaldocenteComponent } from './personaldocente/personaldocente.comp
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
 const routes = [
   { path:'alumnos',component: IndexComponent},
-  { path:'administrativos',component: IndexAdminComponent, canActivate: [AuthGuard]},
-  { path:'docente',component: DashboardDocenteComponent },
-  { path:'docente/grupos',component: GruposComponent },
-  { path:'docente/perfil',component: PerfilAdministrativoComponent },
-  { path:'docente/ModificarPerfil',component: ModificarPerfilAdministrativoComponent },
-  { path: 'alumnos/avisos', component: DashboardAlumnosComponent},
-  { path: 'alumnos/estudios', component: EstudiosAlumnosComponent},
-  { path: 'alumnos/horario', component: HorarioAlumnosComponent},
-  { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent},
-  { path: 'alumnos/adeudos', component: AdeudosAlumnosComponent},
-  { path: 'alumnos/perfil', component: PerfilAlumnosComponent},
-  { path: 'docente/calificaciones', component: CalificacionesDocenteComponent},
-  { path: 'docente/faltas', component: FaltasDocenteComponent},
-  { path: 'docente/actas', component: ActasDocenteComponent},
-  { path: 'preinscripciones', component: PreinscripcionesComponent},
-  { path: 'preinscripciones/datos', component: PreinscripcionesDatosComponent},
-  { path: 'preinscripciones/comenzar', component: PreinscripcionesComenzarComponent},
-  { path: 'alumnos/ModificarPerfil',component: ModificarPerfilAlumnoComponent },
-  { path: 'administrativos/dashboard',component: DashboardAdminComponent },
-  { path: 'administrativos/caja',component: CajaComponent },
-  { path: 'preinscripciones/guia',component: VisualizarPDFComponent },
-  { path: 'superusuario/dashboard', component: DashboardSuperuserComponent},
-  { path: 'superusuario/escuelas', component: EscuelasComponent},
-  { path: 'superusuario/usuarios', component: UsuariosComponent},
-  { path: 'superusuario/perfil', component: PerfilSuperuserComponent},
-  { path: 'superusuario/ModificarPerfil', component: ModificarPerfilSuperuserComponent},
-  { path: 'administrativos/asignaturas', component: AsignaturasComponent},
-  { path: 'administrativos/aulas', component: AulasComponent},
-  { path: 'administrativos/edificios', component: EdificiosComponent},
-  { path: 'administrativos/carreras', component: CarrerasComponent},
-  { path: 'administrativos/periodos', component: PeriodosComponent},
-  { path: 'administrativos/ciclos', component:  CiclosComponent},
-  { path: 'administrativos/subciclos', component: SubciclosComponent},
-  { path: 'administrativos/creargrupos', component: CreargruposComponent},
-  { path: 'administrativos/personal/administrativo', component: PersonaladminComponent},
-  { path: 'administrativos/personal/docente', component: PersonaldocenteComponent},
+  { path:'administrativos',component: IndexAdminComponent},
+  { path:'docente/dashboard',component: DashboardDocenteComponent, canActivate: [AuthGuard]},
+  { path:'docente/grupos',component: GruposComponent, canActivate: [AuthGuard]},
+  { path:'docente/perfil',component: PerfilAdministrativoComponent, canActivate: [AuthGuard]},
+  { path:'docente/ModificarPerfil',component: ModificarPerfilAdministrativoComponent, canActivate: [AuthGuard]},
+  { path: 'alumnos/avisos', component: DashboardAlumnosComponent, canActivate: [AuthGuard]},
+  { path: 'alumnos/estudios', component: EstudiosAlumnosComponent, canActivate: [AuthGuard]},
+  { path: 'alumnos/horario', component: HorarioAlumnosComponent, canActivate: [AuthGuard]},
+  { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent, canActivate: [AuthGuard]},
+  { path: 'alumnos/adeudos', component: AdeudosAlumnosComponent, canActivate: [AuthGuard]},
+  { path: 'alumnos/perfil', component: PerfilAlumnosComponent, canActivate: [AuthGuard]},
+  { path: 'docente/calificaciones', component: CalificacionesDocenteComponent, canActivate: [AuthGuard]},
+  { path: 'docente/faltas', component: FaltasDocenteComponent, canActivate: [AuthGuard]},
+  { path: 'docente/actas', component: ActasDocenteComponent, canActivate: [AuthGuard]},
+  { path: 'preinscripciones', component: PreinscripcionesComponent, canActivate: [AuthGuard]},
+  { path: 'preinscripciones/datos', component: PreinscripcionesDatosComponent, canActivate: [AuthGuard]},
+  { path: 'preinscripciones/comenzar', component: PreinscripcionesComenzarComponent, canActivate: [AuthGuard]},
+  { path: 'alumnos/ModificarPerfil',component: ModificarPerfilAlumnoComponent, canActivate: [AuthGuard] },
+  { path: 'administrativos/dashboard',component: DashboardAdminComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/caja',component: CajaComponent, canActivate: [AuthGuard]},
+  { path: 'preinscripciones/guia',component: VisualizarPDFComponent, canActivate: [AuthGuard]},
+  { path: 'superusuario/dashboard', component: DashboardSuperuserComponent, canActivate: [AuthGuard]},
+  { path: 'superusuario/escuelas', component: EscuelasComponent, canActivate: [AuthGuard]},
+  { path: 'superusuario/usuarios', component: UsuariosComponent, canActivate: [AuthGuard]},
+  { path: 'superusuario/perfil', component: PerfilSuperuserComponent, canActivate: [AuthGuard]},
+  { path: 'superusuario/ModificarPerfil', component: ModificarPerfilSuperuserComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/asignaturas', component: AsignaturasComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/aulas', component: AulasComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/edificios', component: EdificiosComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/carreras', component: CarrerasComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/periodos', component: PeriodosComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/ciclos', component:  CiclosComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/subciclos', component: SubciclosComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/creargrupos', component: CreargruposComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/personal/administrativo', component: PersonaladminComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/personal/docente', component: PersonaldocenteComponent, canActivate: [AuthGuard]},
 ];
 
 export function tokenGetter() {
@@ -153,6 +154,7 @@ export function tokenGetter() {
   imports: [
     BsDatepickerModule.forRoot(),
     BrowserModule,
+    HttpClientModule,
     FullCalendarModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
@@ -164,8 +166,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:4000/alocalhost/Apis/public'],
-        blacklistedRoutes: ['localhost:4000/alocalhost/Apis/public/api/authpi/auth']
+        whitelistedDomains: ['localhost/Apis/public'],
+        blacklistedRoutes: ['localhost/Apis/public/api/authpi/auth']
       }
     })
   ],
