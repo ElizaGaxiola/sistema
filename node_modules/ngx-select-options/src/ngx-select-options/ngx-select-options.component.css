@@ -1,0 +1,26 @@
+select {
+  width: 100%; }
+
+.dropdown-menu {
+  overflow: auto;
+  max-height: 500px;
+  margin-bottom: 1em; }
+
+.dropdown-item {
+  line-height: 1.5em;
+  font-size: 0.9em; }
+  .dropdown-item.selected {
+    background-color: #0275d8;
+    color: #fff; }
+  .dropdown-item.searchFieldItem {
+    background-color: transparent; }
+    .dropdown-item.searchFieldItem .form-control {
+      border: none;
+      margin: 0;
+      padding: 0.5rem 0; }
+
+.form-group {
+  margin: 0;
+  font-size: 0.9em; }
+
+/*# sourceMappingURL=ngx-select-options.component.css.map */

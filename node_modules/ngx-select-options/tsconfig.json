@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "ES5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "lib": ["dom", "es6"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "webpack"
+    ]
+  },
+  "files": [
+    "ngx-select-options.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

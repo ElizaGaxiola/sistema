@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                      <table  datatable [dtOptions]="dtOptions" class="row-border hover">
                           <thead>
                           <tr>
                               <th style="width: 20%">
@@ -40,9 +40,19 @@
                           <tr *ngFor="let item of data">
                               <td>{{item.clave}}</td>
                               <td>{{item.nombre}}</td>
-                              <td>{{item.correo}}</td>
+                              <td>{{item.email}}</td>
                               <td>{{item.telefono}}</td>
-                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                              <td>
+                                <button type='button' (click)='modificar(item.clave)' class='btn btn-warning' title='Modificar'>
+                                  <i class='fas fa-edit'></i>
+                                </button>
+                                <button *ngIf="item.estatus == 1" type='button' (click)='status(item.clave,item.estatus)' class='btn btn-success' title='Activo'>
+                                  <i class='far fa-check-circle'></i>
+                                </button>
+                                <button *ngIf="item.estatus == 0" type='button' (click)='status(item.clave,item.estatus)' class='btn btn-danger' title='Inactivo'>
+                                    <i class="far fa-times-circle"></i>
+                                </button>
+                              </td>
                           </tr>
                           </tbody>
                       </table>
@@ -61,197 +71,115 @@
                                   </button>
                                 </div>
                                 <div class="card-body">
-                                  <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                      <div class="form-group">
-                                        <label for="name">Sección</label>
-                                        <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                          <label for="materia">Clave</label>
-                                          <input  class="form-control" id="clave" type="text" value="Matemáticas">
-                                        </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                          <label for="materia">Nombre</label>
-                                          <input  class="form-control" id="nombre" type="text" value="Matemáticas">
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Estado</label>
-                                            <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                          </div>
-                                        </div>
-                                  </div>
-                                  <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia">Municipio</label>
-                                              <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
+                                  <form [formGroup]="escuelaForm" (ngSubmit)="onSubmit()">
+                                        <div class="row">
+                                          <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                              <label for="materia">Colonia</label>
-                                              <input  class="form-control" id="colonia" type="text" value="Matemáticas">
+                                              <label>Sección</label>
+                                              <ng-select [items]="seccionesSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        formControlName="idSeccion">
+                                              </ng-select>
                                             </div>
-                                        </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Calle</label>
-                                            <input  class="form-control" id="calle" type="text" value="Matemáticas">
                                           </div>
-                                      </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                              <label for="materia">Número</label>
-                                              <input  class="form-control" id="numero" type="text" value="Matemáticas">
+                                          <div class="col-sm-12 col-md-6">
+                                              <div class="form-group">
+                                                <label for="clave">Clave</label>
+                                                <input  name="clave" class="form-control" id="clave" type="text" formControlName="clave">
+                                              </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                              <div class="form-group">
+                                                <label for="nombre">Nombre</label>
+                                                <input name="nombre"  class="form-control" id="nombre" type="text" formControlName="nombre">
+                                              </div>
                                             </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                  <label>Estado</label>
+                                                  <ng-select [items]="estadosSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        [(ngModel)]="idEstado"
+                                                        (change)="change()"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                  </ng-select>
+                                                </div>
+                                              </div>
                                         </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Código Postal</label>
-                                            <input  class="form-control" id="cp" type="text" value="Matemáticas">
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Correo Electrónico</label>
-                                            <input  class="form-control" id="correo" type="text" value="Matemáticas">
-                                          </div>
+                                        <div class="row">
+                                              <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label >Municipio</label>
+                                                    <ng-select [items]="municipiosSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        formControlName="idMunicipio">
+                                                  </ng-select>
+                                                </div>
+                                              </div>
+                                              <div class="col-sm-12 col-md-6">
+                                                  <div class="form-group">
+                                                    <label for="colonia">Colonia</label>
+                                                    <input class="form-control" id="colonia" name="colonia" type="text" formControlName="colonia">
+                                                  </div>
+                                              </div>
                                         </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Teléfono</label>
-                                            <input  class="form-control" id="telefono" type="text" value="Matemáticas">
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                           <button type="submit" class="btn btn-fill btn-rose float-right">Modificar</button>
-                                         </div>
-                                      </div>          
-                                    </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                  <label for="calle">Calle</label>
+                                                  <input class="form-control" id="calle" name="calle" type="text" formControlName="calle">
+                                                </div>
+                                            </div>
+                                              <div class="col-sm-12 col-md-6">
+                                                  <div class="form-group">
+                                                    <label for="numero">Número</label>
+                                                    <input  class="form-control" id="numero" name="numero" type="text" formControlName="numero">
+                                                  </div>
+                                              </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                  <label for="cp">Código Postal</label>
+                                                  <input  class="form-control" id="cp" name="cp" type="text" formControlName="cp">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                  <label for="correo">Correo Electrónico</label>
+                                                  <input  class="form-control" id="correo" name="correo" type="text" formControlName="email">
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                  <label for="telefono">Teléfono</label>
+                                                  <input class="form-control" id="telefono" name="telefono" type="text" formControlName="telefono">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                 <button *ngIf="modal == 'modificar'" type="submit" class="btn btn-fill btn-rose float-right">Modificar</button>
+                                                 <button *ngIf="modal == 'agregar'" type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
+                                               </div>
+                                            </div>          
+                                        </div>
+                                  </form>
                                 </div>
                               </div>
                           </div>
                     </div>
                   </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                            <div class="modal-body">
-                              <div class="card">
-                                 <div class="card-header">
-                                    <strong>Agregar Nueva Escuela</strong>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="card-body">
-                                    <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                          <label for="name">Sección</label>
-                                          <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Clave</label>
-                                            <input  class="form-control" id="clave" type="text" value="Matemáticas">
-                                          </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Nombre</label>
-                                            <input  class="form-control" id="nombre" type="text" value="Matemáticas">
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                              <label for="materia">Estado</label>
-                                              <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                            </div>
-                                          </div>
-                                    </div>
-                                    <div class="row">
-                                          <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="materia">Municipio</label>
-                                                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                            </div>
-                                          </div>
-                                          <div class="col-sm-12 col-md-6">
-                                              <div class="form-group">
-                                                <label for="materia">Colonia</label>
-                                                <input class="form-control" id="colonia" type="text" value="Matemáticas">
-                                              </div>
-                                          </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                              <label for="materia">Calle</label>
-                                              <input class="form-control" id="calle" type="text" value="Matemáticas">
-                                            </div>
-                                        </div>
-                                          <div class="col-sm-12 col-md-6">
-                                              <div class="form-group">
-                                                <label for="materia">Número</label>
-                                                <input class="form-control" id="numero" type="text" value="Matemáticas">
-                                              </div>
-                                          </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                              <label for="materia">Código Postal</label>
-                                              <input class="form-control" id="cp" type="text" value="Matemáticas">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                              <label for="materia">Correo Electrónico</label>
-                                              <input  class="form-control" id="correo" type="text" value="Matemáticas">
-                                            </div>
-                                          </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                              <label for="materia">Teléfono</label>
-                                              <input  class="form-control" id="telefono" type="text" value="Matemáticas">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                             <button type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
-                                           </div>
-                                        </div>          
-                                      </div>
-                                  </div>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-                  </div>
               </div> 
             </div>
           </div>

@@ -17,16 +17,17 @@ export class AuthService {
         })
       );
   }
-  getUser(usuario: string): Observable<boolean> {
-    return this.http.post<any>('/api/usuario', { usuario: usuario })
-            .pipe(map(result => {
-                return result;
-            }));
-    
+
+  getUser(usuario: string): Observable<any> {
+      return this.http.get('/api/usuario?usuario=' + usuario)
+      .pipe(map(result => {
+        return result;
+    }))  
   }
 
   logout() {
     localStorage.removeItem('access_token');
+    alert('limpio');
   }
 
   public get loggedIn(): boolean {

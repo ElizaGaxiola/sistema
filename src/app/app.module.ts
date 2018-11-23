@@ -5,6 +5,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+
 import { Routes, RouterModule } from '@angular/router';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IndexAdminComponent } from './index-admin/index-admin.component';
@@ -57,6 +58,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { AbcService } from './abc.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -159,6 +162,7 @@ export function tokenGetter() {
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     FormsModule,
+    NgSelectModule,
     AngularFontAwesomeModule,
     DataTablesModule,
     SelectDropDownModule,
@@ -173,7 +177,8 @@ export function tokenGetter() {
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    AbcService
   ],
   bootstrap: [AppComponent]
 })
