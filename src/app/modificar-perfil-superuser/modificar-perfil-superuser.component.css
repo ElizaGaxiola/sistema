@@ -169,3 +169,11 @@
   a {
       color: #1A0434 !important;
   }
+  .check {
+    color: #42A948;
+    float: right;
+}
+.uncheck {
+    color: #A94442;
+    float: right;
+}

@@ -111,7 +111,18 @@
                                           <div class="col-md-6">
                                             <input class="form-control" type="text" value="Activo" id="idStatus" disabled>
                                           </div>
-                                    </div>                                                 
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-md-6" >
+                                          <label>Contraseña</label>
+                                          <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.contra.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.contra.invalid &&
+                                            modalumnoForm.controls.contra.touched"></i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control" type="password" id="contra" formControlName="contra" >
+                                        </div>
+                                    </div>                                                  
                                       </div>
                                       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                           <div class="row">
@@ -134,7 +145,7 @@
                                                 modalumnoForm.controls.idTelefono.touched"></i>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="number" value="8 18 12 12" formControlName="idTelefono" id="idTelefono" >
+                                              <input class="form-control" type="number"  formControlName="idTelefono" id="idTelefono" pattern="[0-9]{7}" >
                                              
                                             </div>
                                           </div>
@@ -146,7 +157,7 @@
                                                 modalumnoForm.controls.idCelular.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="number" value="6682325850" formControlName="idCelular" id="idCelular" >
+                                                <input class="form-control" type="number" value="6682325850" formControlName="idCelular" id="idCelular" pattern="[0-9]{10}" >
                                                
                                               </div>
                                           </div>
@@ -186,14 +197,21 @@
                                                 modalumnoForm.controls.idCp.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="number"  formControlName="idCp" id="idCp" >
-                                                
+                                                <input class="form-control" type="number"  formControlName="idCp" id="idCp" pattern="[0-9]{5}">
                                               </div>
                                           </div>          
                                       </div>
                                   </div>
                               </div>
-                          </div>   
+                          </div>  
+                          <div class="row">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!modalumnoForm.valid>Guardar</button>
+                                <p class="alert alert-danger" *ngIf="!modalumnoForm.valid">
+                                  Por favor complete los campos
+                                </p>
+                            </div>
+                        </div>  
                       </div>
                   </div>
               </form>           

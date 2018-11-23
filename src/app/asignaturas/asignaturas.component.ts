@@ -1,4 +1,5 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Http, Response } from '@angular/http';
 declare var jQuery:any;
 declare var $:any;
@@ -18,12 +19,15 @@ export class AsignaturasComponent implements OnInit {
   search:true 
 }
 dataModel:any[] = ['101','102','103']
+asignaturasForm: FormGroup;
+asignaturas: any;
+  
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { nombre: "1", creditos:"Acosta"},
     
   ];
-  constructor() { }
+  constructor(private pf: FormBuilder) { }
   public agregar(){
  
     $("#modal-agregar").modal();
@@ -36,6 +40,7 @@ dataModel:any[] = ['101','102','103']
     
     $("#modal-asignar").modal();
   }
+  
   ngOnInit(): void {
     this.dtOptions = {
       language: {
@@ -58,6 +63,22 @@ dataModel:any[] = ['101','102','103']
         }
       }
     };
+    this.asignaturasForm=this.pf.group({
+      nombre:['',[ Validators.required]],
+      
+    });
+  }
+ 
+  onSubmit(){
+    this.asignaturas = this.savePreinscripcion();
+  }
+  savePreinscripcion(){
+    const saveAsignaturas={
+      nombre: this.asignaturasForm.get('nombre').value,
+  
+    };
+    return saveAsignaturas;
   }
 
 }
+

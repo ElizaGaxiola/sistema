@@ -28,9 +28,10 @@ constructor(private pf: FormBuilder) { }
       apm:['',[ Validators.required]],
       correo:['',[ Validators.required, Validators.email]],
       idTelefono:['',[ Validators.required]],
-      idCelular:['',[ Validators.required]],
+      idCelular:['',[ Validators.required, Validators.minLength(10)]],
       idDom:['',[ Validators.required]],
-      idCp:['',[ Validators.required]]
+      idCp:['',[ Validators.required]],
+      contra:['',[Validators.required]]
     });
   }
   onSubmit(){
@@ -45,7 +46,8 @@ constructor(private pf: FormBuilder) { }
       idTelefono: this.modalumnoForm.get('idTelefono').value,
       idCelular: this.modalumnoForm.get('idCelular').value,
       idDom: this.modalumnoForm.get('idDom').value,
-      idCp: this.modalumnoForm.get('idCp').value
+      idCp: this.modalumnoForm.get('idCp').value,
+      contra:this.modalumnoForm.get('contra').value
     };
     return saveModalumno;
   }
