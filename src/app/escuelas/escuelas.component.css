@@ -13,3 +13,11 @@ button.btn.btn-fill.btn-rose.float-right {
 .card.tabla.mb-3{
     margin: 10px 0px 0px 0px;
 }
+.check {
+    color: #42A948;
+    float: right;
+}
+.uncheck {
+    color: #A94442;
+    float: right;
+}

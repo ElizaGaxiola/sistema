@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper">
     <app-menu-superuser></app-menu-superuser>
     <div id="content-wrapper">
@@ -76,18 +77,30 @@
                                           <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                               <label>Sección</label>
+                                              <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.idSeccion.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.idSeccion.invalid &&
+                                              escuelaForm.controls.idSeccion.touched"></i>
                                               <ng-select [items]="seccionesSelect"
                                                         bindLabel="name"
                                                         bindValue="id"
                                                         placeholder="Selecciona"
                                                         formControlName="idSeccion">
                                               </ng-select>
+                                              <p class="alert alert-danger" *ngIf="escuelaForm.controls.idSeccion.invalid &&
+                                              escuelaForm.controls.idSeccion.touched">
+                                              El campo Sección es obligatorio</p>
                                             </div>
                                           </div>
                                           <div class="col-sm-12 col-md-6">
                                               <div class="form-group">
                                                 <label for="clave">Clave</label>
+                                                <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.clave.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.clave.invalid &&
+                                                escuelaForm.controls.clave.touched"></i>
                                                 <input  name="clave" class="form-control" id="clave" type="text" formControlName="clave">
+                                                <p class="alert alert-danger" *ngIf="escuelaForm.controls.clave.invalid &&
+                                                escuelaForm.controls.clave.touched">
+                                                El campo Clave es obligatorio</p>
                                               </div>
                                           </div>
                                         </div>
@@ -95,7 +108,13 @@
                                             <div class="col-sm-12 col-md-6">
                                               <div class="form-group">
                                                 <label for="nombre">Nombre</label>
+                                                <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.nombre.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.nombre.invalid &&
+                                                escuelaForm.controls.nombre.touched"></i>
                                                 <input name="nombre"  class="form-control" id="nombre" type="text" formControlName="nombre">
+                                                <p class="alert alert-danger" *ngIf="escuelaForm.controls.nombre.invalid &&
+                                                escuelaForm.controls.nombre.touched">
+                                                El campo Nombre es obligatorio</p>
                                               </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
@@ -116,18 +135,30 @@
                                               <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label >Municipio</label>
+                                                    <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.idMunicipio.valid"></i>
+                                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.idMunicipio.invalid &&
+                                                    escuelaForm.controls.idMunicipio.touched"></i>
                                                     <ng-select [items]="municipiosSelect"
                                                         bindLabel="name"
                                                         bindValue="id"
                                                         placeholder="Selecciona"
                                                         formControlName="idMunicipio">
                                                   </ng-select>
+                                                  <p class="alert alert-danger" *ngIf="escuelaForm.controls.idMunicipio.invalid &&
+                                                  escuelaForm.controls.idMunicipio.touched">
+                                                  El campo Municipio depende de la elección del Estado</p>
                                                 </div>
                                               </div>
                                               <div class="col-sm-12 col-md-6">
                                                   <div class="form-group">
                                                     <label for="colonia">Colonia</label>
+                                                    <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.colonia.valid"></i>
+                                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.colonia.invalid &&
+                                                    escuelaForm.controls.colonia.touched"></i>
                                                     <input class="form-control" id="colonia" name="colonia" type="text" formControlName="colonia">
+                                                    <p class="alert alert-danger" *ngIf="escuelaForm.controls.colonia.invalid &&
+                                                    escuelaForm.controls.colonia.touched">
+                                                    El campo Colonia es obligatorio</p>
                                                   </div>
                                               </div>
                                         </div>
@@ -135,13 +166,25 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                   <label for="calle">Calle</label>
+                                                  <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.calle.valid"></i>
+                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.calle.invalid &&
+                                                  escuelaForm.controls.calle.touched"></i>
                                                   <input class="form-control" id="calle" name="calle" type="text" formControlName="calle">
+                                                  <p class="alert alert-danger" *ngIf="escuelaForm.controls.calle.invalid &&
+                                                  escuelaForm.controls.calle.touched">
+                                                  El campo Calle obligatorio</p>
                                                 </div>
                                             </div>
                                               <div class="col-sm-12 col-md-6">
                                                   <div class="form-group">
                                                     <label for="numero">Número</label>
+                                                    <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.numero.valid"></i>
+                                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.numero.invalid &&
+                                                    escuelaForm.controls.numero.touched"></i>
                                                     <input  class="form-control" id="numero" name="numero" type="text" formControlName="numero">
+                                                    <p class="alert alert-danger" *ngIf="escuelaForm.controls.numero.invalid &&
+                                                    escuelaForm.controls.numero.touched">
+                                                    El campo Número es obligatorio</p>
                                                   </div>
                                               </div>
                                         </div>
@@ -149,13 +192,25 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                   <label for="cp">Código Postal</label>
-                                                  <input  class="form-control" id="cp" name="cp" type="text" formControlName="cp">
+                                                  <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.cp.valid"></i>
+                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.cp.invalid &&
+                                                  escuelaForm.controls.cp.touched"></i>
+                                                  <input  class="form-control" id="cp" name="cp" type="number" formControlName="cp" pattern="[0-9]{5}">
+                                                  <p class="alert alert-danger" *ngIf="escuelaForm.controls.cp.invalid &&
+                                                    escuelaForm.controls.cp.touched">
+                                                    El campo Código Postal es obligatorio</p>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                   <label for="correo">Correo Electrónico</label>
-                                                  <input  class="form-control" id="correo" name="correo" type="text" formControlName="email">
+                                                  <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.email.valid"></i>
+                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.email.invalid &&
+                                                  escuelaForm.controls.email.touched"></i>
+                                                  <input  class="form-control" id="correo" name="correo" type="email" formControlName="email">
+                                                  <p class="alert alert-danger" *ngIf="escuelaForm.controls.email.invalid &&
+                                                    escuelaForm.controls.email.touched">
+                                                    El campo Correo Electrónico no es válido</p>
                                                 </div>
                                               </div>
                                         </div>
@@ -163,13 +218,25 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                   <label for="telefono">Teléfono</label>
-                                                  <input class="form-control" id="telefono" name="telefono" type="text" formControlName="telefono">
+                                                  <i class="fa fa-check-circle check" *ngIf="escuelaForm.controls.telefono.valid"></i>
+                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="escuelaForm.controls.telefono.invalid &&
+                                                  escuelaForm.controls.telefono.touched"></i>
+                                                  <input class="form-control" id="telefono" name="telefono" type="text" formControlName="telefono" pattern="[0-9]{10}">
+                                                  <p class="alert alert-danger" *ngIf="escuelaForm.controls.email.invalid &&
+                                                    escuelaForm.controls.email.touched">
+                                                    El campo Teléfono es obligatorio</p>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                 <button *ngIf="modal == 'modificar'" type="submit" class="btn btn-fill btn-rose float-right">Modificar</button>
-                                                 <button *ngIf="modal == 'agregar'" type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
+                                                 <button *ngIf="modal == 'modificar'" type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!escuelaForm.valid>Modificar</button>
+                                                 <p class="alert alert-danger" *ngIf="!escuelaForm.valid">
+                                                  Por favor complete los campos
+                                                 </p>
+                                                 <button *ngIf="modal == 'agregar'" type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!escuelaForm.valid>Agregar</button>
+                                                 <p class="alert alert-danger" *ngIf="!escuelaForm.valid">
+                                                  Por favor complete los campos
+                                                 </p>
                                                </div>
                                             </div>          
                                         </div>

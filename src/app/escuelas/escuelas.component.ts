@@ -2,7 +2,7 @@ import { Component,OnDestroy, OnInit } from '@angular/core';
 import { AbcService } from '../abc.service';
 import { Http, Response } from '@angular/http';
 import {Escuela, Seccion} from '../modelos';
-import{FormControl, FormGroup, FormBuilder} from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 
 declare var jQuery:any;
 declare var $:any;
@@ -54,6 +54,7 @@ export class EscuelasComponent implements OnInit {
   }
   public onSubmit(){
     this.escuela = this.saveEscuela();
+    console.log(this.escuela);
     if (this.modal=='modificar'){
       this.abc.updateEscuela(this.escuela).subscribe(res => {
         this.obtenerEscuelas();
@@ -158,18 +159,18 @@ export class EscuelasComponent implements OnInit {
 
   ngOnInit(): void {
     this.escuelaForm = this.pf.group({
-      idEscuela: '',
-      idSeccion: '',
-      clave: '',
-      nombre: '',
-      idMunicipio: '',
-      colonia: '',
-      calle: '',
-      cp: '',
-      numero: '',
-      email:'',
-      telefono: '',
-      estatus: ''
+      idEscuela: ['',[ Validators.required]],
+      idSeccion: ['',[ Validators.required]],
+      clave: ['',[ Validators.required]],
+      nombre: ['',[ Validators.required]],
+      idMunicipio: ['',[ Validators.required]],
+      colonia:['',[ Validators.required]],
+      calle: ['',[ Validators.required]],
+      cp: ['',[ Validators.required]],
+      numero: ['',[ Validators.required]],
+      email:['',[ Validators.required, Validators.email]],
+      telefono: ['',[ Validators.required]],
+      estatus: ['',[ Validators.required]],
     });
     this.dtOptions = {
       language: {
