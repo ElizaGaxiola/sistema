@@ -1,0 +1,11 @@
+.btn-calendar{
+    background-color: #AB2E5F;
+}
+.check {
+    color: #42A948;
+    float: right;
+}
+.uncheck {
+    color: #A94442;
+    float: right;
+}
