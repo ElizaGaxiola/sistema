@@ -73,13 +73,6 @@ export class EscuelasComponent implements OnInit {
       }
      );
     }
-    this.abc.updateEscuela(this.escuela).subscribe(res => {
-        this.obtenerEscuelas();
-        $("#modal-modificar").modal('hide');
-      }, (err) => {
-        console.log(err);
-      }
-    );
   }
   public saveEscuela(){
     const saveEscuela ={

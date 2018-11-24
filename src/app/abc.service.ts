@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela } from './modelos';
+import { Escuela, Administrador } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,6 +16,38 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+    //ABC Escuela
+
+  //Obtener Administrador
+  getAdministrador(idAdministrador: number): Observable<any>{
+    return this.http.get('/api/administrador?idAdministrador=' + idAdministrador)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  
+  //Obtener Administradores
+  getAdministradores(): Observable<any>{
+    return this.http.get('/api/administradores')
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  
+  //Actualizar Administrador
+  updateAdministrador (administrador:Administrador): Observable<any> {
+    return this.http.put('/api/administradorUpdate', administrador, httpOptions).pipe(
+      tap(_ => console.log('updated administrador')),
+      catchError(this.handleError<any>('updateAdministrador'))
+    );
+  }
+  //Agregar Administrador
+  insertAdministrador (administrador:Administrador): Observable<any> {
+    return this.http.post('/api/administradorInsert', administrador, httpOptions).pipe(
+      tap(_ => console.log('insert administrador')),
+      catchError(this.handleError<any>('insertAdministrador'))
+    );
+  }
   //ABC Escuela
 
   //Obtener Escuela

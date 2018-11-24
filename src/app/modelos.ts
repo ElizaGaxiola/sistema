@@ -13,6 +13,17 @@ export interface Escuela{
     estatus: number;
 }
 
+export interface Administrador{
+    idAdministrador:number,
+	nombre:string,
+	apellidoP:string,
+	apellidoM:string,
+    email:string,
+    contrasena:string,
+    idUsuario:number,
+    idEscuela,
+    estatus:number
+}
 export interface Seccion{
     idSeccion:number;
     descripcion:string;

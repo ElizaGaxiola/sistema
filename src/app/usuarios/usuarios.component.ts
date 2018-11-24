@@ -1,5 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import {Escuela,Administrador} from '../modelos';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { AbcService } from '../abc.service';
+
 declare var jQuery:any;
 declare var $:any;
 
@@ -10,22 +14,113 @@ declare var $:any;
 })
 export class UsuariosComponent implements OnInit {
   modulo:string='Usuarios';
+  administradorForm:FormGroup;
   dtOptions: DataTables.Settings = {};
-  data: any[]=[
-    { nombre: "1", app:"Acosta", apm: "Rocha", correo:"Jesús Carlos"},
+  data: Administrador[]=[];
+  administrador:Administrador;
+  escuelasSelect: any[]=[];
+  modal:string;
     
-  ];
-  constructor() { }
-  public agregar(){
- 
-    $("#modal-agregar").modal();
+  constructor(private abc: AbcService, private pf: FormBuilder) {
+    this.obtenerAdministradores();
+    this.abc.getEscuelas().subscribe((data: any) => {
+      for (let escuela of data) {
+        this.escuelasSelect = [...this.escuelasSelect, {id: escuela.idEscuela, name: escuela.nombre}];
+      }
+     });
+   }
+   public onSubmit(){
+    this.administrador = this.saveAdministrador();
+    console.log(this.administrador);
+    if (this.modal=='modificar'){
+      this.abc.updateAdministrador(this.administrador).subscribe(res => {
+        this.obtenerAdministradores();
+        $("#modal-modificar").modal('hide');
+      }, (err) => {
+        console.log(err);
+      }
+     );
+    }else{
+      this.abc.insertAdministrador(this.administrador).subscribe(res => {
+        this.obtenerAdministradores();
+        $("#modal-modificar").modal('hide');
+      }, (err) => {
+        console.log(err);
+      }
+     );
+    }
   }
-  public modificar(){
-    
+  public saveAdministrador(){
+    const saveAdministrador ={
+        idAdministrador: this.administradorForm.get('idAdministrador').value,
+        nombre: this.administradorForm.get('nombre').value,
+        apellidoP: this.administradorForm.get('apellidoP').value,
+        apellidoM: this.administradorForm.get('apellidoM').value,
+        email: this.administradorForm.get('email').value,
+        contrasena: this.administradorForm.get('contrasena').value,
+        idUsuario: this.administradorForm.get('idUsuario').value,
+        idEscuela: this.administradorForm.get('idEscuela').value,
+        estatus: this.administradorForm.get('estatus').value
+    }
+    return saveAdministrador;
+  }
+  public agregar(){
+    this.inicializarForm();
+    this.modal = 'agregar';
     $("#modal-modificar").modal();
+  }
+  public modificar(idAdministrador:number){
+    this.modal = 'modificar';
+    this.abc.getAdministrador(idAdministrador).subscribe((data: any) => {
+      console.log(data);
+      this.administradorForm=this.pf.group({
+        idAdministrador: data.idAdministrador,
+        nombre: data.nombre,
+        apellidoP: data.apellidoP,
+        apellidoM: data.apellidoM,
+        email: data.email,
+        contrasena: data.contrasena,
+        idUsuario: data.idUsuario,
+        idEscuela: data.idEscuela,
+        estatus: data.estatus
+      });
+      $("#modal-modificar").modal();
+    });
+    
+  }
+  public obtenerAdministradores(){
+    this.abc.getAdministradores()
+    .subscribe((data: any) => {
+      this.data=data;
+      console.log(data);
+    });
+  }
+
+  public status(id:number,estatus:number){
+    this.abc.getAdministrador(id)
+    .subscribe((data: any) => {
+      this.administrador=data;
+      if (estatus == 0)
+        this.administrador.estatus=1;
+      else
+        this.administrador.estatus=0;
+      this.modificarAdministrador(this.administrador); 
+    }); 
+  }
+  public modificarAdministrador(administrador:Administrador){
+    console.log(JSON.stringify(administrador));
+    this.abc.updateAdministrador(administrador)
+    .subscribe(res => {
+        console.log('actualizado');
+        this.obtenerAdministradores();
+      }, (err) => {
+        console.log(err);
+      }
+    );
   }
 
   ngOnInit(): void {
+    this.inicializarForm();
     this.dtOptions = {
       language: {
         "emptyTable": "Sin resultados encontrados",
@@ -48,5 +143,18 @@ export class UsuariosComponent implements OnInit {
       }
     };
   }
+  public inicializarForm(){
+    this.administradorForm = this.pf.group({
+      idAdministrador: [''],
+      nombre: ['',[ Validators.required]],
+      apellidoP: ['',[ Validators.required]],
+      apellidoM: ['',[ Validators.required]],
+      email: ['',[ Validators.required]],
+      contrasena:[''],
+      idUsuario: [''],
+      idEscuela: ['',[ Validators.required]],
+      estatus:['']
+    });
+   }
 
 }
