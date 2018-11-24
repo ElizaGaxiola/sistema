@@ -1,13 +1,33 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div class="register-photo">
   <div class="form-container">
       <div class="image-holder"></div>
-        <form (ngSubmit)="submit()">
+        <form [formGroup]="loginadmForm" (ngSubmit)="submit()">
           <h2 class="text-center"><strong>Administrativo</strong></h2>
-          <div class="form-group"><input [(ngModel)]="usuario" class="form-control" type="email" name="email" placeholder="Correo electrónico" /></div>
-          <div class="form-group"><input [(ngModel)]="password" class="form-control" type="password" name="contrasena" placeholder="Contraseña" /></div>
+          <div class="form-group">
+              <i class="fa fa-check-circle check" *ngIf="loginadmForm.controls.email.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="loginadmForm.controls.email.invalid &&
+                  loginadmForm.controls.email.touched"></i>
+            <input [(ngModel)]="usuario" class="form-control" formControlName="email" type="email" name="email" placeholder="Correo electrónico" />
+            <p class="alert alert-danger" *ngIf="loginadmForm.controls.email.invalid &&
+             loginadmForm.controls.email.touched">
+             El campo Correo es obligatorio</p>
+          </div>
+          <div class="form-group">
+              <i class="fa fa-check-circle check" *ngIf="loginadmForm.controls.contrasena.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="loginadmForm.controls.contrasena.invalid &&
+                  loginadmForm.controls.contrasena.touched"></i>
+            <input [(ngModel)]="password" class="form-control" formControlName="contrasena" type="password" name="contrasena" placeholder="Contraseña" />
+            <p class="alert alert-danger" *ngIf="loginadmForm.controls.contrasena.invalid &&
+             loginadmForm.controls.contrasena.touched">
+             El campo Contraseña es obligatorio</p>
+          </div>
           <h4 *ngIf="error">{{error}}</h4>
           <div class="form-group">
             <button class="btn btn-primary btn-block" type="submit">Iniciar sesión</button>
+            <p class="alert alert-danger" *ngIf="!loginadmForm.valid">
+                Por favor complete los campos
+            </p>
             <a data-toggle="modal" data-target="#recuperar" href="#" class="forgot">¿Olvidaste tu contraseña?</a>
           </div>
         </form>

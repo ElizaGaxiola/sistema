@@ -1,3 +1,35 @@
-<p>
-  paginaprincipal works!
-</p>
+<div id="wrapper"> 
+  <div id="content-wrapper">
+<div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
+    <div class="card-body">
+        <div class="row">
+            <div class="form-group col-md-12 text-center"  >
+               <p style=" color:#EC1163; font-family: Verdana, Arial; font-size: 45px;">SIE</p>
+               <P style=" font-family: Verdana, Arial; font-size: 35px;">Sistema de Información Escolar</P>
+               <br>
+               <br>
+            </div>
+            <div class="form-group col-md-12 text-center"  >
+              <div class="col-md-12">
+                <img src="../../assets/images/admin.png"  style="width:200px; height:150px; margin: 20px 20px 20px 100px;float: left; " alt=""/>
+                <img src="../../assets/images/alumnos.png"  style="width:200px; height:150px; margin: 20px 20px 20px 180px;float: left; " alt=""/>
+                <img src="../../assets/images/inscripciones.png"  style="width:200px; height:150px; margin: 20px 150px 20px 20px;float: right;" alt=""/>
+              </div>
+            </div>
+            <div class="form-group col-md-12 text-center"  >
+              <div class="col-md-12" class="nav-link">
+                <button  routerLinkActive="active" routerLink="/administrativos" style="background-color:#EC1163; width:333px; height:100px; color:white; font-family: Verdana, Arial; 
+                font-size: 35px;">Administradores</button>
+                <button  routerLinkActive="active" routerLink="/alumnos" style="background-color:#EC1163; width:333px; height:100px; margin-left: 60px; color:white; font-family: Verdana, Arial; 
+                font-size: 35px;">Alumnos</button>
+                <button  routerLinkActive="active" routerLink="/preinscripciones" style="background-color:#EC1163; width:333px; height:100px; margin-left: 60px; color:white; font-family: Verdana, Arial; 
+                font-size: 35px;">Preinscripciones</button>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+    <app-footer></app-footer>
+  </div>
+</div>
