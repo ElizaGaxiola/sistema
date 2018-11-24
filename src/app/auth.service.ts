@@ -12,7 +12,8 @@ export class AuthService {
     return this.http.post<{token: string}>('/api/auth', {usuario: usuario, contrasena: contrasena })
       .pipe(
         map(result => {
-          localStorage.setItem('access_token', result.token); 
+          localStorage.setItem('access_token', result.token);
+          console.log(result.token); 
           return true;
         })
       );
