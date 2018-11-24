@@ -3,6 +3,8 @@ import { AbcService } from '../abc.service';
 import { Http, Response } from '@angular/http';
 import {Escuela} from '../modelos';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 declare var jQuery:any;
 declare var $:any;
@@ -23,6 +25,11 @@ export class EscuelasComponent implements OnInit {
   estadosSelect: any[]=[];
   idMunicipio:any;
   municipiosSelect: any[]=[];
+  successMessage: string;
+  dangerMessage: string;
+  private _success = new Subject<string>();
+  private _danger = new Subject<string>();
+  staticAlertClosed = false;
 
   constructor(private abc: AbcService, private pf: FormBuilder) { 
     this.obtenerEscuelas();
@@ -60,16 +67,20 @@ export class EscuelasComponent implements OnInit {
       this.abc.updateEscuela(this.escuela).subscribe(res => {
         this.obtenerEscuelas();
         $("#modal-modificar").modal('hide');
+        this._success.next('Datos guardados con éxito');
       }, (err) => {
         console.log(err);
+        this._danger.next('A ocurrido un error intentalo de nuevo');
       }
      );
     }else{
       this.abc.insertEscuela(this.escuela).subscribe(res => {
         this.obtenerEscuelas();
         $("#modal-modificar").modal('hide');
+        this._success.next('Datos modificados con éxito');
       }, (err) => {
         console.log(err);
+        this._danger.next('A ocurrido un error intentalo de nuevo');
       }
      );
     }
@@ -132,9 +143,11 @@ export class EscuelasComponent implements OnInit {
     console.log(JSON.stringify(escuela));
     this.abc.updateEscuela(escuela)
     .subscribe(res => {
+        this._success.next('Datos modificados con éxito');
         console.log('actualizado');
         this.obtenerEscuelas();
       }, (err) => {
+        this._danger.next('A ocurrido un error intentalo de nuevo');
         console.log(err);
       }
     );
@@ -167,6 +180,15 @@ export class EscuelasComponent implements OnInit {
     });
    }
   ngOnInit(): void {
+    setTimeout(() => this.staticAlertClosed = true, 20000);
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
+    this._danger.subscribe((message) => this.dangerMessage = message);
+    this._danger.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.dangerMessage = null);
     this.inicializarForm();
     this.dtOptions = {
       language: {

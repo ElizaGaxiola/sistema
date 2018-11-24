@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { AbcService } from '../abc.service';
 import { Administrador } from '../modelos';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+declare var jQuery:any;
+declare var $:any;
+
 @Component({
   selector: 'app-modificar-perfil-superuser',
   templateUrl: './modificar-perfil-superuser.component.html',
@@ -24,6 +29,12 @@ export class ModificarPerfilSuperuserComponent implements OnInit {
     estatus:0,
     imagen:''
   };
+  loader:Boolean = false;
+  successMessage: string;
+  dangerMessage: string;
+  private _success = new Subject<string>();
+  private _danger = new Subject<string>();
+  staticAlertClosed = false;
   constructor(private pf: FormBuilder,private abc:AbcService) {
     this.iniciar();
    }
@@ -46,6 +57,16 @@ export class ModificarPerfilSuperuserComponent implements OnInit {
     });
   }
   ngOnInit() {
+    setTimeout(() => this.staticAlertClosed = true, 20000);
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
+    this._danger.subscribe((message) => this.dangerMessage = message);
+    this._danger.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.dangerMessage = null);
+
     this.modsuperForm=this.pf.group({
       idAdministrador:[''],
       nombre:['',[ Validators.required]],
@@ -63,8 +84,9 @@ export class ModificarPerfilSuperuserComponent implements OnInit {
     this.modsuper = this.saveModsuper();
     this.abc.updateAdministrador(this.modsuper).subscribe(res => {
       this.iniciar();
+      this._success.next('Datos actualizados con éxito');
     }, (err) => {
-      console.log(err);
+      this._danger.next('A ocurrido un error intentalo de nuevo');
     }
    )
   }
@@ -79,9 +101,34 @@ export class ModificarPerfilSuperuserComponent implements OnInit {
       idUsuario:this.modsuperForm.get('idUsuario').value,
       idEscuela:this.modsuperForm.get('idEscuela').value,
       estatus:this.modsuperForm.get('estatus').value,
-      imagen:this.modsuperForm.get('imagen').value
+      imagen:this.administrador.imagen
     };
     return saveModsuper;
   }
+  public cargandoImagen(e){
+    let img:any = e.target;
+    if(img.files.length > 0){
+      this.loader = true;
+      let form = new FormData();
+      form.append('file',img.files[0]);
+      this.abc.subirImagenAdmin(form).subscribe(
+        resp => {
+          this.loader = false;
+          if(resp.status){
+            this.administrador.imagen = resp.generatedName;
+          }else{
+            this._danger.next('Revise la extención de su imagen');
+          }
+        },
+        error => {
+          this.loader = false;
+          alert('Imagen supera el tamaño permitido');
+        }
+      );
+    }
+
+
+  }
+  
 
 }

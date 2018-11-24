@@ -16,7 +16,11 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
-    //ABC Escuela
+    //ABC Administrador
+
+  subirImagenAdmin(datos:any):Observable<any>{
+    return this.http.post('/api/subirImagenAdmin', datos);
+  }
 
   //Obtener Administrador
   getAdministrador(idAdministrador: number): Observable<any>{

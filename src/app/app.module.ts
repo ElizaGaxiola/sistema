@@ -64,6 +64,7 @@ import { PaginaprincipalComponent } from './paginaprincipal/paginaprincipal.comp
 import { AvisosComponent } from './avisos/avisos.component';
 import { InscripcionesComponent } from './inscripciones/inscripciones.component';
 import { ReciboComponent } from './recibo/recibo.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -168,6 +169,7 @@ export function tokenGetter() {
     ReciboComponent,
   ],
   imports: [
+    NgbModule,
     BsDatepickerModule.forRoot(),
     BrowserModule,
     HttpClientModule,

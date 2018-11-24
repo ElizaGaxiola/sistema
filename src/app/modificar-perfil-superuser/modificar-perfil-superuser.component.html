@@ -5,16 +5,18 @@
     <div id="content-wrapper">
       <div class="container-fluid">
         <app-head [nombre]="modulo"></app-head>
+        <ngb-alert class="float-right" style="z-index: 100" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 100" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
         <aside class="profile-card scrollbar-dusty-grass thin">
             <div class="container emp-profile">
                 <form [formGroup]="modsuperForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="profile-img">
-                                <img src="../../assets/images/administradores/{{administrador.imagen}}" alt=""/>
+                                <img src="http://localhost:8080/Apis/assets/images/administradores/{{administrador.imagen}}" alt=""/>
                                 <div class="file btn btn-lg btn-primary">
                                     Cambiar imagen
-                                <input type="file" name="file"/>
+                                <input accept="image/*" name="file" id="file-input" type="file" (change)="cargandoImagen($event)"/>
                                 </div>
                             </div>
                         </div>
