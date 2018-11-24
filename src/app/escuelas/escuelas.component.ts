@@ -49,6 +49,7 @@ export class EscuelasComponent implements OnInit {
     });
   }
   public agregar(){
+    this.inicializarForm();
     this.modal = 'agregar';
     $("#modal-modificar").modal();
   }
@@ -156,10 +157,9 @@ export class EscuelasComponent implements OnInit {
       this.modificarEscuela(this.escuela); 
     }); 
   }
-
-  ngOnInit(): void {
+  public inicializarForm(){
     this.escuelaForm = this.pf.group({
-      idEscuela: ['',[ Validators.required]],
+      idEscuela: [''],
       idSeccion: ['',[ Validators.required]],
       clave: ['',[ Validators.required]],
       nombre: ['',[ Validators.required]],
@@ -170,8 +170,11 @@ export class EscuelasComponent implements OnInit {
       numero: ['',[ Validators.required]],
       email:['',[ Validators.required, Validators.email]],
       telefono: ['',[ Validators.required]],
-      estatus: ['',[ Validators.required]],
+      estatus: [''],
     });
+   }
+  ngOnInit(): void {
+    this.inicializarForm();
     this.dtOptions = {
       language: {
         "emptyTable": "Sin resultados encontrados",

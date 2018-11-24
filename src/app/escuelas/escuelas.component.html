@@ -66,7 +66,8 @@
                           <div class="modal-body">
                             <div class="card">
                                <div class="card-header">
-                                  <strong>Modificar Escuela</strong>
+                                  <strong *ngIf="modal == 'modificar'">Modificar Escuela</strong>
+                                  <strong *ngIf="modal == 'agregar'">Agregar Escuela</strong>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -228,12 +229,14 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                 <button *ngIf="modal == 'modificar'" type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!escuelaForm.valid>Modificar</button>
+                                                <div *ngIf="modal == 'modificar'" class="form-group">
+                                                 <button  type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!escuelaForm.valid>Modificar</button>
                                                  <p class="alert alert-danger" *ngIf="!escuelaForm.valid">
                                                   Por favor complete los campos
                                                  </p>
-                                                 <button *ngIf="modal == 'agregar'" type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!escuelaForm.valid>Agregar</button>
+                                                </div>
+                                                <div *ngIf="modal == 'agregar'" class="form-group">
+                                                 <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!escuelaForm.valid>Agregar</button>
                                                  <p class="alert alert-danger" *ngIf="!escuelaForm.valid">
                                                   Por favor complete los campos
                                                  </p>
@@ -241,6 +244,10 @@
                                             </div>          
                                         </div>
                                   </form>
+                                  <pre>Valor del formulario:{{escuelaForm.value | json}}</pre>
+                                  <pre>Valor del formulario:{{escuelaForm.status | json}}</pre>
+                                  <hr>
+                                  <pre>{{escuela | json}}</pre>
                                 </div>
                               </div>
                           </div>
