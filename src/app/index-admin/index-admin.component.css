@@ -83,11 +83,3 @@
 .btn-primary:active {
   transform:translateY(1px);
 }
-.check {
-  color: #42A948;
-  float: right;
-}
-.uncheck {
-  color: #A94442;
-  float: right;
-}

@@ -3,7 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { from } from 'rxjs';
-import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-index-admin',
@@ -14,13 +14,12 @@ export class IndexAdminComponent implements OnInit {
   public usuario: string;
   public password: string;
   public error: string;
-  loginadmForm: FormGroup;
-  loginadm: any;
+ 
   
 
   public usuarioData:any = { idUsuario:'', idTipo: '', usuario: '', password:'' };
 
-  constructor(private router: Router, private auth: AuthService, private pf: FormBuilder) { }
+  constructor(private router: Router, private auth: AuthService) { }
   private autenticarDocente() {
     this.auth.login(this.usuario, this.password )
       .pipe(first())
@@ -67,20 +66,8 @@ export class IndexAdminComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.loginadmForm=this.pf.group({
-      email:['',[ Validators.required]],
-      constrasena:['', [Validators.required]],
-    });
+    
   }
-  onSubmit(){
-    this.loginadm = this.saveLoginadm();
-  }
-  saveLoginadm(){
-    const saveLoginadm={
-      nombre: this.loginadmForm.get('email').value,
-      apellidop: this.loginadmForm.get('contrasena').value,
-    };
-    return this.saveLoginadm;
-  }
+  
 
 }
