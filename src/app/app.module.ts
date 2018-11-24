@@ -63,6 +63,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { PaginaprincipalComponent } from './paginaprincipal/paginaprincipal.component';
 import { AvisosComponent } from './avisos/avisos.component';
 import { InscripcionesComponent } from './inscripciones/inscripciones.component';
+import { ReciboComponent } from './recibo/recibo.component';
 
 
 
@@ -107,6 +108,7 @@ const routes = [
   { path: 'administrativos/personal/docente', component: PersonaldocenteComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/crearavisos', component: AvisosComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/inscripciones', component: InscripcionesComponent, canActivate: [AuthGuard]},
+  { path: 'preinscripciones/recibo', component: ReciboComponent, canActivate: [AuthGuard]},
   { path:'**',component: PaginaprincipalComponent},
 ];
 
@@ -163,6 +165,7 @@ export function tokenGetter() {
     PaginaprincipalComponent,
     AvisosComponent,
     InscripcionesComponent,
+    ReciboComponent,
   ],
   imports: [
     BsDatepickerModule.forRoot(),
