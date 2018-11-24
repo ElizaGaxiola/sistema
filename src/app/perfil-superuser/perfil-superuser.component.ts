@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+
 import { AbcService } from '../abc.service';
-import { AuthService } from '../auth.service';
+
 import { Administrador } from '../modelos';
 
 @Component({
@@ -11,27 +11,29 @@ import { Administrador } from '../modelos';
 })
 export class PerfilSuperuserComponent implements OnInit {
   modulo:string='Perfil';
-  administradorForm:FormGroup;
-  administrador:Administrador;
-  escuelaForm:FormGroup;
-  constructor(private abc: AbcService,private auth: AuthService, private pf: FormBuilder) { 
-    console.log(localStorage.getItem('idUsuario'));
+
+  administrador:Administrador={
+    idAdministrador:0,
+    nombre:'',
+    apellidoP:'',
+    apellidoM:'',
+    email:'',
+    contrasena:'',
+    idUsuario:0,
+    idEscuela:0,
+    estatus:0,
+    imagen:''
+  };
+  idUsuario:any;
+  constructor(private abc: AbcService) { 
+    
   }
-  public inicializarForm(){
-    this.administradorForm = this.pf.group({
-      idAdministrador: [''],
-      nombre: ['',[ Validators.required]],
-      apellidoP: ['',[ Validators.required]],
-      apellidoM: ['',[ Validators.required]],
-      email: ['',[ Validators.required]],
-      contrasena:[''],
-      idUsuario: [''],
-      idEscuela: ['',[ Validators.required]],
-      estatus:['']
-    });
-   }
   ngOnInit() {
-    this.inicializarForm();
+    this.idUsuario=localStorage.getItem('idUsuario');
+    this.abc.getAdministrador_Usuario(this.idUsuario).subscribe((data: any) => {
+      this.administrador=data;
+    });
+    
   }
 
 }

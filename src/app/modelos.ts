@@ -22,7 +22,8 @@ export interface Administrador{
     contrasena:string,
     idUsuario:number,
     idEscuela,
-    estatus:number
+    estatus:number,
+    imagen:string
 }
 export interface Seccion{
     idSeccion:number;
