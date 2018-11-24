@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { from } from 'rxjs';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -14,8 +15,10 @@ export class IndexComponent{
   public password: string;
   public error: string;
   public usuarioData:any = { idUsuario:'', idTipo: '', usuario: '', password:'' };
+  public loginalumForm:FormGroup;
+  public loginalum:any;
 
-  constructor(private router: Router, private auth: AuthService ) { }
+  constructor(private router: Router, private auth: AuthService, private pf:FormBuilder ) { }
   private autenticar() {
     this.auth.login(this.usuario, this.password )
       .pipe(first())
@@ -38,6 +41,23 @@ export class IndexComponent{
         this.error = 'Datos erroneos';
       }
     });
+  }
+  ngOnInit() {
+    this.loginalumForm=this.pf.group({
+      usuario:['',[Validators.required]],
+      contrasena:['',[Validators.required]]
+    });
+  }
+  onSubmit(){
+    this.loginalum=this.saveLogin();
+    this.submit()
+  }
+  public saveLogin(){
+    const saveLogin={
+      usuario:this.loginalumForm.get('usuario').value,
+      contrasena:this.loginalumForm.get('contrasena').value
+    };
+    return saveLogin;
   }
 
 }

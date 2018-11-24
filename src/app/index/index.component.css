@@ -59,6 +59,14 @@
     opacity:0.9;
     text-decoration:none;
   }
+  .check {
+    color: #42A948;
+    float: right;
+  }
+  .uncheck {
+    color: #A94442;
+    float: right;
+  }
   
   
   

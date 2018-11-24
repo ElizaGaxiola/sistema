@@ -24,7 +24,7 @@
           </div>
           <h4 *ngIf="error">{{error}}</h4>
           <div class="form-group">
-            <button class="btn btn-primary btn-block" type="submit">Iniciar sesión</button>
+            <button class="btn btn-primary btn-block" type="submit" [disabled]=!loginadmForm.valid>Iniciar sesión</button>
             <p class="alert alert-danger" *ngIf="!loginadmForm.valid">
                 Por favor complete los campos
             </p>
