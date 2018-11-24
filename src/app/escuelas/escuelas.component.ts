@@ -1,7 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { AbcService } from '../abc.service';
 import { Http, Response } from '@angular/http';
-import {Escuela, Seccion} from '../modelos';
+import {Escuela} from '../modelos';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 
 declare var jQuery:any;

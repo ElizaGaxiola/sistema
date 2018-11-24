@@ -11,18 +11,18 @@ import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angula
   styleUrls: ['./index-admin.component.css']
 })
 export class IndexAdminComponent implements OnInit {
-  public usuario: string;
-  public password: string;
+  
   public error: string;
-  loginadmForm: FormGroup;
-  loginadm: any;
+  public loginadmForm:FormGroup;
+  public loginAdm:any;
+ 
   
 
   public usuarioData:any = { idUsuario:'', idTipo: '', usuario: '', password:'' };
 
-  constructor(private router: Router, private auth: AuthService, private pf: FormBuilder) { }
+  constructor(private router: Router, private auth: AuthService, private pf:FormBuilder) { }
   private autenticarDocente() {
-    this.auth.login(this.usuario, this.password )
+    this.auth.login(this.loginAdm.email, this.loginAdm.contrasena )
       .pipe(first())
       .subscribe(
         result => this.router.navigate(['docente/dashboard']),
@@ -30,7 +30,7 @@ export class IndexAdminComponent implements OnInit {
       );
   }
   private autenticarAdministrador() {
-    this.auth.login(this.usuario, this.password )
+    this.auth.login(this.loginAdm.email, this.loginAdm.contrasena)
       .pipe(first())
       .subscribe(
         result => this.router.navigate(['administrativos/dashboard']),
@@ -38,7 +38,7 @@ export class IndexAdminComponent implements OnInit {
       );
   }
   private autenticarSuperUsuario() {
-    this.auth.login(this.usuario, this.password )
+    this.auth.login(this.loginAdm.email, this.loginAdm.contrasena)
       .pipe(first())
       .subscribe(
         result => this.router.navigate(['superusuario/dashboard']),
@@ -48,7 +48,7 @@ export class IndexAdminComponent implements OnInit {
 
 
   private submit(){
-    this.auth.getUser(this.usuario)
+    this.auth.getUser(this.loginAdm.email)
     .subscribe((data: any) => {
       this.usuarioData.idUsuario=data.idUsuario;
       this.usuarioData.idTipo=data.idTipo;
@@ -68,19 +68,20 @@ export class IndexAdminComponent implements OnInit {
   
   ngOnInit() {
     this.loginadmForm=this.pf.group({
-      email:['',[ Validators.required]],
-      constrasena:['', [Validators.required]],
+      email:['',[Validators.required]],
+      contrasena:['',[Validators.required]]
     });
   }
   onSubmit(){
-    this.loginadm = this.saveLoginadm();
+    this.loginAdm=this.saveLogin();
+    this.submit()
   }
-  saveLoginadm(){
-    const saveLoginadm={
-      nombre: this.loginadmForm.get('email').value,
-      apellidop: this.loginadmForm.get('contrasena').value,
+  public saveLogin(){
+    const saveLogin={
+      email:this.loginadmForm.get('email').value,
+      contrasena:this.loginadmForm.get('contrasena').value
     };
-    return this.saveLoginadm;
+    return saveLogin;
   }
 
 }
