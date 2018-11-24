@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { from } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-menu-alum',
@@ -10,8 +11,10 @@ import { from } from 'rxjs';
   styleUrls: ['./menu-alum.component.css']
 })
 export class MenuAlumComponent implements OnInit {
-
-  constructor(private auth: AuthService) { }
+  sesion:any;
+  constructor(private auth: AuthService) {
+    this.sesion=this.auth.getSesion();
+   }
 
   public salir(){
     this.auth.logout();

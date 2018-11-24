@@ -25,6 +25,13 @@ export class AbcService {
         return result;
     }))  
   }
+  //Obtener Administrador_Usuario
+  getAdministrador_Usuario(idUsuario: number): Observable<any>{
+    return this.http.get('/api/administradorUsuario?idUsuario=' + idUsuario)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
   
   //Obtener Administradores
   getAdministradores(): Observable<any>{

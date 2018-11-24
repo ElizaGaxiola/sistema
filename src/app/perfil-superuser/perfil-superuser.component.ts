@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { AbcService } from '../abc.service';
+import { AuthService } from '../auth.service';
 import { Administrador } from '../modelos';
 
 @Component({
@@ -13,21 +14,8 @@ export class PerfilSuperuserComponent implements OnInit {
   administradorForm:FormGroup;
   administrador:Administrador;
   escuelaForm:FormGroup;
-  constructor(private abc: AbcService, private pf: FormBuilder) { 
-    this.abc.getAdministrador(1).subscribe((data: any) => {
-      console.log(data);
-      this.administradorForm=this.pf.group({
-        idAdministrador: data.idAdministrador,
-        nombre: data.nombre,
-        apellidoP: data.apellidoP,
-        apellidoM: data.apellidoM,
-        email: data.email,
-        contrasena: data.contrasena,
-        idUsuario: data.idUsuario,
-        idEscuela: data.idEscuela,
-        estatus: data.estatus
-      });
-    });
+  constructor(private abc: AbcService,private auth: AuthService, private pf: FormBuilder) { 
+    console.log(localStorage.getItem('idUsuario'));
   }
   public inicializarForm(){
     this.administradorForm = this.pf.group({

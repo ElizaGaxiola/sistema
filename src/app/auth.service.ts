@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
-
+  taki:any;
+  session:any;
   constructor(private http: HttpClient) { }
 
   login(usuario: string, contrasena: string): Observable<boolean> {
@@ -13,7 +14,9 @@ export class AuthService {
       .pipe(
         map(result => {
           localStorage.setItem('access_token', result.token);
-          console.log(result.token); 
+          this.taki=JSON.parse(atob(result.token.split('.')[1]));
+          console.log(this.taki);
+          localStorage.setItem('idUsuario', this.taki.idUsuario);
           return true;
         })
       );
@@ -28,7 +31,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('access_token');
-    alert('limpio');
+    localStorage.removeItem('idUsuario');
   }
 
   public get loggedIn(): boolean {
