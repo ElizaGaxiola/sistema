@@ -13,7 +13,7 @@ import { AuthService } from '../auth.service';
 export class MenuAlumComponent implements OnInit {
   sesion:any;
   constructor(private auth: AuthService) {
-    this.sesion=this.auth.getSesion();
+    
    }
 
   public salir(){

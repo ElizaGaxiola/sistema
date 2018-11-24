@@ -10,25 +10,25 @@
   <div class="sidebar-wrapper ps-container scrollbar-dusty-grass thin">
       <div class="user">
           <div class="photo">
-              <img src="../../assets/images/docentes/avatarAdmin.jpg">
+              <img src="http://localhost:8080/Apis/assets/images/administradores/{{administrador.imagen}}">
           </div>
           <div class="user-info">
               <a data-toggle="collapse" href="#collapseExample" class="username">
                   <span>
-                      Song Joon Ki 
+                      {{administrador.nombre}} {{administrador.apellidoP}}
                       <i class="fas fa-sort-down"></i>
                   </span>
               </a>
               <div class="collapse" id="collapseExample">
                   <ul class="nav">
                       <li class="nav-item">
-                          <a class="nav-link" routerLinkActive="active" routerLink="/docente/perfil">
+                          <a class="nav-link" routerLinkActive="active" routerLink="/administrativos/perfil">
                             <span class="sidebar-mini"> MP </span>
                             <span class="sidebar-normal"> Mi Perfil </span>
                           </a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" routerLinkActive="active" routerLink="/docente/ModificarPerfil">
+                          <a class="nav-link" routerLinkActive="active" routerLink="/administrativos/ModificarPerfil">
                             <span class="sidebar-mini"> EP </span>
                             <span class="sidebar-normal"> Editar Perfil </span>
                           </a>

@@ -65,6 +65,8 @@ import { AvisosComponent } from './avisos/avisos.component';
 import { InscripcionesComponent } from './inscripciones/inscripciones.component';
 import { ReciboComponent } from './recibo/recibo.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { PerfilDocenteComponent } from './perfil-docente/perfil-docente.component';
+import { ModificarPerfilDocenteComponent } from './modificar-perfil-docente/modificar-perfil-docente.component';
 
 
 
@@ -74,8 +76,8 @@ const routes = [
   { path:'administrativos',component: IndexAdminComponent},
   { path:'docente/dashboard',component: DashboardDocenteComponent, canActivate: [AuthGuard]},
   { path:'docente/grupos',component: GruposComponent, canActivate: [AuthGuard]},
-  { path:'docente/perfil',component: PerfilAdministrativoComponent, canActivate: [AuthGuard]},
-  { path:'docente/ModificarPerfil',component: ModificarPerfilAdministrativoComponent, canActivate: [AuthGuard]},
+  { path:'docente/perfil',component: PerfilDocenteComponent, canActivate: [AuthGuard]},
+  { path:'docente/ModificarPerfil',component: ModificarPerfilDocenteComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/avisos', component: DashboardAlumnosComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/estudios', component: EstudiosAlumnosComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/horario', component: HorarioAlumnosComponent, canActivate: [AuthGuard]},
@@ -96,6 +98,8 @@ const routes = [
   { path: 'superusuario/escuelas', component: EscuelasComponent, canActivate: [AuthGuard]},
   { path: 'superusuario/usuarios', component: UsuariosComponent, canActivate: [AuthGuard]},
   { path: 'superusuario/perfil', component: PerfilSuperuserComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/perfil', component: PerfilAdministrativoComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/ModificarPerfil', component: ModificarPerfilAdministrativoComponent, canActivate: [AuthGuard]},
   { path: 'superusuario/ModificarPerfil', component: ModificarPerfilSuperuserComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/asignaturas', component: AsignaturasComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/aulas', component: AulasComponent, canActivate: [AuthGuard]},
@@ -167,6 +171,8 @@ export function tokenGetter() {
     AvisosComponent,
     InscripcionesComponent,
     ReciboComponent,
+    PerfilDocenteComponent,
+    ModificarPerfilDocenteComponent,
   ],
   imports: [
     NgbModule,

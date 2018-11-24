@@ -1,0 +1,173 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<div id="wrapper">
+  <!-- Sidebar -->
+  <app-menu></app-menu>
+  <div id="content-wrapper">
+    <div class="container-fluid">
+      <app-head [nombre]="modulo"></app-head>
+      <aside class="profile-card scrollbar-dusty-grass thin">
+          <div class="container emp-profile">
+            <form [formGroup]="moddocenteForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="profile-img">
+                              <img src="../../assets/images/alumnos/avatar2.jpg" alt=""/>
+                              <div class="file btn btn-lg btn-primary">
+                                Cambiar imagen
+                                <input type="file" name="file"/>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="row">
+                              <div class="profile-head">
+                                  <h5>Cha Eun Woo</h5>
+                                  <div class="row">
+                                    <div class="col-md-6"><h6>Lic. en Informática</h6></div>
+                                    <div class="col-md-6"><h6>Profesor</h6></div>
+                                  </div>
+                                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                      <li class="nav-item">
+                                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Datos Personales</a>
+                                      </li>
+                                      <li class="nav-item">
+                                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Datos de contacto</a>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="tab-content profile-tab" id="myTabContent">
+                                      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                          <div class="col-md-6" >
+                                            <label>Clave</label>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <p>1235</p>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" >
+                                              <label>Nombre</label>
+                                              <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.nombre.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.nombre.invalid &&
+                                              moddocenteForm.controls.nombre.touched"></i>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <input class="form-control" type="text"  id="nombre" formControlName="nombre" >
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                              <label>Apellido Paterno</label>
+                                              <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.app.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.app.invalid &&
+                                              moddocenteForm.controls.app.touched"></i>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <input class="form-control" type="text"  id="app" formControlName="app" >
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                              <div class="col-md-6">
+                                                <label>Apellido Materno</label>
+                                                <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.apm.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.apm.invalid &&
+                                                moddocenteForm.controls.apm.touched"></i>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="text"  id="apm" formControlName="apm" >
+                                              </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" >
+                                              <label>Contraseña</label>
+                                              <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.contra.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.contra.invalid &&
+                                                moddocenteForm.controls.contra.touched"></i>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input class="form-control" type="password" id="contra" formControlName="contra" >
+                                            </div>
+                                        </div>   
+                                        <div class="row">
+                                              <div class="col-md-6">
+                                                <label>Fecha de nacimiento</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="input-group">
+                                                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" disabled>
+                                                  <div class="input-group-btn">
+                                                      <button type="button" class="btn btn-calendar" (click)="dp.show() " disabled><i class="fas fa-calendar-alt"></i></button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="row">
+                                              <div class="col-md-6">
+                                                <label>Núm de seguro social</label>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="number"  id="nss" formControlName="nss" disabled >
+                                              </div>
+                                        </div>                                            
+                                      </div>
+                                      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                          <div class="row">
+                                              <div class="col-md-6" >
+                                                <label>Correo electrónico</label>
+                                                <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.correo.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.correo.invalid &&
+                                                moddocenteForm.controls.correo.touched"></i>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="email" value="maestro@gmail.com" id="correo" formControlName="correo" >
+                                              </div>
+                                          </div>  
+                                          <div class="row">
+                                            <div class="col-md-6" >
+                                              <label>Teléfono</label>
+                                              <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.tel.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.tel.invalid &&
+                                                moddocenteForm.controls.tel.touched"></i>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <input class="form-control" type="text"  id="tel" formControlName="tel" pattern="[0-9]{7}">
+                                              <p></p>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-md-6" >
+                                                <label>Celular</label>
+                                                <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.telcel.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.telcel.invalid &&
+                                                moddocenteForm.controls.telcel.touched"></i>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <input class="form-control" type="text"  id="telcel" formControlName="telcel">
+                                                <p></p>
+                                              </div>
+                                          </div>      
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-12 text-center">
+                                  <button type="submit" class="btn btn-fill btn-rose float-right">Guardar</button>
+                                  <p class="alert alert-danger" *ngIf="!moddocenteForm.valid">
+                                    Por favor complete los campos
+                                  </p>
+                                </div>
+                          </div>   
+                      </div>
+                  </div>
+              </form>           
+          </div>
+      </aside>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
