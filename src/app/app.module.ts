@@ -60,10 +60,12 @@ import { AuthGuard } from './auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { AbcService } from './abc.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { PaginaprincipalComponent } from './paginaprincipal/paginaprincipal.component';
 
 
 
 const routes = [
+  { path:'',component: PaginaprincipalComponent},
   { path:'alumnos',component: IndexComponent},
   { path:'administrativos',component: IndexAdminComponent},
   { path:'docente/dashboard',component: DashboardDocenteComponent, canActivate: [AuthGuard]},
@@ -101,6 +103,7 @@ const routes = [
   { path: 'administrativos/creargrupos', component: CreargruposComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/personal/administrativo', component: PersonaladminComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/personal/docente', component: PersonaldocenteComponent, canActivate: [AuthGuard]},
+  { path:'**',component: PaginaprincipalComponent},
 ];
 
 export function tokenGetter() {
@@ -153,6 +156,7 @@ export function tokenGetter() {
     CreargruposComponent,
     PersonaladminComponent,
     PersonaldocenteComponent,
+    PaginaprincipalComponent,
   ],
   imports: [
     BsDatepickerModule.forRoot(),
