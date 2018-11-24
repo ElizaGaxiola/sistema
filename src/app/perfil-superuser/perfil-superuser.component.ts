@@ -33,7 +33,6 @@ export class PerfilSuperuserComponent implements OnInit {
     this.abc.getAdministrador_Usuario(this.idUsuario).subscribe((data: any) => {
       this.administrador=data;
     });
-    
   }
 
 }

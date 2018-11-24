@@ -60,7 +60,8 @@ export class UsuariosComponent implements OnInit {
         contrasena: this.administradorForm.get('contrasena').value,
         idUsuario: this.administradorForm.get('idUsuario').value,
         idEscuela: this.administradorForm.get('idEscuela').value,
-        estatus: this.administradorForm.get('estatus').value
+        estatus: this.administradorForm.get('estatus').value,
+        imagen: this.administradorForm.get('imagen').value
     }
     return saveAdministrador;
   }
@@ -82,7 +83,8 @@ export class UsuariosComponent implements OnInit {
         contrasena: data.contrasena,
         idUsuario: data.idUsuario,
         idEscuela: data.idEscuela,
-        estatus: data.estatus
+        estatus: data.estatus,
+        imagen:data.imagen
       });
       $("#modal-modificar").modal();
     });
@@ -153,7 +155,8 @@ export class UsuariosComponent implements OnInit {
       contrasena:[''],
       idUsuario: [''],
       idEscuela: ['',[ Validators.required]],
-      estatus:['']
+      estatus:[''],
+      imagen:['']
     });
    }
 

@@ -11,13 +11,17 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="profile-img">
-                                <img src="../../assets/images/docentes/leeminho.jpg" alt=""/>
+                                <img src="../../assets/images/administradores/{{administrador.imagen}}" alt=""/>
+                                <div class="file btn btn-lg btn-primary">
+                                    Cambiar imagen
+                                <input type="file" name="file"/>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="profile-head">
-                                    <h5>Lee Min Ho</h5>
+                                    <h5>{{administrador.nombre}} {{administrador.apellidoP}} {{administrador.apellidoM}}</h5>
                                     <div class="row">
                                       <div class="col-md-6"><h6>Superusuario</h6></div>
                                     </div>
@@ -46,45 +50,45 @@
                                           <div class="row">
                                               <div class="col-md-6">
                                                 <label>Apellido Paterno</label>
-                                                <i class="fa fa-check-circle check" *ngIf="modsuperForm.controls.app.valid"></i>
-                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modsuperForm.controls.app.invalid &&
-                                                modsuperForm.controls.app.touched"></i>
+                                                <i class="fa fa-check-circle check" *ngIf="modsuperForm.controls.apellidoP.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modsuperForm.controls.apellidoP.invalid &&
+                                                modsuperForm.controls.apellidoP.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="text"  id="app" formControlName="app" >
+                                                <input class="form-control" type="text"  id="apellidoP" formControlName="apellidoP" >
                                               </div>
                                           </div>
                                           <div class="row">
                                                 <div class="col-md-6">
                                                   <label>Apellido Materno</label>
-                                                  <i class="fa fa-check-circle check" *ngIf="modsuperForm.controls.apm.valid"></i>
-                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="modsuperForm.controls.apm.invalid &&
-                                                  modsuperForm.controls.apm.touched"></i>
+                                                  <i class="fa fa-check-circle check" *ngIf="modsuperForm.controls.apellidoM.valid"></i>
+                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="modsuperForm.controls.apellidoM.invalid &&
+                                                  modsuperForm.controls.apellidoM.touched"></i>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input class="form-control" type="text"  id="apm" formControlName="apm" >
+                                                    <input class="form-control" type="text"  id="apellidoM" formControlName="apellidoM" >
                                                 </div>
                                           </div>
                                           <div class="row">
                                               <div class="col-md-6" >
                                                 <label>Correo Electrónico</label>
-                                                <i class="fa fa-check-circle check" *ngIf="modsuperForm.controls.correo.valid"></i>
-                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modsuperForm.controls.correo.invalid &&
-                                                modsuperForm.controls.correo.touched"></i>
+                                                <i class="fa fa-check-circle check" *ngIf="modsuperForm.controls.email.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modsuperForm.controls.email.invalid &&
+                                                modsuperForm.controls.email.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                  <input class="form-control" type="email" id="correo" formControlName="correo" >
+                                                  <input class="form-control" type="email" id="email" formControlName="email" >
                                               </div>
                                           </div>  
                                           <div class="row">
                                                 <div class="col-md-6" >
-                                                  <label>Contraseña</label>
-                                                  <i class="fa fa-check-circle check" *ngIf="modsuperForm.controls.contra.valid"></i>
-                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="modsuperForm.controls.contra.invalid &&
-                                                  modsuperForm.controls.contra.touched"></i>
+                                                  <label>contraseña</label>
+                                                  <i class="fa fa-check-circle check" *ngIf="modsuperForm.controls.contrasena.valid"></i>
+                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="modsuperForm.controls.contrasena.invalid &&
+                                                  modsuperForm.controls.contrasena.touched"></i>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input class="form-control" type="password" id="contra" formControlName="contra">
+                                                    <input class="form-control" type="password" id="contrasena" formControlName="contrasena">
                                                 </div>
                                             </div>                                           
                                         </div>
