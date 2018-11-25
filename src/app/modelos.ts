@@ -13,6 +13,10 @@ export interface Escuela{
     estatus: number;
 }
 
+export interface Docente{
+    
+}
+
 export interface Administrador{
     idAdministrador:number,
 	nombre:string,

@@ -49,13 +49,14 @@
                 </div>
               </div>
               <!-- Modal -->
-              <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                   <div class="modal-content">
                         <div class="modal-body">
                           <div class="card">
                              <div class="card-header">
-                                <strong>Modificar Personal Docente</strong>
+                                    <strong *ngIf="modal == 'modificar'">Modificar Personal Docente</strong>
+                                    <strong *ngIf="modal == 'agregar'">Agregar Personal Docente</strong>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
@@ -198,9 +199,14 @@
                                   </div> 
                                 </div>
                                   <div class="col-sm-12 ">
-                                    <div class="form-group">
-                                     <button type="submit" class="btn btn-fill btn-rose ">Modificar</button>
-                                   </div>
+                                    <div *ngIf="modal == 'modificar'" class="form-group">
+                                        <button type="submit" class="btn btn-fill btn-rose float-right">Modificar</button>
+                                        
+                                    </div>
+                                    <div *ngIf="modal == 'agregar'" class="form-group">
+                                        <button type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
+                                    
+                                    </div>
                                 </div>
                               </div>
                             </div>
@@ -208,166 +214,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Modal -->
-              <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                          <div class="modal-body">
-                            <div class="card">
-                               <div class="card-header">
-                                  <strong>Agregar Personal Administrativo</strong>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="card-body">
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Nombre</label>
-                                              <input  class="form-control" id="nombre" type="text" value="Matemáticas">
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Apellido Paterno</label>
-                                              <input  class="form-control" id="app" type="text" value="Matemáticas">
-                                            </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Apellido Materno</label>
-                                            <div class="input-group">
-                                              <input  class="form-control" id="apm" type="text" value="Matemáticas">
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Fecha de Nacimiento</label>
-                                            <div class="input-group">
-                                              <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" >
-                                              <div class="input-group-btn">
-                                                  <button type="button" class="btn btn-calendar" (click)="dp.show() " ><i class="fas fa-calendar-alt"></i></button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                     </div>     
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Número de Seguro Social</label>
-                                              <input  class="form-control" id="nss" type="text" value="Matemáticas">
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Correo Electrónico</label>
-                                              <input  class="form-control" id="correo" type="email" value="Matemáticas">
-                                            </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia">Teléfono </label>
-                                              <input  class="form-control" id="tel" type="text" value="Matemáticas">
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia">Teléfono Celular</label>
-                                              <input  class="form-control" id="cel" type="text" value="Matemáticas">
-                                            </div>
-                                        </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia">Título</label>
-                                              <input  class="form-control" id="titulo" type="text" value="Matemáticas">
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Curp</label>
-                                              <input  class="form-control" id="curp" type="text" value="Matemáticas">
-                                            </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Sexo</label>
-                                              <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Estado</label>
-                                              <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                            </div>
-                                        </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Municipio</label>
-                                              <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Colonia</label>
-                                              <input  class="form-control" id="colonia" type="text" value="Matemáticas">
-                                            </div>
-                                        </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Calle</label>
-                                              <input  class="form-control" id="calle" type="text" value="Matemáticas">
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia">Número</label>
-                                              <input  class="form-control" id="num" type="text" value="Matemáticas">
-                                            </div>
-                                        </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                              <label for="materia"> Código Postal</label>
-                                              <input  class="form-control" id="cp" type="text" value="Matemáticas">
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="materia"> Imagen Docente</label>
-                                            <div class="custom-file col-sm-12" style="margin-top: 20px">
-                                            <input   type="file" formControlName="suimagen" class="custom-file-input" id="customFileLang" lang="es">
-                                            <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
-                                        </div>
-                                        </div>
-                                    </div> 
-                                  </div>
-                                    <div class="col-sm-12 ">
-                                      <div class="form-group">
-                                       <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
-                                     </div>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                    </div>
-                  </div>
-                </div>
+
             </div> 
           </div>
         </div>

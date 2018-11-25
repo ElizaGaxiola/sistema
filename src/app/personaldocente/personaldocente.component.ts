@@ -8,6 +8,7 @@ declare var $:any;
   styleUrls: ['./personaldocente.component.css']
 })
 export class PersonaldocenteComponent implements OnInit {
+  modal:string;
   modulo:string='Personal Docente';
    //configuración para select
  config = {
@@ -25,12 +26,12 @@ dataModel:any[] = ['101','102','103']
   constructor() { }
 
   public agregar(){
- 
-    $("#modal-agregar").modal();
+    this.modal='agregar';
+    $("#modal").modal();
   }
   public modificar(){
-    
-    $("#modal-modificar").modal();
+    this.modal='modificar';
+    $("#modal").modal();
   }
 
   ngOnInit(): void {
