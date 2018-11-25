@@ -1,5 +1,7 @@
 import { Component, OnDestroy,OnInit } from '@angular/core';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Http, Response } from '@angular/http';
+import { Subciclo } from '../modelos';
 declare var jQuery:any;
 declare var $:any;
 @Component({
@@ -9,27 +11,21 @@ declare var $:any;
 })
 export class SubciclosComponent implements OnInit {
   modulo:string='Subciclos';
-      //configuración para select
- config = {
-  multiple:false,
-  //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
-  displayKey:"description", 
-  search:true 
-}
-dataModel:any[] = ['101','102','103']
+  modal:string;
+  subcicloForm: FormGroup;
+  subciclo: Subciclo;
+  idCiclo:any;
+  cicloSelect: any[]=[];
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { descripcion:"Acosta", fechain:"07/08/2018", fechafin:"07/07/2019"},
     
   ];
-  constructor() { }
-
+  constructor( private pf: FormBuilder) { }
+  
   public agregar(){
- 
-    $("#modal-agregar").modal();
-  }
-  public modificar(){
-    
+    this.inicializarForm();
+    this.modal = 'agregar';
     $("#modal-modificar").modal();
   }
 
@@ -56,5 +52,27 @@ dataModel:any[] = ['101','102','103']
       }
     };
   }
+  onSubmit(){
+    this.subciclo = this.saveSubciclo();
+  }
+  public saveSubciclo(){
+    const saveSubciclo ={
+        idCiclo: this.subcicloForm.get('idCiclo').value,
+        idSubCiclo: this.subcicloForm.get('idSubCiclo').value,
+        descripcion: this.subcicloForm.get('descripcion').value,
+        fechaFin: this.subcicloForm.get('fechaFin').value,
+        fechaIni: this.subcicloForm.get('fechaIni').value, 
+    }
+    return saveSubciclo;
+  }
+  public inicializarForm(){
+    this.subcicloForm = this.pf.group({
+      idCiclo: [''],
+      idSubCiclo: ['1'],
+      descripcion: ['',[Validators.required]],
+      fechaFin: ['',[Validators.required]],
+      fechaIni: ['',[Validators.required]],
+    });
+   }
 
 }

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper">
     <app-menu-admin></app-menu-admin>
     <div id="content-wrapper">
@@ -51,23 +52,42 @@
                           <div class="modal-body">
                             <div class="card">
                                <div class="card-header">
-                                  <strong>Modificar Subciclo</strong>
+                                  <strong *ngIf="modal == 'modificar'">Modificar Subiclo</strong>
+                                  <strong *ngIf="modal == 'agregar'">Agregar Subiclo</strong>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="card-body">
+                                  <form [formGroup]="subcicloForm" (ngSubmit)="onSubmit()">
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                           <div class="form-group">
                                             <label for="materia"> Ciclo</label>
-                                            <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                            <i class="fa fa-check-circle check" *ngIf="subcicloForm.controls.idCiclo.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="subcicloForm.controls.idCiclo.invalid &&
+                                            subcicloForm.controls.idCiclo.touched"></i>
+                                            <ng-select [items]="cicloSelect"
+                                                bindLabel="name"
+                                                bindValue="id"
+                                                placeholder="Selecciona"
+                                                formControlName="idCiclo">
+                                            </ng-select>
+                                            <p class="alert alert-danger" *ngIf="subcicloForm.controls.idCiclo.invalid &&
+                                            subcicloForm.controls.idCiclo.touched">
+                                            El campo Ciclo es obligatorio</p>
                                           </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                               <label for="materia"> Descripción</label>
-                                              <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
+                                              <i class="fa fa-check-circle check" *ngIf="subcicloForm.controls.descripcion.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="subcicloForm.controls.descripcion.invalid &&
+                                              subcicloForm.controls.descripcion.touched"></i>
+                                              <input  class="form-control" id="descripcion" type="text" formControlName="descripcion">
+                                              <p class="alert alert-danger" *ngIf="subcicloForm.controls.descripcion.invalid &&
+                                              subcicloForm.controls.descripcion.touched">
+                                              El campo Descripción es obligatorio</p>
                                             </div>
                                           </div>
                                     </div>
@@ -75,103 +95,60 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                               <label for="materia">Fecha Inicio</label>
+                                              <i class="fa fa-check-circle check" *ngIf="subcicloForm.controls.fechaIni.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="subcicloForm.controls.fechaIni.invalid &&
+                                              subcicloForm.controls.fechaIni.touched"></i>
                                               <div class="input-group">
-                                                  <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp3="bsDatepicker" [bsConfig]="bsConfig">
+                                                  <input class="form-control" formControlName="fechaIni" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp3="bsDatepicker" [bsConfig]="bsConfig">
                                                   <div class="input-group-btn">
                                                       <button  type="button" class="btn btn-calendar" (click)="dp3.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                   </div>
-                                                </div>
+                                                  <p class="alert alert-danger" *ngIf="subcicloForm.controls.fechaIni.invalid &&
+                                                  subcicloForm.controls.fechaIni.touched">
+                                                  El campo Fecha Inicio es obligatorio</p>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                               <label for="materia">Fecha Final</label>
+                                              <i class="fa fa-check-circle check" *ngIf="subcicloForm.controls.fechaFin.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="subcicloForm.controls.fechaFin.invalid &&
+                                              subcicloForm.controls.fechaFin.touched"></i>
                                               <div class="input-group">
-                                                  <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp4="bsDatepicker" [bsConfig]="bsConfig">
+                                                  <input class="form-control" formControlName="fechaFin" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp4="bsDatepicker" [bsConfig]="bsConfig">
                                                   <div class="input-group-btn">
                                                       <button  type="button" class="btn btn-calendar" (click)="dp4.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                   </div>
+                                                  <p class="alert alert-danger" *ngIf="subcicloForm.controls.fechaFin.invalid &&
+                                                  subcicloForm.controls.fechaFin.touched">
+                                                  El campo Fecha Final es obligatorio</p>
                                                 </div>
                                             </div>
                                         </div>         
                                       </div>
                                       <div class="row">
                                           <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                               <button type="submit" class="btn btn-fill btn-rose ">Modificar</button>
-                                             </div>
+                                              <div *ngIf="modal == 'modificar'" class="form-group">
+                                                  <button type="submit" class="btn btn-fill btn-rose " [disabled]=!subcicloForm.valid>Modificar</button>
+                                                  <p class="alert alert-danger" *ngIf="!subcicloForm.valid">
+                                                      Por favor complete los campos
+                                                  </p>
+                                                </div>
+                                                <div *ngIf="modal == 'agregar'" class="form-group">
+                                                  <button type="submit" class="btn btn-fill btn-rose " [disabled]=!subcicloForm.valid>Agregar</button>
+                                                  <p class="alert alert-danger" *ngIf="!subcicloForm.valid">
+                                                      Por favor complete los campos
+                                                  </p>
+                                                </div>
                                           </div> 
                                       </div>
+                                  </form>
                                   </div>
                               </div>
                           </div>
                     </div>
                   </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                            <div class="modal-body">
-                              <div class="card">
-                                 <div class="card-header">
-                                    <strong>Agregar Nuevo Subciclo</strong>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="card-body">
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                          <label for="materia"> Ciclo</label>
-                                          <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia"> Descripción</label>
-                                            <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
-                                          </div>
-                                        </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Fecha Inicio</label>
-                                            <div class="input-group">
-                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp1="bsDatepicker" [bsConfig]="bsConfig">
-                                                <div class="input-group-btn">
-                                                    <button  type="button" class="btn btn-calendar" (click)="dp1.show() " ><i class="fas fa-calendar-alt"></i></button>
-                                                </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Fecha Final</label>
-                                            <div class="input-group">
-                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
-                                                <div class="input-group-btn">
-                                                    <button  type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
-                                                </div>
-                                              </div>
-                                          </div>
-                                      </div>         
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                             <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
-                                           </div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-                  </div>
               </div> 
             </div>
           </div>
