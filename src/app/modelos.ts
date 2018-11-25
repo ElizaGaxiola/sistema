@@ -13,6 +13,20 @@ export interface Escuela{
     estatus: number;
 }
 
+export interface Edificio{
+    idEdificio:number;
+    descripcion:string;
+    idEScuela:number;
+    estatus:number; 
+}
+
+export interface Aula{
+    idAula:number;
+    idedificio:number;
+    descripcion:string;
+    estatus:number;
+}
+
 export interface Docente{
     idDocente:number,
     nombre:string,

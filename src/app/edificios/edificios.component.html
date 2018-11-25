@@ -37,13 +37,14 @@
                   </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog  modal-dialog-centered" role="document">
                     <div class="modal-content">
                           <div class="modal-body">
                             <div class="card">
                                <div class="card-header">
-                                  <strong>Modificar Edificio</strong>
+                                  <strong *ngIf="modal == 'modificar'">Modificar Administrador</strong>
+                                  <strong *ngIf="modal == 'agregar'">Agregar Administrador</strong>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -58,9 +59,12 @@
                                           </div>
                                         </div>
                                         <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                              <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
-                                            </div>
+                                            <div *ngIf="modal == 'modificar'" class="form-group">
+                                                <button type="submit" class="btn btn-fill btn-rose float-right">Modificar</button>
+                                                </div>
+                                              <div *ngIf="modal == 'agregar'" class="form-group">
+                                                  <button type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
+                                              </div>
                                           </div>
                                       </div>
                                     </div>
@@ -70,40 +74,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog  modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                            <div class="modal-body">
-                              <div class="card">
-                                 <div class="card-header">
-                                    <strong>Agregar Nuevo Edificio</strong>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="card-body">
-                                    <div class="row">
-                                      <div class="center-block">
-                                        <div class="col-sm-12 ">
-                                          <div class="form-group">
-                                            <label for="materia">Descripción</label>
-                                            <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                              <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
-                                            </div>
-                                          </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-                  </div>
               </div> 
             </div>
           </div>

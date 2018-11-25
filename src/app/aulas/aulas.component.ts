@@ -10,6 +10,7 @@ declare var $:any;
 })
 export class AulasComponent implements OnInit {
   modulo:string='Aulas';
+  modal:string;
      //configuración para select
  config = {
   multiple:false,
@@ -24,14 +25,14 @@ dataModel:any[] = ['101','102','103']
     
   ];
   constructor() { }
-
+  
   public agregar(){
- 
-    $("#modal-agregar").modal();
+    this.modal = 'agregar';
+    $("#modal").modal();
   }
   public modificar(){
-    
-    $("#modal-modificar").modal();
+    this.modal = 'modificar';
+    $("#modal").modal();
   }
 
   ngOnInit(): void {

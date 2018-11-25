@@ -1,5 +1,10 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { AbcService } from '../abc.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { Edificio } from '../modelos';
 declare var jQuery:any;
 declare var $:any;
 @Component({
@@ -10,19 +15,17 @@ declare var $:any;
 export class EdificiosComponent implements OnInit {
   modulo:string='Edificios';
   dtOptions: DataTables.Settings = {};
-  data: any[]=[
-    { descripcion:"Acosta"},
-    
-  ];
+  data: Edificio[]=[];
+  modal:string;
   constructor() { }
 
   public agregar(){
- 
-    $("#modal-agregar").modal();
+    this.modal = 'agregar';
+    $("#modal").modal();
   }
   public modificar(){
-    
-    $("#modal-modificar").modal();
+    this.modal = 'modificar';
+    $("#modal").modal();
   }
 
   ngOnInit(): void {
