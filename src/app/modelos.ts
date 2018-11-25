@@ -39,6 +39,21 @@ export interface Carrera{
     descripcion:string;
 }
 
+export interface Ciclo{
+    idCiclo: number;
+    descripcion:string;
+    fechaFin: string;
+    fechaIni: string;
+}
+
+export interface Subciclo{
+    idCiclo: number;
+    idSubCiclo: number;
+    descripcion:string;
+    fechaFin: string;
+    fechaIni: string;
+}
+
 export interface Aula{
     idAula:number;
     idEdificio:number;
