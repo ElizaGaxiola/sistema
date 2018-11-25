@@ -1,18 +1,21 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper">
     <app-menu-admin></app-menu-admin>
     <div id="content-wrapper">
       <div class="container-fluid">
         <app-head [nombre]="modulo"></app-head>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-                <button type="submit" (click)='agregar()' class="btn btn-fill btn-rose float-right">Agregar Personal</button>
+                <button type="submit" (click)="agregar()" class="btn btn-fill btn-rose float-right">Agregar Usuario</button>
             </div>
             <div class="col-sm-12">
               <div class="card tabla mb-3">
                 <div class="card-header">
                   <i class="fas fa-table"></i>
-                    Personal Administrativo
+                   Usuarios
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -30,7 +33,7 @@
                               </th>
                               <th style="width: 20%">
                                   Correo Electrónico
-                              </th>  
+                              </th>
                               <th style="width: 20%">
                                 Acciones
                               </th>
@@ -39,127 +42,135 @@
                           <tbody>
                           <tr *ngFor="let item of data">
                               <td>{{item.nombre}}</td>
-                              <td>{{item.app}}</td>
-                              <td>{{item.apm}}</td>
-                              <td>{{item.correo}}</td>
-                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                              <td>{{item.apellidoP}}</td>
+                              <td>{{item.apellidoM}}</td>
+                              <td>{{item.email}}</td>
+                              <td>
+                                <button type='button' (click)='modificar(item.idAdministrador)' class='btn btn-warning' title='Modificar'>
+                                  <i class='fas fa-edit'></i>
+                                </button>
+                                <button *ngIf="item.estatus == 1" type='button' (click)='status(item.idAdministrador,item.estatus)' class='btn btn-success' title='Activo'>
+                                  <i class='far fa-check-circle'></i>
+                                </button>
+                                <button *ngIf="item.estatus == 0" type='button' (click)='status(item.idAdministrador,item.estatus)' class='btn btn-danger' title='Inactivo'>
+                                    <i class="far fa-times-circle"></i>
+                                </button>
+                              </td>
                           </tr>
                           </tbody>
                       </table>
                   </div>
                 </div>
-                <!-- Modal -->
+                <!-- Modal 1-->
                 <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog  modal-dialog-centered" role="document">
+                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
                           <div class="modal-body">
                             <div class="card">
                                <div class="card-header">
-                                  <strong>Modificar Personal Administrativo</strong>
+                                  <strong *ngIf="modal == 'modificar'">Modificar Administrador</strong>
+                                  <strong *ngIf="modal == 'agregar'">Agregar Administrador</strong>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12 ">
+                                  <form [formGroup]="administradorForm" (ngSubmit)="onSubmit()">
+                                        <div class="row">
+                                          <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="materia"> Nombre</label>
-                                                <input  class="form-control" id="nombre" type="text" value="Matemáticas">
+                                              <label for="nombre">Nombre</label>
+                                              <i class="fa fa-check-circle check" *ngIf="administradorForm.controls.nombre.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="administradorForm.controls.nombre.invalid &&
+                                              administradorForm.controls.nombre.touched"></i>
+                                              <input name="nombre" formControlName="nombre" class="form-control" id="nombre" type="text" >
+                                              <p class="alert alert-danger" *ngIf="administradorForm.controls.nombre.invalid &&
+                                              administradorForm.controls.nombre.touched">
+                                              El campo Nombre es obligatorio</p>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-12 col-md-6">
+                                              <div class="form-group">
+                                                <label for="apellidoP">Apellido Paterno</label>
+                                                <i class="fa fa-check-circle check" *ngIf="administradorForm.controls.apellidoP.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="administradorForm.controls.apellidoP.invalid &&
+                                                administradorForm.controls.apellidoP.touched"></i>
+                                                <input name="apellidoP" formControlName="apellidoP" class="form-control" id="app" type="text" >
+                                                <p class="alert alert-danger" *ngIf="administradorForm.controls.apellidoP.invalid &&
+                                                 administradorForm.controls.apellidoP.touched">
+                                                 El campo Apellido Paterno es obligatorio</p>
+                                              </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                                <label for="materia"> Apellido Paterno</label>
-                                                <input  class="form-control" id="app" type="text" value="Matemáticas">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                              <div class="form-group">
+                                                <label for="apellidoM">Apellido Materno</label>
+                                                <i class="fa fa-check-circle check" *ngIf="administradorForm.controls.apellidoM.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="administradorForm.controls.apellidoM.invalid &&
+                                                administradorForm.controls.apellidoM.touched"></i>
+                                                <input name="apellidoM" formControlName="apellidoM" class="form-control" id="apm" type="text" >
+                                                <p class="alert alert-danger" *ngIf="administradorForm.controls.apellidoM.invalid &&
+                                                administradorForm.controls.apellidoM.touched">
+                                                El campo Apellido Materno es obligatorio</p>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                  <label for="email">Correo Electrónico</label>
+                                                  <i class="fa fa-check-circle check" *ngIf="administradorForm.controls.email.valid"></i>
+                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="administradorForm.controls.email.invalid &&
+                                                  administradorForm.controls.email.touched"></i>
+                                                  <input name="email" formControlName="email" class="form-control" id="correo" type="email" >
+                                                  <p class="alert alert-danger" *ngIf="administradorForm.controls.email.invalid &&
+                                                  administradorForm.controls.email.touched">
+                                                  El campo Correo Electrónico no es válido</p>
+                                                </div>
                                               </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                              <label for="materia">Apellido Materno</label>
-                                              <div class="input-group">
-                                                <input  class="form-control" id="apm" type="text" value="Matemáticas">
-                                                </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                              <div class="form-group">
+                                                <label for="escuela">Escuela</label>
+                                                <i class="fa fa-check-circle check" *ngIf="administradorForm.controls.idEscuela.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="administradorForm.controls.idEscuela.invalid &&
+                                                administradorForm.controls.idEscuela.touched"></i>
+                                                <input style="visibility:hidden" type="text" formControlName="idEscuela"/>
+                                                <input name="escuela" class="form-control" disabled type="text" [(ngModel)]="escuela" [ngModelOptions]="{standalone: true}"/>
+                                                <p class="alert alert-danger" *ngIf="administradorForm.controls.idEscuela.invalid &&
+                                                administradorForm.controls.idEscuela.touched">
+                                                El campo Escuela es obligatorio</p>
+                                              </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                              <label for="materia">Correo Electrónico</label>
-                                              <div class="input-group">
-                                                <input  class="form-control" id="correo" type="email" value="Matemáticas">
-                                                </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                 <p>**La contraseña inicial será DaomingSi123 podrá ser cambiada cuando el usuario lo desee**</p>
+                                               </div>
                                             </div>
-                                       </div>     
-                                    </div>
-                                      <div class="col-sm-12 ">
-                                        <div class="form-group">
-                                         <button type="submit" class="btn btn-fill btn-rose ">Modificar</button>
-                                       </div>
-                                    </div>
-                                  </div>
+                                            <div class="col-sm-12 col-md-6">
+                                              <div *ngIf="modal == 'modificar'" class="form-group">
+                                                <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!administradorForm.valid>Modificar</button>
+                                                <p class="alert alert-danger" *ngIf="!administradorForm.valid">
+                                                  Por favor complete los campos
+                                                 </p>
+                                              </div>
+                                              <div *ngIf="modal == 'agregar'" class="form-group">
+                                                  <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!administradorForm.valid>Agregar</button>
+                                                  <p class="alert alert-danger" *ngIf="!administradorForm.valid">
+                                                    Por favor complete los campos
+                                                   </p>
+                                                </div>
+                                            </div>          
+                                        </div>
+                                  </form>
+                                </div>
                               </div>
                           </div>
                     </div>
                   </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog  modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                            <div class="modal-body">
-                              <div class="card">
-                                 <div class="card-header">
-                                    <strong>Agregar Personal Administrativo</strong>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                                <label for="materia"> Nombre</label>
-                                                <input  class="form-control" id="nombre" type="text" value="Matemáticas">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                                <label for="materia"> Apellido Paterno</label>
-                                                <input  class="form-control" id="app" type="text" value="Matemáticas">
-                                              </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                              <label for="materia">Apellido Materno</label>
-                                              <div class="input-group">
-                                                <input  class="form-control" id="apm" type="text" value="Matemáticas">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                              <label for="materia">Correo Electrónico</label>
-                                              <div class="input-group">
-                                                <input  class="form-control" id="correo" type="email" value="Matemáticas">
-                                            </div>
-                                        </div>
-                                       </div>     
-                                    </div>
-                                      <div class="col-sm-12 ">
-                                        <div class="form-group">
-                                         <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
-                                       </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-                  </div>
               </div> 
             </div>
           </div>
@@ -167,4 +178,5 @@
       </div>
       <app-footer></app-footer>
     </div>
-  </div>
+
+</div>

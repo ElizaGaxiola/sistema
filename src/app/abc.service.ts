@@ -17,6 +17,14 @@ export class AbcService {
 
   constructor(private http: HttpClient) { }
     //ABC Administrador
+  
+  //Obtener Administradores
+  getAdministradoresUsuario(idUsuario:number,idEScuela:number): Observable<any>{
+    return this.http.get('/api/administradoresUsuario?idUsuario='+idUsuario+'&idEscuela='+idEScuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
 
   subirImagenAdmin(datos:any):Observable<any>{
     return this.http.post('/api/subirImagenAdmin', datos);
@@ -64,6 +72,13 @@ export class AbcService {
   //Obtener Escuela
   getEscuela(clave: string): Observable<any>{
     return this.http.get('/api/escuela?clave=' + clave)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  //Obtener Escuela por id
+  getEscuela_Id(id: string): Observable<any>{
+    return this.http.get('/api/escuela_ID?idEscuela=' + id)
       .pipe(map(result => {
         return result;
     }))  
