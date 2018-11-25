@@ -43,18 +43,26 @@
                           <div class="modal-body">
                             <div class="card">
                                <div class="card-header">
-                                  <strong>Modificar Carrera</strong>
+                                  <strong *ngIf="modal == 'modificar'">Modificar Carrera</strong>
+                                  <strong *ngIf="modal == 'agregar'">Agregar Carera</strong>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="card-body">
+                                    <form [formGroup]="carreraForm" (ngSubmit)="onSubmit()">
                                     <div class="row">
                                       <div class="center-block">
                                         <div class="col-sm-12 ">
                                           <div class="form-group">
                                             <label for="materia">Descripción</label>
-                                            <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
+                                            <i class="fa fa-check-circle check" *ngIf="carreraForm.controls.descripcion.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="carreraForm.controls.descripcion.invalid &&
+                                            carreraForm.controls.descripcion.touched"></i>
+                                            <input  class="form-control" id="descripcion" type="text" formControlName="descripcion">
+                                            <p class="alert alert-danger" *ngIf="carreraForm.controls.descripcion.invalid &&
+                                            carreraForm.controls.descripcion.touched">
+                                            El campo Título es obligatorio</p>
                                           </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -64,46 +72,13 @@
                                           </div>
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
                               </div>
                           </div>
                     </div>
                   </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                            <div class="modal-body">
-                              <div class="card">
-                                 <div class="card-header">
-                                    <strong>Agregar Nueva Carrera</strong>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="card-body">
-                                    <div class="row">
-                                      <div class="center-block">
-                                        <div class="col-sm-12 ">
-                                          <div class="form-group">
-                                            <label for="materia">Descripción</label>
-                                            <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                              <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
-                                            </div>
-                                          </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-                  </div>
               </div> 
             </div>
           </div>

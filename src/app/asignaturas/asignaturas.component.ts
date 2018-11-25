@@ -36,6 +36,10 @@ asignaturas: any;
     
     $("#modal-modificar").modal();
   }
+  public asignar(){
+    
+    $("#modal-asignar").modal();
+  }
  
   
   ngOnInit(): void {
