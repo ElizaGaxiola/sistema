@@ -16,6 +16,16 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+  //ABC Edificios
+  
+  //Obtener Edificios
+  getEdificios(idEScuela:number): Observable<any>{
+    return this.http.get('/api/edificios?idEscuela='+idEScuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
   //ABC Docente
 
   //Obtener Docenetes

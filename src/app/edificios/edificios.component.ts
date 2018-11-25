@@ -42,7 +42,7 @@ export class EdificiosComponent implements OnInit {
   public agregar(){
     this.inicializarForm();
     this.modal = 'agregar';
-    $("#modal-modificar").modal();
+    $("#modal").modal();
   }
   public saveAula(){
     const saveAula ={
@@ -100,8 +100,12 @@ export class EdificiosComponent implements OnInit {
       }
     };
   }
-  obtenerEdificios(): any {
-    throw new Error("Method not implemented.");
+  obtenerEdificios(){
+    this.abc.getEdificios(this.administradorUser.idEscuela)
+    .subscribe((data: any) => {
+      this.data=data;
+      console.log(data);
+    });
   }
 
 }
