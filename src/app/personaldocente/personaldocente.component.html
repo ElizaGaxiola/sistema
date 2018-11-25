@@ -138,7 +138,7 @@
                                             <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.nss.valid"></i>
                                             <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.nss.invalid &&
                                             docenteForm.controls.nss.touched"></i>  
-                                            <input  class="form-control" id="nss" type="text" formControlName="nss">
+                                            <input  class="form-control" id="nss" type="text" formControlName="nss" pattern="[0-9]{11}">
                                             <p class="alert alert-danger" *ngIf="docenteForm.controls.nss.invalid &&
                                             docenteForm.controls.nss.touched">
                                             El campo Número de Seguro Social es obligatorio</p>
@@ -161,7 +161,6 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="materia">Teléfono </label>
-                                            <label for="materia"> Número de Seguro Social</label>
                                             <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.telefonol.valid"></i>
                                             <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.telefonol.invalid &&
                                             docenteForm.controls.telefonol.touched"></i>  
@@ -293,7 +292,7 @@
                                             <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.cp.valid"></i>
                                             <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.cp.invalid &&
                                             docenteForm.controls.cp.touched"></i> 
-                                            <input  class="form-control" id="cp" type="text" formControlName="cp">
+                                            <input  class="form-control" id="cp" type="text" formControlName="cp" pattern="[0-9]{5}">
                                             <p class="alert alert-danger" *ngIf="docenteForm.controls.cp.invalid &&
                                             docenteForm.controls.cp.touched">
                                             El campo Código Postal es obligatorio </p>
