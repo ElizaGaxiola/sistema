@@ -113,6 +113,27 @@ export class AulasComponent implements OnInit {
   onSubmit(){
     this.aula = this.saveAula();
     console.log(this.aula);
+    if (this.modal=='modificar'){
+      this.abc.updateEscuela(this.aula).subscribe(res => {
+        this.obtenerAulas();
+        $("#modal").modal('hide');
+        this._success.next('Datos guardados con éxito');
+      }, (err) => {
+        console.log(err);
+        this._danger.next('A ocurrido un error intentalo de nuevo');
+      }
+     );
+    }else{
+      this.abc.insertEscuela(this.aula).subscribe(res => {
+        this.obtenerAulas();
+        $("#modal-modificar").modal('hide');
+        this._success.next('Datos modificados con éxito');
+      }, (err) => {
+        console.log(err);
+        this._danger.next('A ocurrido un error intentalo de nuevo');
+      }
+     );
+    }
   }
   public inicializarForm(){
     this.aulaForm = this.pf.group({
