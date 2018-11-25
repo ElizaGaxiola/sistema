@@ -22,7 +22,7 @@ export interface Edificio{
 
 export interface Aula{
     idAula:number;
-    idedificio:number;
+    idEdificio:number;
     descripcion:string;
     estatus:number;
 }
