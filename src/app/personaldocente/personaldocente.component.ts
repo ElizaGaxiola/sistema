@@ -150,7 +150,7 @@ export class PersonaldocenteComponent implements OnInit {
       contrasena: ['',[Validators.required]],
       urlImagen: [''],
       estatus: [''],
-      escuelaId: [this.administradorUser.idEscuela,[Validators.required]],
+      escuelaId: [1],
       usuarioId:[''],
     });
    }
