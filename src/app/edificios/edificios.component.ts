@@ -44,20 +44,34 @@ export class EdificiosComponent implements OnInit {
     this.modal = 'agregar';
     $("#modal").modal();
   }
-  public saveAula(){
-    const saveAula ={
+  public modificar(idEdificio:number){
+    this.abc.getEdificio(idEdificio)
+    .subscribe((data: any) => {
+      this.edificioForm=this.pf.group({
+        idEdificio:data.idEdificio,
+        descripcion:data.descripcion,
+        idEscuela:data.idEscuela,
+        estatus:data.estatus 
+      });
+      this.modal = 'modificar';
+      $("#modal").modal();
+    }); 
+  }
+  
+  public saveEdificio(){
+    const saveEdificio ={
         idEdificio: this.edificioForm.get('idEdificio').value,
         descripcion: this.edificioForm.get('descripcion').value,
-        idEscuela: this.edificioForm.get('idEscuela').value,
+        idEscuela: this.administradorUser.idEscuela,
         estatus: this.edificioForm.get('estatus').value, 
     }
-    return saveAula;
+    return saveEdificio;
   }
   public inicializarForm(){
     this.edificioForm = this.pf.group({
       idEdificio: [''],
       descripcion: ['',[Validators.required]],
-      idEscuela: ['1'],
+      idEscuela: [this.administradorUser.idEscuela],
       estatus: [''],
     });
    }
@@ -100,12 +114,62 @@ export class EdificiosComponent implements OnInit {
       }
     };
   }
+
   obtenerEdificios(){
     this.abc.getEdificios(this.administradorUser.idEscuela)
     .subscribe((data: any) => {
       this.data=data;
       console.log(data);
     });
+  }
+  public onSubmit(){
+    this.edificio = this.saveEdificio();
+    console.log(this.edificio);
+      if (this.modal=='modificar'){
+        this.abc.updateEdificio(this.edificio).subscribe(res => {
+          this.obtenerEdificios();
+          $("#modal").modal('hide');
+          this._success.next('Datos modificados con éxito');
+        }, (err) => {
+          console.log(err);
+          this._danger.next('A ocurrido un error intentalo de nuevo');
+        }
+       );
+      }else{
+        this.abc.insertEdificio(this.edificio).subscribe(res => {
+          this.obtenerEdificios();
+          $("#modal").modal('hide');
+          this._success.next('Datos guardados con éxito');
+        }, (err) => {
+          console.log(err);
+          this._danger.next('A ocurrido un error intentalo de nuevo');
+        }
+       );
+      }
+  }
+  public modificarEdificio(edificio:Edificio){
+    console.log(JSON.stringify(edificio));
+    this.abc.updateEdificio(edificio)
+    .subscribe(res => {
+        this._success.next('Datos modificados con éxito');
+        console.log('actualizado');
+        this.obtenerEdificios();
+      }, (err) => {
+        this._danger.next('A ocurrido un error intentalo de nuevo');
+        console.log(err);
+      }
+    );
+  }
+  public status(idEdificio:number,estatus:number){
+    this.abc.getEdificio(idEdificio)
+    .subscribe((data: any) => {
+      this.edificio=data;
+      if (estatus == 0)
+        this.edificio.estatus=1;
+      else
+        this.edificio.estatus=0;
+      this.modificarEdificio(this.edificio); 
+    }); 
   }
 
 }

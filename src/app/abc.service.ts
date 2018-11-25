@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador, Docente } from './modelos';
+import { Escuela, Administrador, Docente, Edificio } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,7 +17,7 @@ export class AbcService {
 
   constructor(private http: HttpClient) { }
   //ABC Edificios
-  
+
   //Obtener Edificios
   getEdificios(idEScuela:number): Observable<any>{
     return this.http.get('/api/edificios?idEscuela='+idEScuela)
@@ -25,6 +25,31 @@ export class AbcService {
         return result;
     }))  
   }
+
+  //Actualizar Edificio
+  updateEdificio (edificio:Edificio): Observable<any> {
+    return this.http.put('/api/edificioUpdate', edificio, httpOptions).pipe(
+      tap(_ => console.log('updated edificio')),
+      catchError(this.handleError<any>('updateEdificio'))
+    );
+  }
+
+  //Agregar Edificio 
+  insertEdificio (edificio:Edificio): Observable<any> {
+    return this.http.post('/api/edificioInsert', edificio, httpOptions).pipe(
+      tap(_ => console.log('insert edificio')),
+      catchError(this.handleError<any>('insertEdificio'))
+    );
+  }
+
+  //Obtener Docente
+  getEdificio(idEdificio: number): Observable<any>{
+    return this.http.get('/api/edificio?idEdificio=' + idEdificio)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
 
   //ABC Docente
 
