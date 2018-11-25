@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import {Escuela,Administrador} from '../modelos';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
@@ -15,7 +15,7 @@ declare var $:any;
 export class PersonaladminComponent implements OnInit {
   modulo:string='Personal Administrativo';
   administradorForm:FormGroup;
-  dtOptions: DataTables.Settings = {};
+  dataTable: any;
   data: Administrador[]=[];
   administrador:Administrador;
   administradorUser:Administrador={
@@ -38,7 +38,7 @@ export class PersonaladminComponent implements OnInit {
   private _danger = new Subject<string>();
   staticAlertClosed = false;
   idUsuario: any;
-  constructor(private abc: AbcService, private pf: FormBuilder) { 
+  constructor(private abc: AbcService, private pf: FormBuilder,private chRef: ChangeDetectorRef) { 
 
   }
 
@@ -109,7 +109,10 @@ export class PersonaladminComponent implements OnInit {
     this.abc.getAdministradoresUsuario(this.administradorUser.idAdministrador,this.administradorUser.idEscuela)
     .subscribe((data: any) => {
       this.data=data;
-      console.log(data);
+      this.chRef.detectChanges();
+      // Now you can use jQuery DataTables :
+      const table: any = $('table');
+      this.dataTable = table.DataTable();
       
     });
   }
@@ -157,27 +160,6 @@ export class PersonaladminComponent implements OnInit {
       debounceTime(5000)
     ).subscribe(() => this.dangerMessage = null);
     this.inicializarForm();
-    this.dtOptions = {
-      language: {
-        "emptyTable": "",
-        "info": " _START_ - _END_ / _TOTAL_ ",
-        "infoEmpty": "0-0 /0",
-        "infoFiltered": "",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "<i class='fas fa-search'></i>",
-        "zeroRecords": "",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
-      }
-    };
   }
   public inicializarForm(){
     this.administradorForm = this.pf.group({

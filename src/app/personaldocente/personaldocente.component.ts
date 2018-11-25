@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import {Docente, Administrador} from '../modelos';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
@@ -29,7 +29,7 @@ export class PersonaldocenteComponent implements OnInit {
   idMunicipio:any;
   municipiosSelect: any[]=[];
   dataModel:any[] = ['101','102','103']
-  dtOptions: DataTables.Settings = {};
+  dataTable: any;
   data: Docente[]=[];
   successMessage: string;
   dangerMessage: string;
@@ -38,7 +38,7 @@ export class PersonaldocenteComponent implements OnInit {
   staticAlertClosed = false;
   idUsuario: any;
   administradorUser:Administrador;
-  constructor(private abc: AbcService, private pf: FormBuilder) {
+  constructor(private abc: AbcService, private pf: FormBuilder,private chRef: ChangeDetectorRef) {
     this.abc.getEstados().subscribe((data: any) => {
       for (let estado of data) {
         this.estadosSelect = [...this.estadosSelect, {id: estado.idEstado, name: estado.nombre}];
@@ -149,27 +149,6 @@ export class PersonaldocenteComponent implements OnInit {
       debounceTime(5000)
     ).subscribe(() => this.dangerMessage = null);
     this.inicializarForm();
-    this.dtOptions = {
-      language: {
-        "emptyTable": "Sin resultados encontrados",
-        "info": " _START_ - _END_ / _TOTAL_ ",
-        "infoEmpty": "0-0 /0",
-        "infoFiltered": "",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "<i class='fas fa-search'></i>",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
-      }
-    };
   }
   onSubmit(){
     this.docente = this.saveDocente();

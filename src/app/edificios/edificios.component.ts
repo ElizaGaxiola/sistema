@@ -1,4 +1,4 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component,OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { AbcService } from '../abc.service';
@@ -14,7 +14,7 @@ declare var $:any;
 })
 export class EdificiosComponent implements OnInit {
   modulo:string='Edificios';
-  dtOptions: DataTables.Settings = {};
+  dataTable: any;
   data: Edificio[]=[];
   modal:string;
   edificioForm:FormGroup;
@@ -37,7 +37,7 @@ export class EdificiosComponent implements OnInit {
   private _success = new Subject<string>();
   private _danger = new Subject<string>();
   staticAlertClosed = false;
-  constructor(private pf: FormBuilder,private abc: AbcService) { }
+  constructor(private pf: FormBuilder,private abc: AbcService,private chRef: ChangeDetectorRef) { }
 
   public agregar(){
     this.inicializarForm();
@@ -92,34 +92,16 @@ export class EdificiosComponent implements OnInit {
       debounceTime(5000)
     ).subscribe(() => this.dangerMessage = null);
     this.inicializarForm();
-    this.dtOptions = {
-      language: {
-        "emptyTable": "Sin resultados encontrados",
-        "info": " _START_ - _END_ / _TOTAL_ ",
-        "infoEmpty": "0-0 /0",
-        "infoFiltered": "",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "<i class='fas fa-search'></i>",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
-      }
-    };
   }
 
   obtenerEdificios(){
     this.abc.getEdificios(this.administradorUser.idEscuela)
     .subscribe((data: any) => {
       this.data=data;
-      console.log(data);
+      this.chRef.detectChanges();
+      // Now you can use jQuery DataTables :
+      const table: any = $('table');
+      this.dataTable = table.DataTable();
     });
   }
   public onSubmit(){
