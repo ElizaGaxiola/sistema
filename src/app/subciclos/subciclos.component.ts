@@ -92,7 +92,6 @@ export class SubciclosComponent implements OnInit {
     this.inicializarForm();
   }
   onSubmit(){
-    alert('hola');
     this.subciclo = this.saveSubciclo();
     if (this.modal=='modificar'){
       this.abc.updateSubCiclo(this.subciclo).subscribe(res => {

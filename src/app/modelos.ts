@@ -37,6 +37,8 @@ export interface Asignatura{
 export interface Carrera{
     idCarrera: number;
     descripcion:string;
+    idEscuela:number;
+    estatus:number;
 }
 
 export interface Ciclo{
