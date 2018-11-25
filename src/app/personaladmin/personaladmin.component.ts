@@ -110,7 +110,7 @@ export class PersonaladminComponent implements OnInit {
     .subscribe((data: any) => {
       this.data=data;
       console.log(data);
-      console.log('entre');
+      
     });
   }
   public status(id:number,estatus:number){

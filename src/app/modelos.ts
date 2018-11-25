@@ -46,7 +46,7 @@ export interface Docente{
     cp:string,
     contrasena:string,
     urlImagen:string,
-    status:string,
+    estatus:string,
     escuelaId:string
 }
 

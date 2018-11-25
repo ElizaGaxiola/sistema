@@ -40,10 +40,20 @@
                         <tbody>
                         <tr *ngFor="let item of data">
                             <td>{{item.nombre}}</td>
-                            <td>{{item.app}}</td>
-                            <td>{{item.apm}}</td>
-                            <td>{{item.correo}}</td>
-                            <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                            <td>{{item.apellidoP}}</td>
+                            <td>{{item.apellidoM}}</td>
+                            <td>{{item.email}}</td>
+                            <td>
+                                    <button type='button' (click)='modificar(item.idDocente)' class='btn btn-warning' title='Modificar'>
+                                      <i class='fas fa-edit'></i>
+                                    </button>
+                                    <button *ngIf="item.estatus == 1" type='button' (click)='status(item.idDocente,item.estatus)' class='btn btn-success' title='Activo'>
+                                      <i class='far fa-check-circle'></i>
+                                    </button>
+                                    <button *ngIf="item.estatus == 0" type='button' (click)='status(item.idDocente,item.estatus)' class='btn btn-danger' title='Inactivo'>
+                                        <i class="far fa-times-circle"></i>
+                                    </button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

@@ -16,7 +16,21 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
-    //ABC Administrador
+  //ABC Docente
+  //Obtener Docenetes
+  getDocenetes(idEScuela:number): Observable<any>{
+    return this.http.get('/api/docentes?idEscuela='+idEScuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+
+
+
+
+
+  //ABC Administrador
   
   //Obtener Administradores
   getAdministradoresUsuario(idUsuario:number,idEScuela:number): Observable<any>{
@@ -26,6 +40,7 @@ export class AbcService {
     }))  
   }
 
+  //subir imagen 
   subirImagenAdmin(datos:any):Observable<any>{
     return this.http.post('/api/subirImagenAdmin', datos);
   }

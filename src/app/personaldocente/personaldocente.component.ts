@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import {Docente} from '../modelos';
+import {Docente, Administrador} from '../modelos';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { AbcService } from '../abc.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 declare var jQuery:any;
 declare var $:any;
 @Component({
@@ -25,19 +28,46 @@ export class PersonaldocenteComponent implements OnInit {
   municipiosSelect: any[]=[];
   dataModel:any[] = ['101','102','103']
   dtOptions: DataTables.Settings = {};
-  data: any[]=[
-    { nombre:"Acosta", app:"07/08/2018", apm:"07/07/2019",correo:"07/07/2019"},
-    
-  ];
-  constructor( private pf: FormBuilder) { }
+  data: Docente[]=[];
+  successMessage: string;
+  dangerMessage: string;
+  private _success = new Subject<string>();
+  private _danger = new Subject<string>();
+  staticAlertClosed = false;
+  idUsuario: any;
+  administradorUser:Administrador;
+  constructor(private abc: AbcService, private pf: FormBuilder) {}
 
+  public obtenerDocentes(){
+    this.abc.getDocenetes(this.administradorUser.idEscuela)
+    .subscribe((data: any) => {
+      this.data=data;
+      console.log(data);
+    });
+  }
   public agregar(){
     this.inicializarForm();
     this.modal = 'agregar';
-    $("#modal-modificar").modal();
+    $("#modal").modal();
+    alert('enter');
   }
 
   ngOnInit(): void {
+    this.idUsuario=localStorage.getItem('idUsuario');
+    this.abc.getAdministrador_Usuario(this.idUsuario).subscribe((data: any) => {
+      this.administradorUser=data;
+      this.obtenerDocentes();
+    });
+    setTimeout(() => this.staticAlertClosed = true, 20000);
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
+    this._danger.subscribe((message) => this.dangerMessage = message);
+    this._danger.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.dangerMessage = null);
+    this.inicializarForm();
     this.dtOptions = {
       language: {
         "emptyTable": "Sin resultados encontrados",
@@ -84,7 +114,7 @@ export class PersonaldocenteComponent implements OnInit {
       cp: ['',[Validators.required]],
       contrasena: ['',[Validators.required]],
       urlImagen: ['',[Validators.required]],
-      status: [''],
+      estatus: [''],
       escuelaId: ['1',[Validators.required]],
     });
    }
@@ -108,7 +138,7 @@ export class PersonaldocenteComponent implements OnInit {
         cp: this.docenteForm.get('cp').value,
         contrasena: this.docenteForm.get('contrasena').value,
         urlImagen: this.docenteForm.get('urlImagen').value,
-        status: this.docenteForm.get('status').value,
+        estatus: this.docenteForm.get('status').value,
         escuelaId: this.docenteForm.get('escuelaId').value,
     }
     return saveDocente;
