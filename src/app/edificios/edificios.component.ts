@@ -17,16 +17,32 @@ export class EdificiosComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   data: Edificio[]=[];
   modal:string;
-  constructor() { }
+  edificioForm:FormGroup;
+  edificio: Edificio;
+  constructor(private pf: FormBuilder) { }
 
   public agregar(){
+    this.inicializarForm();
     this.modal = 'agregar';
-    $("#modal").modal();
+    $("#modal-modificar").modal();
   }
-  public modificar(){
-    this.modal = 'modificar';
-    $("#modal").modal();
+  public saveAula(){
+    const saveAula ={
+        idEdificio: this.edificioForm.get('idEdificio').value,
+        descripcion: this.edificioForm.get('descripcion').value,
+        idEscuela: this.edificioForm.get('idEscuela').value,
+        estatus: this.edificioForm.get('estatus').value, 
+    }
+    return saveAula;
   }
+  public inicializarForm(){
+    this.edificioForm = this.pf.group({
+      idEdificio: [''],
+      descripcion: ['',[Validators.required]],
+      idEscuela: ['1'],
+      estatus: [''],
+    });
+   }
 
   ngOnInit(): void {
     this.dtOptions = {
