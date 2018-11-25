@@ -14,7 +14,26 @@ export interface Escuela{
 }
 
 export interface Docente{
-    
+    idDocente:number,
+    nombre:string,
+    apellidoP:string,
+    apellidoM:string,
+    fechaNac:string,
+    nss:string,
+    email:string,
+    telefonol:string,
+    titulo:string,
+    curp:string,
+    sexo:string,
+    idMunicipio:number,
+    colonia:string,
+    calle:string,
+    numero:string,
+    cp:string,
+    contrasena:string,
+    urlImagen:string,
+    status:string,
+    escuelaId:string
 }
 
 export interface Administrador{

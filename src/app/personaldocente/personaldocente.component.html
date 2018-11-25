@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper">
   <app-menu-admin></app-menu-admin>
   <div id="content-wrapper">
@@ -62,6 +63,7 @@
                                 </button>
                               </div>
                               <div class="card-body">
+                                <form [formGroup]="docenteForm" (ngSubmit)="onSubmit()">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
@@ -143,7 +145,13 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="materia"> Sexo</label>
-                                            <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                            <ng-select [items]="sexoSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        formControlName="sexo"
+                                                        placeholder="Selecciona"
+                                                        (change)="change()">
+                                            </ng-select>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -208,6 +216,7 @@
                                     
                                     </div>
                                 </div>
+                                </form>
                               </div>
                             </div>
                         </div>
