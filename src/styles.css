@@ -168,3 +168,8 @@ button.dt-button {
         color: #A94442;
         float: right;
     }
+    .center-block {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+      }

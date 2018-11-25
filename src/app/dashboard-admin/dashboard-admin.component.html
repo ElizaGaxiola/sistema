@@ -4,9 +4,12 @@
   <div id="content-wrapper">
     <div class="container-fluid">
       <app-head [nombre]="modulo"></app-head>
-      <div *ngIf="calendarOptions" style="background-color: white;">
-          <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
-              (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
+      <div class="row" style="background-color:#EEEEEE">
+        <div class="center-block">
+          <div class=" col-sm-12" >
+            <img src="../../assets/images/dashboard.png" style="width: 900px">
+          </div>
+        </div>
       </div>
     </div>
     <app-footer></app-footer>

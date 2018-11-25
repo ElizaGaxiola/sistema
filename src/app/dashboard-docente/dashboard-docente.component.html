@@ -1,13 +1,16 @@
-    <div id="wrapper">
-      <!-- Sidebar -->
-      <app-menu></app-menu>
-      <div id="content-wrapper">
-        <div class="container-fluid">
-          <app-head [nombre]="modulo"></app-head>
-          
-        </div>
-        <app-footer></app-footer>
+<div id="wrapper">
+    <app-menu></app-menu>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <app-head [nombre]="modulo"></app-head>
+        <div class="row" style="background-color:#EEEEEE">
+            <div class="center-block">
+              <div class="col-sm-12" >
+                <img src="../../assets/images/dashboard.png" style="width: 900px">
+              </div>
+            </div>
+          </div>
       </div>
+      <app-footer></app-footer>
     </div>
-
-
+  </div>
