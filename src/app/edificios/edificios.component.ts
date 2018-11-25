@@ -4,7 +4,7 @@ import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angula
 import { AbcService } from '../abc.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { Edificio } from '../modelos';
+import { Edificio, Administrador } from '../modelos';
 declare var jQuery:any;
 declare var $:any;
 @Component({
@@ -19,7 +19,25 @@ export class EdificiosComponent implements OnInit {
   modal:string;
   edificioForm:FormGroup;
   edificio: Edificio;
-  constructor(private pf: FormBuilder) { }
+  idUsuario: any;
+  administradorUser:Administrador={
+    idAdministrador:0,
+    nombre:'',
+    apellidoP:'',
+    apellidoM:'',
+    email:'',
+    contrasena:'',
+    idUsuario:0,
+    idEscuela:0,
+    estatus:0,
+    imagen:''
+  };
+  successMessage: string;
+  dangerMessage: string;
+  private _success = new Subject<string>();
+  private _danger = new Subject<string>();
+  staticAlertClosed = false;
+  constructor(private pf: FormBuilder,private abc: AbcService) { }
 
   public agregar(){
     this.inicializarForm();
@@ -45,6 +63,21 @@ export class EdificiosComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.idUsuario=localStorage.getItem('idUsuario');
+    this.abc.getAdministrador_Usuario(this.idUsuario).subscribe((data: any) => {
+      this.administradorUser=data;
+      this.obtenerEdificios();
+    });
+    setTimeout(() => this.staticAlertClosed = true, 20000);
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
+    this._danger.subscribe((message) => this.dangerMessage = message);
+    this._danger.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.dangerMessage = null);
+    this.inicializarForm();
     this.dtOptions = {
       language: {
         "emptyTable": "Sin resultados encontrados",
@@ -66,6 +99,9 @@ export class EdificiosComponent implements OnInit {
         }
       }
     };
+  }
+  obtenerEdificios(): any {
+    throw new Error("Method not implemented.");
   }
 
 }

@@ -13,6 +13,8 @@ declare var $:any;
   styleUrls: ['./personaldocente.component.css']
 })
 export class PersonaldocenteComponent implements OnInit {
+  bsValue:any;
+  fecha:any;
   modal:string;
   modulo:string='Personal Docente';
   docenteForm:FormGroup;
@@ -71,6 +73,13 @@ export class PersonaldocenteComponent implements OnInit {
     this.modal = 'modificar';
     this.abc.getDocenete(idDocente).subscribe((data: any) => {
       console.log(data);
+      this.fecha=data.fechaNac.split('-');
+      this.bsValue=new Date(this.fecha[0],this.fecha[1]-1,this.fecha[2]);
+      console.log(this.fecha);
+      this.abc.getMunicipio(data.idMunicipio).subscribe((data: any) => {
+        this.idEstado=data.idEstado;
+        this.change();
+      });
       this.docenteForm=this.pf.group({
         idDocente: data.idDocente,
         nombre: data.nombre,
@@ -168,7 +177,7 @@ export class PersonaldocenteComponent implements OnInit {
       this.abc.updateDocenete(this.docente).subscribe(res => {
         this.obtenerDocentes();
         this._success.next('Datos modificados con éxito');
-        $("#modal-modificar").modal('hide');
+        $("#modal").modal('hide');
       }, (err) => {
         this._danger.next('A ocurrido un error intentalo de nuevo');
         console.log(err);
