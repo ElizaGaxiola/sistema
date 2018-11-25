@@ -47,7 +47,8 @@ export interface Docente{
     contrasena:string,
     urlImagen:string,
     estatus:string,
-    escuelaId:string
+    escuelaId:string,
+    usuarioId:number
 }
 
 export interface Administrador{

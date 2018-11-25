@@ -300,23 +300,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12 ">
-                                        <div class="form-group">
-                                            <label for="materia"> Imagen Docente</label>
-                                            <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.urlImagen.valid"></i>
-                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.urlImagen.invalid &&
-                                            docenteForm.controls.urlImagen.touched"></i> 
-                                            <div class="custom-file col-sm-12" style="margin-top: 20px">
-                                                <input   type="file" formControlName="urlImagen" class="custom-file-input" id="customFileLang" lang="es">
-                                                <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
-                                                <p class="alert alert-danger" *ngIf="docenteForm.controls.urlImagen.invalid &&
-                                                docenteForm.controls.urlImagen.touched">
-                                                El campo Imagen Docente es obligatorio</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                   <div class="col-sm-12 ">
                                     <div *ngIf="modal == 'modificar'" class="form-group">
                                         <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!docenteForm.valid>Modificar</button>

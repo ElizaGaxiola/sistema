@@ -17,10 +17,10 @@ export class PersonaldocenteComponent implements OnInit {
   modulo:string='Personal Docente';
   docenteForm:FormGroup;
   docente: Docente;
-  seccionesSelect: any[]=[
-    {id:1,name:'Masculino'},
-    {id:2,name:'Femenino'},
-    {id:3,name:'Indefinido'}
+  sexoSelect: any[]=[
+    {id: 1, name: 'Masculino'},
+    {id: 2, name: 'Femenino'},
+    {id: 3, name: 'Indefinido'}
   ];
   idEstado:any;
   estadosSelect: any[]=[];
@@ -36,8 +36,24 @@ export class PersonaldocenteComponent implements OnInit {
   staticAlertClosed = false;
   idUsuario: any;
   administradorUser:Administrador;
-  constructor(private abc: AbcService, private pf: FormBuilder) {}
-
+  constructor(private abc: AbcService, private pf: FormBuilder) {
+    this.abc.getEstados().subscribe((data: any) => {
+      for (let estado of data) {
+        this.estadosSelect = [...this.estadosSelect, {id: estado.idEstado, name: estado.nombre}];
+      }
+    });
+  }
+  public change(){
+    console.log(this.idEstado);
+    this.abc.getMunicipioEdo(this.idEstado).subscribe((data: any) => {
+       this.municipiosSelect=[];
+       if (data != null){
+        for (let municipio of data) {
+          this.municipiosSelect = [...this.municipiosSelect, {id: municipio.idMunicipio, name: municipio.nombre}];
+        }
+       }
+    });
+  }
   public obtenerDocentes(){
     this.abc.getDocenetes(this.administradorUser.idEscuela)
     .subscribe((data: any) => {
@@ -92,6 +108,25 @@ export class PersonaldocenteComponent implements OnInit {
   }
   onSubmit(){
     this.docente = this.saveDocente();
+    if (this.modal=='modificar'){
+      this.abc.updateDocenete(this.docente).subscribe(res => {
+        this.obtenerDocentes();
+        this._success.next('Datos modificados con éxito');
+        $("#modal-modificar").modal('hide');
+      }, (err) => {
+        this._danger.next('A ocurrido un error intentalo de nuevo');
+        console.log(err);
+      }
+     );
+    }else{
+      this.abc.insertDocenete(this.docente).subscribe(res => {
+        this.obtenerDocentes();
+        $("#modal-modificar").modal('hide');
+      }, (err) => {
+        console.log(err);
+      }
+     );
+    }
   }
   public inicializarForm(){
     this.docenteForm = this.pf.group({
@@ -113,9 +148,10 @@ export class PersonaldocenteComponent implements OnInit {
       numero: ['',[Validators.required]],
       cp: ['',[Validators.required]],
       contrasena: ['',[Validators.required]],
-      urlImagen: ['',[Validators.required]],
+      urlImagen: [''],
       estatus: [''],
-      escuelaId: ['1',[Validators.required]],
+      escuelaId: [this.administradorUser.idEscuela,[Validators.required]],
+      usuarioId:[''],
     });
    }
   public saveDocente(){
@@ -138,8 +174,9 @@ export class PersonaldocenteComponent implements OnInit {
         cp: this.docenteForm.get('cp').value,
         contrasena: this.docenteForm.get('contrasena').value,
         urlImagen: this.docenteForm.get('urlImagen').value,
-        estatus: this.docenteForm.get('status').value,
-        escuelaId: this.docenteForm.get('escuelaId').value,
+        estatus: this.docenteForm.get('estatus').value,
+        escuelaId: this.administradorUser.idEscuela,
+        usuarioId: this.docenteForm.get('usuarioId').value,
     }
     return saveDocente;
   }

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador } from './modelos';
+import { Escuela, Administrador, Docente } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,7 +24,20 @@ export class AbcService {
         return result;
     }))  
   }
-
+  //Actualizar Docenete
+  updateDocenete (docente:Docente): Observable<any> {
+    return this.http.put('/api/docenteUpdate', docente, httpOptions).pipe(
+      tap(_ => console.log('updated administrador')),
+      catchError(this.handleError<any>('updateAdministrador'))
+    );
+  }
+  //Agregar Docenete
+  insertDocenete (docente:Docente): Observable<any> {
+    return this.http.post('/api/docenteInsert', docente, httpOptions).pipe(
+      tap(_ => console.log('insert administrador')),
+      catchError(this.handleError<any>('insertAdministrador'))
+    );
+  }
 
 
 
