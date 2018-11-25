@@ -20,6 +20,25 @@ export interface Edificio{
     estatus:number; 
 }
 
+export interface Aviso{
+    idAviso: number;
+    mensaje:string;
+    titulo: string;
+    fechaFin: string;
+    fechaIni: string;
+}
+
+export interface Asignatura{
+    idMateria: number;
+    nombre:string;
+    creditos: number;
+}
+
+export interface Carrera{
+    idCarrera: number;
+    descripcion:string;
+}
+
 export interface Aula{
     idAula:number;
     idEdificio:number;

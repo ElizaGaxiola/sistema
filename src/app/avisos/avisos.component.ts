@@ -1,6 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Http, Response } from '@angular/http';
+import { Aviso } from '../modelos';
 declare var jQuery:any;
 declare var $:any;
 
@@ -11,34 +12,20 @@ declare var $:any;
 })
 export class AvisosComponent implements OnInit {
   modulo:string='Avisos';
-   //configuración para select
- config = {
-  multiple:false,
-  //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
-  displayKey:"description", 
-  search:true 
-}
-dataModel:any[] = ['101','102','103']
-avisoForm: FormGroup;
-aviso: any;
-  
+  avisoForm: FormGroup;
+  aviso: Aviso;
+  modal: string;
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { titulo: "1", fechaIni:"Acosta",  fechaFin:"Acosta"},
     
   ];
-  constructor(private pf: FormBuilder) { }
+  constructor( private pf: FormBuilder) { }
+  
   public agregar(){
- 
-    $("#modal-agregar").modal();
-  }
-  public modificar(){
-    
+    this.inicializarForm();
+    this.modal = 'agregar';
     $("#modal-modificar").modal();
-  }
-  public asignar(){
-    
-    $("#modal-asignar").modal();
   }
   
   ngOnInit(): void {
@@ -63,22 +50,31 @@ aviso: any;
         }
       }
     };
-    this.avisoForm=this.pf.group({
-      nombre:['',[ Validators.required]],
-      
-    });
+   
   }
  
   onSubmit(){
     this.aviso = this.saveAviso();
   }
-  saveAviso(){
-    const saveAviso={
-      nombre: this.avisoForm.get('nombre').value,
-  
-    };
+  public saveAviso(){
+    const saveAviso ={
+        idAviso: this.avisoForm.get('idAviso').value,
+        titulo: this.avisoForm.get('titulo').value,
+        mensaje: this.avisoForm.get('mensaje').value,
+        fechaFin: this.avisoForm.get('fechaFin').value,
+        fechaIni: this.avisoForm.get('fechaIni').value,
+    }
     return saveAviso;
   }
+  public inicializarForm(){
+    this.avisoForm = this.pf.group({
+      idAviso: [''],
+      titulo: ['',[Validators.required]],
+      mensaje: ['',[Validators.required]],
+      fechaIni: ['',[Validators.required]],
+      fechaFin: ['',[Validators.required]],
+    });
+   }
 
   
 }

@@ -53,23 +53,37 @@
                           <div class="modal-body">
                             <div class="card">
                                <div class="card-header">
-                                  <strong>Modificar Aviso</strong>
+                                  <strong *ngIf="modal == 'modificar'">Modificar Aviso</strong>
+                                  <strong *ngIf="modal == 'agregar'">Agregar Aviso</strong>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="card-body">
+                                  <form [formGroup]="avisoForm" (ngSubmit)="onSubmit()">
                                   <div class="row">
                                       <div class="col-sm-12 ">
                                         <div class="form-group">
                                           <label for="materia">Título del Aviso</label>
-                                          <input  class="form-control" id="titulo" type="text" value="Matemáticas">
+                                          <i class="fa fa-check-circle check" *ngIf="avisoForm.controls.titulo.valid"></i>
+                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="avisoForm.controls.titulo.invalid &&
+                                          avisoForm.controls.titulo.touched"></i>
+                                          <input  class="form-control" id="titulo" type="text" formControlName="titulo">
+                                          <p class="alert alert-danger" *ngIf="avisoForm.controls.titulo.invalid &&
+                                          avisoForm.controls.titulo.touched">
+                                          El campo Título es obligatorio</p>
                                         </div>
                                       </div>
                                       <div class="col-sm-12 ">
                                           <div class="form-group">
-                                            <label for="materia">Descripción del Aviso</label>
-                                            <input  class="form-control" id="mensaje" type="text" value="Matemáticas">
+                                            <label for="materia">Mensaje</label>
+                                            <i class="fa fa-check-circle check" *ngIf="avisoForm.controls.mensaje.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="avisoForm.controls.mensaje.invalid &&
+                                            avisoForm.controls.mensaje.touched"></i>
+                                            <input  class="form-control" id="mensaje" type="text" formControlName="mensaje">
+                                            <p class="alert alert-danger" *ngIf="avisoForm.controls.mensaje.invalid &&
+                                            avisoForm.controls.mensaje.touched">
+                                            El campo Mensaje es obligatorio</p>
                                           </div>
                                         </div>
                                   </div>
@@ -77,103 +91,61 @@
                                       <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="materia">Fecha Inicio</label>
+                                            <i class="fa fa-check-circle check" *ngIf="avisoForm.controls.fechaIni.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="avisoForm.controls.fechaIni.invalid &&
+                                            avisoForm.controls.fechaIni.touched"></i>
                                             <div class="input-group">
-                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" formControlName="fechaIni" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
                                                 <div class="input-group-btn">
                                                     <button  type="button" class="btn btn-calendar" (click)="dp.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                 </div>
+                                                <p class="alert alert-danger" *ngIf="avisoForm.controls.fechaIni.invalid &&
+                                                avisoForm.controls.fechaIni.touched">
+                                                El campo Fecha Inicio es obligatorio</p>
                                             </div>
                                         </div>
                                       </div>
                                       <div class="col-sm-12 col-md-6">
                                           <div class="form-group">
                                             <label for="materia">Fecha Final</label>
+                                            <i class="fa fa-check-circle check" *ngIf="avisoForm.controls.fechaFin.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="avisoForm.controls.fechaFin.invalid &&
+                                            avisoForm.controls.fechaFin.touched"></i>
                                             <div class="input-group">
-                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
+                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" formControlName="fechaFin" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
                                                 <div class="input-group-btn">
                                                     <button  type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                 </div>
+                                                <p class="alert alert-danger" *ngIf="avisoForm.controls.fechaFin.invalid &&
+                                                avisoForm.controls.fechaFin.touched">
+                                                El campo Fecha Final es obligatorio</p>
                                               </div>
                                           </div>
                                     </div>
                                   </div>
                                   <div class="row">
-                                      <div class="col-sm-12">
-                                          <div class="form-group">
-                                           <button type="submit" class="btn btn-fill btn-rose">Modificar</button>
-                                         </div>
-                                      </div>          
-                                    </div>
+                                      <div class="col-sm-12 ">
+                                          <div *ngIf="modal == 'modificar'" class="form-group">
+                                            <button type="submit" class="btn btn-fill btn-rose " [disabled]=!avisoForm.valid>Modificar</button>
+                                            <p class="alert alert-danger" *ngIf="!avisoForm.valid">
+                                                Por favor complete los campos
+                                            </p>
+                                          </div>
+                                          <div *ngIf="modal == 'agregar'" class="form-group">
+                                            <button type="submit" class="btn btn-fill btn-rose " [disabled]=!avisoForm.valid>Agregar</button>
+                                            <p class="alert alert-danger" *ngIf="!avisoForm.valid">
+                                                Por favor complete los campos
+                                            </p>
+                                          </div>
+                                      </div> 
+                                  </div>
+                                </form>
                                 </div>
                               </div>
                           </div>
                     </div>
                   </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                            <div class="modal-body">
-                              <div class="card">
-                                 <div class="card-header">
-                                    <strong>Agregar Nuevo Aviso</strong>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="row">
-                                          <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                              <label for="materia">Título del Aviso</label>
-                                              <input  class="form-control" id="titulo" type="text" value="Matemáticas">
-                                            </div>
-                                          </div>
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                                <label for="materia">Descripción del Aviso</label>
-                                                <input  class="form-control" id="mensaje" type="text" value="Matemáticas">
-                                              </div>
-                                            </div>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="materia">Fecha Inicio</label>
-                                                <div class="input-group">
-                                                    <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
-                                                    <div class="input-group-btn">
-                                                        <button  type="button" class="btn btn-calendar" (click)="dp.show() " ><i class="fas fa-calendar-alt"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-sm-12 col-md-6">
-                                              <div class="form-group">
-                                                <label for="materia">Fecha Final</label>
-                                                <div class="input-group">
-                                                    <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
-                                                    <div class="input-group-btn">
-                                                        <button  type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
-                                                    </div>
-                                                  </div>
-                                              </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-sm-12">
-                                              <div class="form-group">
-                                               <button type="submit" class="btn btn-fill btn-rose">Agregar</button>
-                                             </div>
-                                          </div>          
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-                  </div>
               </div> 
             </div>
           </div>
