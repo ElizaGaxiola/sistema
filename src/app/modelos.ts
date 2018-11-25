@@ -59,6 +59,7 @@ export interface Aula{
     idEdificio:number;
     descripcion:string;
     estatus:number;
+    edificio:string;
 }
 
 export interface Docente{

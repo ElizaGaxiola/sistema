@@ -35,7 +35,17 @@
                           <tr *ngFor="let item of data">
                               <td>{{item.descripcion}}</td>
                               <td>{{item.edificio}}</td>
-                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                              <td>
+                                <button type='button' (click)='modificar(item.idAula)' class='btn btn-warning' title='Modificar'>
+                                  <i class='fas fa-edit'></i>
+                                </button>
+                                <button *ngIf="item.estatus == 1" type='button' (click)='status(item.idAula,item.estatus)' class='btn btn-success' title='Activo'>
+                                  <i class='far fa-check-circle'></i>
+                                </button>
+                                <button *ngIf="item.estatus == 0" type='button' (click)='status(item.idAula,item.estatus)' class='btn btn-danger' title='Inactivo'>
+                                    <i class="far fa-times-circle"></i>
+                                </button>
+                              </td>
                           </tr>
                           </tbody>
                       </table>
@@ -43,7 +53,7 @@
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog  modal-dialog-centered" role="document">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                           <div class="modal-body">
                             <div class="card">
@@ -57,23 +67,25 @@
                                 <div class="card-body">
                                   <form [formGroup]="aulaForm" (ngSubmit)="onSubmit()">
                                   <div class="row">
-                                    <div class="center-block">
+                                    
                                       <div class="col-sm-12 ">
                                         <div class="form-group">
                                           <label for="materia">Descripción</label>
                                           <i class="fa fa-check-circle check" *ngIf="aulaForm.controls.descripcion.valid"></i>
                                           <i class="fa fa-exclamation-circle uncheck" *ngIf="aulaForm.controls.descripcion.invalid &&
                                           aulaForm.controls.descripcion.touched"></i>
-                                          <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
+                                          <input  class="form-control" id="descripcion" type="text" formControlName="descripcion">
                                           <p class="alert alert-danger" *ngIf="aulaForm.controls.descripcion.invalid &&
                                           aulaForm.controls.descripcion.touched">
                                           El campo Descripción es obligatorio</p>
                                         </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-12">
                                           <div class="form-group">
-                                            <label for="materia">Edificio</label>
-                                            <i class="fa fa-check-circle check" *ngIf="aulalaForm.controls.idEdificio.valid"></i>
+                                            <label>Edificio</label>
+                                            <i class="fa fa-check-circle check" *ngIf="aulaForm.controls.idEdificio.valid"></i>
                                             <i class="fa fa-exclamation-circle uncheck" *ngIf="aulaForm.controls.idEdificio.invalid &&
                                             aulaForm.controls.idEdificio.touched"></i>
                                             <ng-select [items]="edificioSelect"
@@ -86,7 +98,6 @@
                                            aulaForm.controls.idEdificio.touched">
                                            El campo Edificio es obligatorio</p>
                                           </div>
-                                        </div>
                                     </div>
                                   </div>
                                   <div class="row">

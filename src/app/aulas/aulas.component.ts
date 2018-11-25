@@ -1,7 +1,10 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Aula} from '../modelos';
+import { Aula, Administrador} from '../modelos';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { AbcService } from '../abc.service';
 declare var jQuery:any;
 declare var $:any;
 
@@ -15,21 +18,66 @@ export class AulasComponent implements OnInit {
   modal:string;
   aulaForm:FormGroup;
   aula: Aula;
-  idEdificio:any;
+
   edificioSelect: any[]=[];
   dtOptions: DataTables.Settings = {};
-  data: any[]=[
-    { descripcion: " se encuentra", edificio:"1"},
-    
-  ];
-  constructor( private pf: FormBuilder) { }
+  data: Aula[]=[];
+  idUsuario: any;
+  administradorUser:Administrador={
+    idAdministrador:0,
+    nombre:'',
+    apellidoP:'',
+    apellidoM:'',
+    email:'',
+    contrasena:'',
+    idUsuario:0,
+    idEscuela:0,
+    estatus:0,
+    imagen:''
+  };
+  successMessage: string;
+  dangerMessage: string;
+  private _success = new Subject<string>();
+  private _danger = new Subject<string>();
+  staticAlertClosed = false;
+  constructor( private pf: FormBuilder,private abc: AbcService) {   }
   
   public agregar(){
     this.inicializarForm();
     this.modal = 'agregar';
-    $("#modal-modificar").modal();
+    $("#modal").modal();
+  }
+  obtenerAulas(){
+    this.abc.getAulas(this.administradorUser.idEscuela)
+    .subscribe((data: any) => {
+      this.data=data;
+      console.log(data);
+    });
   }
   ngOnInit(): void {
+    this.idUsuario=localStorage.getItem('idUsuario');
+    this.abc.getAdministrador_Usuario(this.idUsuario).subscribe((data: any) => {
+      this.administradorUser=data;
+      this.obtenerAulas();
+      this.abc.getEdificios(this.administradorUser.idEscuela).subscribe((data2: any) => {
+        console.log(data2);
+        if (data2 != null){
+          for (let edificio of data2) {
+            this.edificioSelect = [...this.edificioSelect, {id: edificio.idEdificio, name: edificio.descripcion}];
+          }
+        }
+       });
+    });
+    setTimeout(() => this.staticAlertClosed = true, 20000);
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
+    this._danger.subscribe((message) => this.dangerMessage = message);
+    this._danger.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.dangerMessage = null);
+    this.inicializarForm();
     this.dtOptions = {
       language: {
         "emptyTable": "Sin resultados encontrados",
@@ -54,19 +102,25 @@ export class AulasComponent implements OnInit {
   }
   public saveAula(){
     const saveAula ={
-        idAula: this.aulaForm.get('idEscuela').value,
-        idEdificio: this.aulaForm.get('idEscuela').value,
-        descripcion: this.aulaForm.get('idEscuela').value,
-        estatus: this.aulaForm.get('idEscuela').value,
+        idAula: this.aulaForm.get('idAula').value,
+        idEdificio: this.aulaForm.get('idEdificio').value,
+        descripcion: this.aulaForm.get('descripcion').value,
+        estatus: this.aulaForm.get('estatus').value,
+        edificio:this.aulaForm.get('edificio').value
     }
     return saveAula;
+  }
+  onSubmit(){
+    this.aula = this.saveAula();
+    console.log(this.aula);
   }
   public inicializarForm(){
     this.aulaForm = this.pf.group({
       idAula: [''],
-      idedificio: ['',[Validators.required]],
+      idEdificio: ['',[Validators.required]],
       descripcion: ['',[Validators.required]],
       estatus: [''],
+      edificio:[''],
     });
    }
 
