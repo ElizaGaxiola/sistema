@@ -19,6 +19,10 @@ export class PersonaldocenteComponent implements OnInit {
     {id:2,name:'Femenino'},
     {id:3,name:'Indefinido'}
   ];
+  idEstado:any;
+  estadosSelect: any[]=[];
+  idMunicipio:any;
+  municipiosSelect: any[]=[];
   dataModel:any[] = ['101','102','103']
   dtOptions: DataTables.Settings = {};
   data: any[]=[
