@@ -16,7 +16,7 @@ export interface Escuela{
 export interface Edificio{
     idEdificio:number;
     descripcion:string;
-    idEScuela:number;
+    idEscuela:number;
     estatus:number; 
 }
 
