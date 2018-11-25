@@ -9,14 +9,23 @@ declare var $:any;
 })
 export class CreargruposComponent implements OnInit {
   modulo:string='Grupos';
-      //configuración para select
- config = {
-  multiple:false,
-  //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
-  displayKey:"description", 
-  search:true 
-}
-dataModel:any[] = ['101','102','103']
+  idCarrera:any;
+  carreraSelect: any[]=[];
+  idCiclo:any;
+  cicloSelect: any[]=[];
+  idDocente:any;
+  docenteSelect: any[]=[];
+  idGrupoAnt:any;
+  grupoantSelect: any[]=[];
+  idMateria:any;
+  asignaturaSelect: any[]=[];
+  idPeriodo:any;
+  periodoSelect: any[]=[];
+  idSeccion:any;
+  seccionSelect: any[]=[];
+  idSubCiclo:any;
+  subcicloSelect: any[]=[];
+  dataModel:any[] = ['101','102','103']
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { ciclo:"Acosta", seccion:"07/08/2018", carrera:"07/07/2019"},

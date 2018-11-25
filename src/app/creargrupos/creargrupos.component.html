@@ -61,27 +61,47 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="materia"> Ciclo</label>
-                                                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                <ng-select [items]="cicloSelect"
+                                                    bindLabel="name"
+                                                    bindValue="id"
+                                                    placeholder="Selecciona"
+                                                    formControlName="idCiclo">
+                                                </ng-select>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="materia"> Subciclo</label>
-                                                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                              </div>
+                                                <ng-select [items]="subcicloSelect"
+                                                    bindLabel="name"
+                                                    bindValue="id"
+                                                    placeholder="Selecciona"
+                                                    formControlName="idSubCiclo">
+                                                </ng-select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                           <div class="col-sm-12 col-md-6">
                                               <div class="form-group">
                                                   <label for="materia"> Sección</label>
-                                                  <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                  <ng-select [items]="seccionSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        formControlName="idSeccion">
+                                                  </ng-select>
                                               </div>
                                           </div>
                                           <div class="col-sm-12 col-md-6">
                                               <div class="form-group">
                                                   <label for="materia"> Periodo</label>
-                                                  <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                  <ng-select [items]="periodoSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        formControlName="idPeriodo">
+                                                  </ng-select>  
                                                 </div> 
                                           </div>
                                       </div>
@@ -89,13 +109,23 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="materia"> Carrera</label>
-                                                    <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                    <ng-select [items]="carreraSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        formControlName="idCarrera">
+                                                    </ng-select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="materia">Materia</label>
-                                                    <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                    <label for="materia">Asignatura</label>
+                                                    <ng-select [items]="asignaturaSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        formControlName="idMateria">
+                                                    </ng-select>
                                                   </div>
                                             </div>
                                         </div>
@@ -103,13 +133,23 @@
                                               <div class="col-sm-12 col-md-6">
                                                   <div class="form-group">
                                                       <label for="materia"> Docente</label>
-                                                      <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                      <ng-select [items]="docenteSelect"
+                                                            bindLabel="name"
+                                                            bindValue="id"
+                                                            placeholder="Selecciona"
+                                                            formControlName="idDocente">
+                                                       </ng-select>
                                                   </div>
                                               </div>
                                               <div class="col-sm-12 col-md-6">
                                                   <div class="form-group">
                                                       <label for="materia"> Grupo Anterior</label>
-                                                      <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                      <ng-select [items]="grupoantSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        formControlName="idGrupoAnt">
+                                                      </ng-select>
                                                     </div>
                                               </div>
                                           </div>
