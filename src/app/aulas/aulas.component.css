@@ -29,3 +29,11 @@ button.btn.btn-fill.btn-rose.float-right{
     margin-right: auto;
     margin-left: auto;
   }
+  .check {
+    color: #42A948;
+    float: right;
+}
+.uncheck {
+    color: #A94442;
+    float: right;
+}

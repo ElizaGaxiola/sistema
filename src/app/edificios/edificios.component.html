@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper">
     <app-menu-admin></app-menu-admin>
     <div id="content-wrapper">
@@ -50,24 +51,38 @@
                                   </button>
                                 </div>
                                 <div class="card-body">
+                                  <form [formGroup]="edificioForm" (ngSubmit)="onSubmit()">
                                     <div class="row">
                                       <div class="center-block">
                                         <div class="col-sm-12 ">
                                           <div class="form-group">
                                             <label for="materia">Descripción</label>
-                                            <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
+                                            <i class="fa fa-check-circle check" *ngIf="edificioForm.controls.descripcion.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="edificioForm.Form.controls.descripcion.invalid &&
+                                            edificioForm..controls.descripcion.touched"></i>
+                                            <input  class="form-control" id="descripcion" type="text" formControlName="descripcion">
+                                            <p class="alert alert-danger" *ngIf="edificioForm.controls.descripcion.invalid &&
+                                            edificioForm.controls.descripcion.touched">
+                                            El campo Sección es obligatorio</p>
                                           </div>
                                         </div>
                                         <div class="col-sm-12 ">
                                             <div *ngIf="modal == 'modificar'" class="form-group">
-                                                <button type="submit" class="btn btn-fill btn-rose float-right">Modificar</button>
+                                                <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!edificioForm.valid>Modificar</button>
+                                                <p class="alert alert-danger" *ngIf="!edificioForm.valid">
+                                                    Por favor complete los campos
+                                                </p>
                                                 </div>
                                               <div *ngIf="modal == 'agregar'" class="form-group">
-                                                  <button type="submit" class="btn btn-fill btn-rose float-right">Agregar</button>
+                                                  <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!edificioForm.valid>Agregar</button>
+                                                  <p class="alert alert-danger" *ngIf="!edificioForm.valid">
+                                                      Por favor complete los campos
+                                                  </p>
                                               </div>
                                           </div>
                                       </div>
                                     </div>
+                                  </form>
                                 </div>
                               </div>
                           </div>

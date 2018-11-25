@@ -1,5 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Aula} from '../modelos';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 declare var jQuery:any;
 declare var $:any;
 
@@ -11,30 +13,22 @@ declare var $:any;
 export class AulasComponent implements OnInit {
   modulo:string='Aulas';
   modal:string;
-     //configuración para select
- config = {
-  multiple:false,
-  //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
-  displayKey:"description", 
-  search:true 
-}
-dataModel:any[] = ['101','102','103']
+  aulaForm:FormGroup;
+  aula: Aula;
+  idEdificio:any;
+  edificioSelect: any[]=[];
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { descripcion: " se encuentra", edificio:"1"},
     
   ];
-  constructor() { }
+  constructor( private pf: FormBuilder) { }
   
   public agregar(){
+    this.inicializarForm();
     this.modal = 'agregar';
-    $("#modal").modal();
+    $("#modal-modificar").modal();
   }
-  public modificar(){
-    this.modal = 'modificar';
-    $("#modal").modal();
-  }
-
   ngOnInit(): void {
     this.dtOptions = {
       language: {
@@ -58,5 +52,22 @@ dataModel:any[] = ['101','102','103']
       }
     };
   }
+  public saveAula(){
+    const saveAula ={
+        idAula: this.aulaForm.get('idEscuela').value,
+        idEdificio: this.aulaForm.get('idEscuela').value,
+        descripcion: this.aulaForm.get('idEscuela').value,
+        estatus: this.aulaForm.get('idEscuela').value,
+    }
+    return saveAula;
+  }
+  public inicializarForm(){
+    this.aulaForm = this.pf.group({
+      idAula: [''],
+      idedificio: ['',[Validators.required]],
+      descripcion: ['',[Validators.required]],
+      estatus: [''],
+    });
+   }
 
 }
