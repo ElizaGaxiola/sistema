@@ -54,6 +54,18 @@ export interface Subciclo{
     fechaIni: string;
 }
 
+export interface Grupo{
+    idCarrera: number;
+    idSubCiclo: number;
+    idCiclo: number;
+    idDocente: number;
+    idGrupo: number;
+    idGrupoAnt: number;
+    idMateria: number;
+    idPeriodo: number;
+    idSeccion: number;
+}
+
 export interface Aula{
     idAula:number;
     idEdificio:number;
