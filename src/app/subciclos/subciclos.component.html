@@ -39,14 +39,18 @@
                               <td>{{item.descripcion}}</td>
                               <td>{{item.fechaIni}}</td>
                               <td>{{item.fechaFin}}</td>
-                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                              <td>
+                                <button type='button' (click)='modificar(item.idCiclo,item.idSubCiclo)' class='btn btn-warning' title='Modificar'>
+                                  <i class='fas fa-edit'></i>
+                                </button>
+                              </td>
                           </tr>
                           </tbody>
                       </table>
                   </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
                           <div class="modal-body">
@@ -99,7 +103,7 @@
                                               <i class="fa fa-exclamation-circle uncheck" *ngIf="subcicloForm.controls.fechaIni.invalid &&
                                               subcicloForm.controls.fechaIni.touched"></i>
                                               <div class="input-group">
-                                                  <input class="form-control" formControlName="fechaIni" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp3="bsDatepicker" [bsConfig]="bsConfig">
+                                                  <input [bsValue]="bsValueIni" class="form-control" formControlName="fechaIni" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp3="bsDatepicker" [bsConfig]="bsConfig">
                                                   <div class="input-group-btn">
                                                       <button  type="button" class="btn btn-calendar" (click)="dp3.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                   </div>
@@ -116,7 +120,7 @@
                                               <i class="fa fa-exclamation-circle uncheck" *ngIf="subcicloForm.controls.fechaFin.invalid &&
                                               subcicloForm.controls.fechaFin.touched"></i>
                                               <div class="input-group">
-                                                  <input class="form-control" formControlName="fechaFin" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp4="bsDatepicker" [bsConfig]="bsConfig">
+                                                  <input [bsValue]="bsValueFin" class="form-control" formControlName="fechaFin" [minDate]="minDate"  [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp4="bsDatepicker" [bsConfig]="bsConfig">
                                                   <div class="input-group-btn">
                                                       <button  type="button" class="btn btn-calendar" (click)="dp4.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                   </div>

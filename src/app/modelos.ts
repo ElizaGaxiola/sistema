@@ -44,6 +44,7 @@ export interface Ciclo{
     descripcion:string;
     fechaFin: string;
     fechaIni: string;
+    idEscuela: string;
 }
 
 export interface Subciclo{

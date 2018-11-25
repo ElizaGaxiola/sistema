@@ -60,6 +60,10 @@ export class PersonaldocenteComponent implements OnInit {
     this.abc.getDocenetes(this.administradorUser.idEscuela)
     .subscribe((data: any) => {
       this.data=data;
+      this.chRef.detectChanges();
+      // Now you can use jQuery DataTables :
+      const table: any = $('table');
+      this.dataTable = table.DataTable();
       console.log(data);
     });
   }
