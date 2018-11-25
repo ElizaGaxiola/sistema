@@ -34,8 +34,7 @@ export interface Docente{
     apellidoM:string,
     fechaNac:string,
     nss:string,
-    email:string,
-    telefonol:string,
+    telefono:string,
     titulo:string,
     curp:string,
     sexo:string,
@@ -44,11 +43,15 @@ export interface Docente{
     calle:string,
     numero:string,
     cp:string,
-    contrasena:string,
     urlImagen:string,
-    estatus:string,
-    escuelaId:string,
     usuarioId:number
+    estatus:number,
+    escuelaId:number,
+    idUsuario:number,
+    idTipo:number,
+    usuario:string,
+    contrasena:string
+
 }
 
 export interface Administrador{

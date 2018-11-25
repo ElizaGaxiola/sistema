@@ -17,6 +17,7 @@ export class AbcService {
 
   constructor(private http: HttpClient) { }
   //ABC Docente
+
   //Obtener Docenetes
   getDocenetes(idEScuela:number): Observable<any>{
     return this.http.get('/api/docentes?idEscuela='+idEScuela)
@@ -38,7 +39,14 @@ export class AbcService {
       catchError(this.handleError<any>('insertAdministrador'))
     );
   }
-
+  
+  //Obtener Docente
+  getDocenete(idDocente: number): Observable<any>{
+    return this.http.get('/api/docente?idDocente=' + idDocente)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
 
 
 

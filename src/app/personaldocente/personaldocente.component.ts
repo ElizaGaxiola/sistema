@@ -67,7 +67,63 @@ export class PersonaldocenteComponent implements OnInit {
     $("#modal").modal();
     alert('enter');
   }
-
+  public modificar(idDocente:number){
+    this.modal = 'modificar';
+    this.abc.getDocenete(idDocente).subscribe((data: any) => {
+      console.log(data);
+      this.docenteForm=this.pf.group({
+        idDocente: data.idDocente,
+        nombre: data.nombre,
+        apellidoP:data.apellidoP,
+        apellidoM: data.apellidoM,
+        fechaNac:data.fechaNac,
+        nss: data.nss,
+        telefonol: data.telefono,
+        titulo: data.titulo,
+        curp:data.curp,
+        sexo:data.sexo,
+        idMunicipio: data.idMunicipio,
+        colonia: data.colonia,
+        calle: data.calle,
+        numero: data.numero,
+        cp:data.cp,
+        urlImagen: data.urlImagen,
+        usuarioId: data.usuarioId,
+        estatus: data.estatus,
+        escuelaId: data.escuelaId,
+        idUsuario: data.idUsuario,
+        idTipo:data.idTipo,
+        usuario:data.usuario,
+        contrasena:data.contrasena,
+      });
+      $("#modal").modal();
+    });
+    
+  }
+  public modificarDocente(docente:Docente){
+    console.log(docente);
+    this.abc.updateDocenete(docente)
+    .subscribe(res => {
+        this._success.next('Datos modificados con éxito');
+        console.log('actualizado');
+        this.obtenerDocentes();
+      }, (err) => {
+        this._danger.next('A ocurrido un error intentalo de nuevo');
+        console.log(err);
+      }
+    );
+  }
+  public status(id:number,estatus:number){
+    this.abc.getDocenete(id)
+    .subscribe((data: any) => {
+      this.docente=data;
+      if (estatus == 0)
+        this.docente.estatus=1;
+      else
+        this.docente.estatus=0;
+      this.modificarDocente(this.docente); 
+    }); 
+  }
   ngOnInit(): void {
     this.idUsuario=localStorage.getItem('idUsuario');
     this.abc.getAdministrador_Usuario(this.idUsuario).subscribe((data: any) => {
@@ -130,14 +186,12 @@ export class PersonaldocenteComponent implements OnInit {
   }
   public inicializarForm(){
     this.docenteForm = this.pf.group({
-      idEscuela: [''],
       idDocente: [''],
       nombre: ['',[Validators.required]],
       apellidoP: ['',[Validators.required]],
       apellidoM: ['',[Validators.required]],
       fechaNac: ['',[Validators.required]],
       nss: ['',[Validators.required]],
-      email: ['',[Validators.required, Validators.email]],
       telefonol: ['',[Validators.required]],
       titulo: ['',[Validators.required]],
       curp:['',[Validators.required]],
@@ -147,11 +201,14 @@ export class PersonaldocenteComponent implements OnInit {
       calle: ['',[Validators.required]],
       numero: ['',[Validators.required]],
       cp: ['',[Validators.required]],
-      contrasena: ['',[Validators.required]],
       urlImagen: [''],
+      usuarioId:[''],
       estatus: [''],
       escuelaId: [1],
-      usuarioId:[''],
+      idUsuario:[''],
+      idTipo:[''],
+      usuario:['',[Validators.required, Validators.email]],
+      contrasena: [''],
     });
    }
   public saveDocente(){
@@ -162,8 +219,7 @@ export class PersonaldocenteComponent implements OnInit {
         apellidoM: this.docenteForm.get('apellidoM').value,
         fechaNac: this.docenteForm.get('fechaNac').value,
         nss: this.docenteForm.get('nss').value,
-        email: this.docenteForm.get('email').value,
-        telefonol: this.docenteForm.get('telefonol').value,
+        telefono: this.docenteForm.get('telefonol').value,
         titulo: this.docenteForm.get('titulo').value,
         curp: this.docenteForm.get('curp').value,
         sexo: this.docenteForm.get('sexo').value,
@@ -172,11 +228,14 @@ export class PersonaldocenteComponent implements OnInit {
         calle: this.docenteForm.get('calle').value,
         numero: this.docenteForm.get('numero').value,
         cp: this.docenteForm.get('cp').value,
-        contrasena: this.docenteForm.get('contrasena').value,
         urlImagen: this.docenteForm.get('urlImagen').value,
+        usuarioId: this.docenteForm.get('usuarioId').value,
         estatus: this.docenteForm.get('estatus').value,
         escuelaId: this.administradorUser.idEscuela,
-        usuarioId: this.docenteForm.get('usuarioId').value,
+        idUsuario:this.docenteForm.get('idUsuario').value,
+        idTipo:this.docenteForm.get('idTipo').value,
+        usuario:this.docenteForm.get('usuario').value,
+        contrasena: this.docenteForm.get('contrasena').value,
     }
     return saveDocente;
   }
