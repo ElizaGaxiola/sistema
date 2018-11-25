@@ -1,5 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Http, Response } from '@angular/http';
+import { Carrera } from '../modelos';
 declare var jQuery:any;
 declare var $:any;
 @Component({
@@ -9,21 +11,22 @@ declare var $:any;
 })
 export class CarrerasComponent implements OnInit {
   modulo:string='Carreras';
+  modal:string;
+  carreraForm: FormGroup;
+  carrera: Carrera;
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { descripcion:"Acosta"},
     
   ];
-  constructor() { }
-
+  constructor( private pf: FormBuilder) { }
+  
   public agregar(){
- 
-    $("#modal-agregar").modal();
-  }
-  public modificar(){
-    
+    this.inicializarForm();
+    this.modal = 'agregar';
     $("#modal-modificar").modal();
   }
+  
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -48,4 +51,21 @@ export class CarrerasComponent implements OnInit {
       }
     };
   }
+  onSubmit(){
+    this.carrera = this.saveCarrera();
+  }
+  public saveCarrera(){
+    const saveCarrera ={
+        idCarrera: this.carreraForm.get('idCarrera').value,
+        descripcion: this.carreraForm.get('descripcion').value,   
+    }
+    return saveCarrera;
+  }
+  public inicializarForm(){
+    this.carreraForm = this.pf.group({
+      idCarrera: [''],
+      descripcion: ['',[Validators.required]],
+      
+    });
+   }
 }
