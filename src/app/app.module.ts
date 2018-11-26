@@ -67,6 +67,7 @@ import { ReciboComponent } from './recibo/recibo.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PerfilDocenteComponent } from './perfil-docente/perfil-docente.component';
 import { ModificarPerfilDocenteComponent } from './modificar-perfil-docente/modificar-perfil-docente.component';
+import { AsignaturasxperiodosComponent } from './asignaturasxperiodos/asignaturasxperiodos.component';
 
 
 
@@ -102,6 +103,7 @@ const routes = [
   { path: 'administrativos/ModificarPerfil', component: ModificarPerfilAdministrativoComponent, canActivate: [AuthGuard]},
   { path: 'superusuario/ModificarPerfil', component: ModificarPerfilSuperuserComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/asignaturas', component: AsignaturasComponent, canActivate: [AuthGuard]},
+  { path: 'administrativos/asignaturasxperiodos', component: AsignaturasxperiodosComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/aulas', component: AulasComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/edificios', component: EdificiosComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/carreras', component: CarrerasComponent, canActivate: [AuthGuard]},
@@ -173,6 +175,7 @@ export function tokenGetter() {
     ReciboComponent,
     PerfilDocenteComponent,
     ModificarPerfilDocenteComponent,
+    AsignaturasxperiodosComponent,
   ],
   imports: [
     NgbModule,

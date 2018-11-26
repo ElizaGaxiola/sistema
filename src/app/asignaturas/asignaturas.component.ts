@@ -1,6 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Http, Response } from '@angular/http';
+import { Asignatura } from '../modelos';
 declare var jQuery:any;
 declare var $:any;
 
@@ -11,16 +12,10 @@ declare var $:any;
 })
 export class AsignaturasComponent implements OnInit {
   modulo:string='Asignaturas';
-     //configuración para select
- config = {
-  multiple:false,
-  //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
-  displayKey:"description", 
-  search:true 
-}
-dataModel:any[] = ['101','102','103']
-asignaturasForm: FormGroup;
-asignaturas: any;
+  modal:string;
+  dataModel:any[] = ['101','102','103']
+  asignaturaForm: FormGroup;
+  asignatura: Asignatura;
   
   dtOptions: DataTables.Settings = {};
   data: any[]=[
@@ -28,20 +23,20 @@ asignaturas: any;
     
   ];
   constructor(private pf: FormBuilder) { }
+
   public agregar(){
- 
-    $("#modal-agregar").modal();
-  }
-  public modificar(){
-    
+    this.inicializarForm();
+    this.modal = 'agregar';
     $("#modal-modificar").modal();
   }
-  public asignar(){
-    
-    $("#modal-asignar").modal();
-  }
- 
   
+  public inicializarForm(){
+    this.asignaturaForm = this.pf.group({
+      nombre:['',[ Validators.required]],
+      creditos:['',[ Validators.required]],
+      idMateria:[''],
+    });
+   }
   ngOnInit(): void {
     this.dtOptions = {
       language: {
@@ -64,21 +59,18 @@ asignaturas: any;
         }
       }
     };
-    this.asignaturasForm=this.pf.group({
-      nombre:['',[ Validators.required]],
-      
-    });
   }
  
   onSubmit(){
-    this.asignaturas = this.savePreinscripcion();
+    this.asignatura = this.saveAsignatura();
   }
-  savePreinscripcion(){
-    const saveAsignaturas={
-      nombre: this.asignaturasForm.get('nombre').value,
-  
+  saveAsignatura(){
+    const saveAsignatura={
+      idMateria: this.asignaturaForm.get('idMateria').value,
+      nombre: this.asignaturaForm.get('nombre').value,
+      creditos: this.asignaturaForm.get('creditos').value,
     };
-    return saveAsignaturas;
+    return saveAsignatura;
   }
 
 }

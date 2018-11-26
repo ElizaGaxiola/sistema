@@ -85,20 +85,20 @@
                                     </div>
                                   </div>
                                   <div class="row">
-                                      <div class="col-sm-12 ">
-                                          <div *ngIf="modal == 'modificar'" class="form-group">
-                                              <button  type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaForm.valid>Modificar</button>
-                                              <p class="alert alert-danger" *ngIf="!asignaturaForm.valid">
-                                               Por favor complete los campos
-                                              </p>
-                                          </div>
-                                          <div *ngIf="modal == 'agregar'" class="form-group">
-                                              <button type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaForm.valid>Agregar</button>
-                                              <p class="alert alert-danger" *ngIf="!asignaturaForm.valid">
-                                               Por favor complete los campos
-                                              </p>
-                                          </div>
-                                        </div>       
+                                    <div class="col-sm-12 ">
+                                      <div *ngIf="modal == 'modificar'" class="form-group">
+                                          <button  type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaForm.valid>Modificar</button>
+                                          <p class="alert alert-danger" *ngIf="!asignaturaForm.valid">
+                                           Por favor complete los campos
+                                          </p>
+                                      </div>
+                                      <div *ngIf="modal == 'agregar'" class="form-group">
+                                          <button type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaForm.valid>Agregar</button>
+                                          <p class="alert alert-danger" *ngIf="!asignaturaForm.valid">
+                                           Por favor complete los campos
+                                          </p>
+                                      </div>
+                                    </div>         
                                   </div>
                                   </form>
                                 </div>
@@ -115,7 +115,5 @@
       <app-footer></app-footer>
     </div>
   </div>
-
-
 
 

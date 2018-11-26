@@ -34,6 +34,14 @@ export interface Asignatura{
     creditos: number;
 }
 
+export interface AsignaturaPeriodo{
+    idMateria: number;
+    idCarrera: number;
+    idSeccion: number;
+    year: string;
+    idPeriodo: number;
+}
+
 export interface Carrera{
     idCarrera: number;
     descripcion:string;
