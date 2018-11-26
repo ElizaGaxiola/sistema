@@ -77,6 +77,13 @@ export interface Aula{
     edificio:string;
 }
 
+export interface Periodo{
+    idPeriodo:number;
+    idSeccion:number;
+    descripcion:string;
+    idCarrera:number;
+}
+
 export interface Docente{
     idDocente:number,
     nombre:string,
