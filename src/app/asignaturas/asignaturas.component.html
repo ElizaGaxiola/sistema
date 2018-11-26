@@ -4,6 +4,8 @@
     <div id="content-wrapper">
       <div class="container-fluid">
         <app-head [nombre]="modulo"></app-head>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -35,14 +37,14 @@
                           <tr *ngFor="let item of data">
                               <td>{{item.nombre}}</td>
                               <td>{{item.creditos}}</td>
-                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                              <td><button type='button' (click)='modificar(item.idMateria)' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button></td>
                           </tr>
                           </tbody>
                       </table>
                   </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                           <div class="modal-body">
@@ -57,7 +59,6 @@
                                 <div class="card-body">
                                   <form [formGroup]="asignaturaForm" (ngSubmit)="onSubmit()">
                                   <div class="row">
-                                      <div class="center-block">
                                       <div class="col-sm-12 ">
                                         <div class="form-group">
                                           <label for="materia">Nombre</label>
@@ -70,6 +71,8 @@
                                           El campo Nombre es obligatorio</p>
                                         </div>
                                       </div>
+                                    </div>
+                                    <div class="row">
                                       <div class="col-sm-12 ">
                                           <div class="form-group">
                                             <label for="materia">Créditos</label>
@@ -82,7 +85,6 @@
                                             El campo Créditos es obligatorio</p>
                                           </div>
                                         </div>
-                                    </div>
                                   </div>
                                   <div class="row">
                                       <div class="col-sm-12 ">

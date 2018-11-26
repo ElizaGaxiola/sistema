@@ -4,6 +4,8 @@
     <div id="content-wrapper">
       <div class="container-fluid">
         <app-head [nombre]="modulo"></app-head>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -20,33 +22,29 @@
                       <table datatable [dtOptions]="dtOptions" class="row-border hover">
                           <thead>
                           <tr>
-                              <th style="width: 25%">
+                              <th style="width: 40%">
                                   Descripción
                               </th>
-                              <th style="width: 25%">
-                                  Sección
-                              </th>
-                              <th style="width: 25%">
+                              <th style="width: 40%">
                                   Carrera
                                 </th>
-                              <th style="width: 25%">
+                              <th style="width: 20%">
                                 Acciones
                               </th>
                           </tr>
                           </thead>
                           <tbody>
-                          <tr *ngFor="let item of data">
+                          <tr *ngFor="let item of datosTable">
                               <td>{{item.descripcion}}</td>
-                              <td>{{item.seccion}}</td>
                               <td>{{item.carrera}}</td>
-                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                              <td><button type='button' (click)='modificar(item.idPeriodo,item.idSeccion,item.idCarrera)' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button></td>
                           </tr>
                           </tbody>
                       </table>
                   </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog  modal-dialog-centered" role="document">
                     <div class="modal-content">
                           <div class="modal-body">
@@ -61,8 +59,7 @@
                                 <div class="card-body">
                                   <form [formGroup]="periodoForm" (ngSubmit)="onSubmit()">
                                     <div class="row">
-                                      <div class="center-block">
-                                        <div class="col-sm-12 ">
+                                        <div class="col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <label for="materia"> Descripción</label>
                                                 <i class="fa fa-check-circle check" *ngIf="periodoForm.controls.descripcion.valid"></i>
@@ -74,46 +71,27 @@
                                                 El campo Descripción es obligatorio</p>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                                <label for="materia"> Sección</label>
-                                                <i class="fa fa-check-circle check" *ngIf="periodoForm.controls.idSeccion.valid"></i>
-                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="periodoForm.controls.idSeccion.invalid &&
-                                                periodoForm.controls.idSeccion.touched"></i>
-                                                <ng-select [items]="seccionesSelect"
-                                                          bindLabel="name"
-                                                          bindValue="id"
-                                                          placeholder="Selecciona"
-                                                          formControlName="idSeccion">
-                                                </ng-select>
-                                                <p class="alert alert-danger" *ngIf="periodoForm.controls.idSeccion.invalid &&
-                                                periodoForm.controls.idSeccion.touched">
-                                                El campo Sección es obligatorio</p>
-                                              </div>
-                                          </div>
-                                        </div>
                                     </div>
                                     <div class="row">
-                                      <div class="center-block">
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                              <label for="materia">Carrera</label>
-                                              <div class="input-group">
-                                                  <i class="fa fa-check-circle check" *ngIf="periodoForm.controls.idCarrera.valid"></i>
-                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="periodoForm.controls.idCarrera.invalid &&
-                                                  periodoForm.controls.idCarrera.touched"></i>
-                                                  <ng-select [items]="carreraSelect"
-                                                            bindLabel="name"
-                                                            bindValue="id"
-                                                            placeholder="Selecciona"
-                                                            formControlName="idCarrera">
-                                                  </ng-select>
-                                                  <p class="alert alert-danger" *ngIf="periodoForm.controls.idCarrera.invalid &&
-                                                  periodoForm.controls.idCarrera.touched">
-                                                  El campo Carrera es obligatorio</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                      <div class="col-sm-12 col-md-12">
+                                          <div class="form-group">
+                                              <label for="materia"> Carrera</label>
+                                              <i class="fa fa-check-circle check" *ngIf="periodoForm.controls.idCarrera.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="periodoForm.controls.idCarrera.invalid &&
+                                              periodoForm.controls.idCarrera.touched"></i>
+                                              <ng-select [items]="carreraSelect"
+                                                        bindLabel="name"
+                                                        bindValue="id"
+                                                        placeholder="Selecciona"
+                                                        formControlName="idCarrera">
+                                              </ng-select>
+                                              <p class="alert alert-danger" *ngIf="periodoForm.controls.idCarrera.invalid &&
+                                              periodoForm.controls.idCarrera.touched">
+                                              El campo Carrera es obligatorio</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                                    <div class="row">
                                         <div class="col-sm-12 ">
                                             <div *ngIf="modal == 'modificar'" class="form-group">
                                                 <button  type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!periodoForm.valid>Modificar</button>
@@ -128,8 +106,7 @@
                                                 </p>
                                               </div>
                                         </div>
-                                        </div>     
-                                    </div>
+                                      </div>  
                                   </form>
                                   </div>
                               </div>

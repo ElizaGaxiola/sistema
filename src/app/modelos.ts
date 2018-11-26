@@ -32,13 +32,13 @@ export interface Asignatura{
     idMateria: number;
     nombre:string;
     creditos: number;
+    idEscuela:number;
 }
 
 export interface AsignaturaPeriodo{
     idMateria: number;
     idCarrera: number;
     idSeccion: number;
-    year: string;
     idPeriodo: number;
 }
 

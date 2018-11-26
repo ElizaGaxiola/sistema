@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera } from './modelos';
+import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,7 +16,71 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
-     //ABC Subciclo
+
+  //ABC Asignatura
+
+  //Obtener asignaturas
+  getAsignaturas(idEscuela:number): Observable<any>{
+    return this.http.get('/api/asignaturas?idEscuela='+idEscuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  //Agregar periodo 
+  insertAsignatura (asignatura:Asignatura): Observable<any> {
+    return this.http.post('/api/asignaturaInsert', asignatura, httpOptions).pipe(
+      tap(_ => console.log('insert asignatura')),
+      catchError(this.handleError<any>('insertAsignatura'))
+    );
+  }
+  //Obtener periodo
+  getAsignatura(idAsignatura: number): Observable<any>{
+    return this.http.get('/api/asignatura?idMateria='+idAsignatura)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  
+  //Actualizar periodo
+  updateAsignatura (asignatura:Asignatura): Observable<any> {
+    return this.http.put('/api/asignaturaUpdate', asignatura, httpOptions).pipe(
+      tap(_ => console.log('updated asignatura')),
+      catchError(this.handleError<any>('updateAsignatura'))
+    );
+  }
+
+  //ABC periodo
+
+  //Obtener periodos
+  getPeriodos(idEscuela:number): Observable<any>{
+    return this.http.get('/api/periodos?idEscuela='+idEscuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  //Agregar periodo 
+  insertPeriodo (periodo:Periodo): Observable<any> {
+    return this.http.post('/api/periodoInsert', periodo, httpOptions).pipe(
+      tap(_ => console.log('insert periodo')),
+      catchError(this.handleError<any>('insertPeriodo'))
+    );
+  }
+  //Obtener periodo
+  getPeriodo(idPeriodo: number,idSeccion:number,idCarrera:number): Observable<any>{
+    return this.http.get('/api/periodo?idPeriodo='+idPeriodo+'&idSeccion='+idSeccion+'&idCarrera='+idCarrera)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  
+  //Actualizar periodo
+  updatePeriodo (periodo:Periodo): Observable<any> {
+    return this.http.put('/api/periodoUpdate', periodo, httpOptions).pipe(
+      tap(_ => console.log('updated periodo')),
+      catchError(this.handleError<any>('updatePeriodo'))
+    );
+  }
+  //ABC   Carrera
 
   //Obtener Carreras
   getCarreras(idEscuela:number): Observable<any>{

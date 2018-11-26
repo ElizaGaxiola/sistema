@@ -4,18 +4,23 @@
     <div id="content-wrapper">
       <div class="container-fluid">
         <app-head [nombre]="modulo"></app-head>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
         <div class="container">
           <div class="row">
+            <div class="col-sm-12 col-md-2">
+                <label style="margin-top: 30px;">Periodo</label>
+            </div>
             <div class="col-sm-12 col-md-4">
-                <label >Periodo</label>
                 <ng-select [items]="periodoSelect"
                     bindLabel="name"
                     bindValue="id"
                     placeholder="Selecciona"
-                    formControlName="idPeriodo">
+                    formControlName="idPeriodo"
+                    style="margin-top: 30px;">
               </ng-select>
             </div>
-            <div class="col-sm-12 col-md-8">
+            <div class="col-sm-12 col-md-6">
                 <button type="submit" (click)='agregar()' class="btn btn-fill btn-rose float-right">Agregar Asignatura</button>
             </div>
             <div class="col-sm-12">
@@ -44,21 +49,20 @@
                           <tr *ngFor="let item of data">
                               <td>{{item.nombre}}</td>
                               <td>{{item.creditos}}</td>
-                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                              <td><button type='button' (click)='eliminar(item.idSeccion,idPeriodo,idCarrera)' class='btn btn-danger' title='eliminar'><i class='far fa-check-circle'></i></button></td>
                           </tr>
                           </tbody>
                       </table>
                   </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="modal-modificar" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                           <div class="modal-body">
                             <div class="card">
                                <div class="card-header">
-                                  <strong *ngIf="modal == 'modificar'">Modificar Asignatura</strong>
-                                  <strong *ngIf="modal == 'agregar'">Agregar Asignatura</strong>
+                                  <strong>Agregar Asignatura</strong>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -66,7 +70,7 @@
                                 <div class="card-body">
                                   <form [formGroup]="asignaturaPeriodoForm" (ngSubmit)="onSubmit()">
                                   <div class="row">
-                                      <div class="col-sm-12 col-md-6">
+                                      <div class="col-sm-12">
                                         <div class="form-group">
                                           <label for="materia">Asignatura</label>
                                           <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.idMateria.valid"></i>
@@ -83,87 +87,16 @@
                                           El campo Asignatura es obligatorio</p>
                                         </div>
                                       </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Carrera</label>
-                                            <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.idCarrera.valid"></i>
-                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.idCarrera.invalid &&
-                                            asignaturaPeriodoForm.controls.idCarrera.touched"></i>
-                                            <ng-select [items]="carreraSelect"
-                                                bindLabel="name"
-                                                bindValue="id"
-                                                placeholder="Selecciona"
-                                                formControlName="idCarrera">
-                                            </ng-select>
-                                            <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.idCarrera.invalid &&
-                                            asignaturaPeriodoForm.controls.idCarrera.touched">
-                                            El campo Carrera es obligatorio</p>
-                                          </div>
-                                    </div>
                                   </div>
                                   <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                          <label for="materia">Sección</label>
-                                          <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.idSeccion.valid"></i>
-                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.idSeccion.invalid &&
-                                          asignaturaPeriodoForm.controls.idSeccion.touched"></i>
-                                          <ng-select [items]="seccionSelect"
-                                              bindLabel="name"
-                                              bindValue="id"
-                                              placeholder="Selecciona"
-                                              formControlName="idSeccion">
-                                          </ng-select>
-                                          <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.idSeccion.invalid &&
-                                          asignaturaPeriodoForm.controls.idSeccion.touched">
-                                          El campo Sección es obligatorio</p>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Periodo</label>
-                                            <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.idPeriodo.valid"></i>
-                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.idPeriodo.invalid &&
-                                            asignaturaPeriodoForm.controls.idPeriodo.touched"></i>
-                                            <ng-select [items]="periodoSelect"
-                                                bindLabel="name"
-                                                bindValue="id"
-                                                placeholder="Selecciona"
-                                                formControlName="idPeriodo">
-                                            </ng-select>
-                                            <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.idPeriodo.invalid &&
-                                            asignaturaPeriodoForm.controls.idPeriodo.touched">
-                                            El campo Periodo es obligatorio</p>
-                                          </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia">Año</label>
-                                            <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.year.valid"></i>
-                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.year.invalid &&
-                                            asignaturaPeriodoForm.controls.year.touched"></i>
-                                            <input  class="form-control" id="year" type="text" formControlName="year">
-                                            <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.year.invalid &&
-                                            asignaturaPeriodoForm.controls.year.touched">
-                                            El campo Año es obligatorio</p>
-                                          </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                      <div *ngIf="modal == 'modificar'" class="form-group">
-                                          <button  type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaPeriodoForm.valid>Modificar</button>
-                                          <p class="alert alert-danger" *ngIf="!asignaturaPeriodoForm.valid">
-                                           Por favor complete los campos
-                                          </p>
-                                      </div>
-                                      <div *ngIf="modal == 'agregar'" class="form-group">
+                                    <div class="col-sm-12">
+                                      <div class="form-group">
                                           <button type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaPeriodoForm.valid>Agregar</button>
                                           <p class="alert alert-danger" *ngIf="!asignaturaPeriodoForm.valid">
                                            Por favor complete los campos
                                           </p>
                                       </div>
-                                    </div>         
+                                    </div>  
                                   </div>
                                   </form>
                                 </div>
