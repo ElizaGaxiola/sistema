@@ -6,7 +6,16 @@
         <app-head [nombre]="modulo"></app-head>
         <div class="container">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12 col-md-4">
+                <label >Periodo</label>
+                <ng-select [items]="periodoSelect"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="Selecciona"
+                    formControlName="idPeriodo">
+              </ng-select>
+            </div>
+            <div class="col-sm-12 col-md-8">
                 <button type="submit" (click)='agregar()' class="btn btn-fill btn-rose float-right">Agregar Asignatura</button>
             </div>
             <div class="col-sm-12">
@@ -55,46 +64,102 @@
                                   </button>
                                 </div>
                                 <div class="card-body">
-                                  <form [formGroup]="asignaturaForm" (ngSubmit)="onSubmit()">
+                                  <form [formGroup]="asignaturaPeriodoForm" (ngSubmit)="onSubmit()">
                                   <div class="row">
-                                      <div class="center-block">
-                                      <div class="col-sm-12 ">
+                                      <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
-                                          <label for="materia">Nombre</label>
-                                          <i class="fa fa-check-circle check" *ngIf="asignaturaForm.controls.nombre.valid"></i>
-                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaForm.controls.nombre.invalid &&
-                                          asignaturaForm.controls.nombre.touched"></i>
-                                          <input  class="form-control" id="nombre" type="text" formControlName="nombre">
-                                          <p class="alert alert-danger" *ngIf="asignaturaForm.controls.nombre.invalid &&
-                                          asignaturaForm.controls.nombre.touched">
-                                          El campo Nombre es obligatorio</p>
+                                          <label for="materia">Asignatura</label>
+                                          <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.idMateria.valid"></i>
+                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.idMateria.invalid &&
+                                          asignaturaPeriodoForm.controls.idMateria.touched"></i>
+                                          <ng-select [items]="asignaturaSelect"
+                                              bindLabel="name"
+                                              bindValue="id"
+                                              placeholder="Selecciona"
+                                              formControlName="idMateria">
+                                          </ng-select>
+                                          <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.idMateria.invalid &&
+                                          asignaturaPeriodoForm.controls.idMateria.touched">
+                                          El campo Asignatura es obligatorio</p>
                                         </div>
                                       </div>
-                                      <div class="col-sm-12 ">
+                                      <div class="col-sm-12 col-md-6">
                                           <div class="form-group">
-                                            <label for="materia">Créditos</label>
-                                            <i class="fa fa-check-circle check" *ngIf="asignaturaForm.controls.creditos.valid"></i>
-                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaForm.controls.creditos.invalid &&
-                                            asignaturaForm.controls.creditos.touched"></i>
-                                            <input  class="form-control" id="creditos" type="number" formControlName="creditos">
-                                            <p class="alert alert-danger" *ngIf="asignaturaForm.controls.creditos.invalid &&
-                                            asignaturaForm.controls.creditos.touched">
-                                            El campo Créditos es obligatorio</p>
+                                            <label for="materia">Carrera</label>
+                                            <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.idCarrera.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.idCarrera.invalid &&
+                                            asignaturaPeriodoForm.controls.idCarrera.touched"></i>
+                                            <ng-select [items]="carreraSelect"
+                                                bindLabel="name"
+                                                bindValue="id"
+                                                placeholder="Selecciona"
+                                                formControlName="idCarrera">
+                                            </ng-select>
+                                            <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.idCarrera.invalid &&
+                                            asignaturaPeriodoForm.controls.idCarrera.touched">
+                                            El campo Carrera es obligatorio</p>
                                           </div>
-                                        </div>
                                     </div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-sm-12 ">
+                                      <div class="col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                          <label for="materia">Sección</label>
+                                          <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.idSeccion.valid"></i>
+                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.idSeccion.invalid &&
+                                          asignaturaPeriodoForm.controls.idSeccion.touched"></i>
+                                          <ng-select [items]="seccionSelect"
+                                              bindLabel="name"
+                                              bindValue="id"
+                                              placeholder="Selecciona"
+                                              formControlName="idSeccion">
+                                          </ng-select>
+                                          <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.idSeccion.invalid &&
+                                          asignaturaPeriodoForm.controls.idSeccion.touched">
+                                          El campo Sección es obligatorio</p>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-12 col-md-6">
+                                          <div class="form-group">
+                                            <label for="materia">Periodo</label>
+                                            <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.idPeriodo.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.idPeriodo.invalid &&
+                                            asignaturaPeriodoForm.controls.idPeriodo.touched"></i>
+                                            <ng-select [items]="periodoSelect"
+                                                bindLabel="name"
+                                                bindValue="id"
+                                                placeholder="Selecciona"
+                                                formControlName="idPeriodo">
+                                            </ng-select>
+                                            <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.idPeriodo.invalid &&
+                                            asignaturaPeriodoForm.controls.idPeriodo.touched">
+                                            El campo Periodo es obligatorio</p>
+                                          </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-6">
+                                          <div class="form-group">
+                                            <label for="materia">Año</label>
+                                            <i class="fa fa-check-circle check" *ngIf="asignaturaPeriodoForm.controls.year.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="asignaturaPeriodoForm.controls.year.invalid &&
+                                            asignaturaPeriodoForm.controls.year.touched"></i>
+                                            <input  class="form-control" id="year" type="text" formControlName="year">
+                                            <p class="alert alert-danger" *ngIf="asignaturaPeriodoForm.controls.year.invalid &&
+                                            asignaturaPeriodoForm.controls.year.touched">
+                                            El campo Año es obligatorio</p>
+                                          </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
                                       <div *ngIf="modal == 'modificar'" class="form-group">
-                                          <button  type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaForm.valid>Modificar</button>
-                                          <p class="alert alert-danger" *ngIf="!asignaturaForm.valid">
+                                          <button  type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaPeriodoForm.valid>Modificar</button>
+                                          <p class="alert alert-danger" *ngIf="!asignaturaPeriodoForm.valid">
                                            Por favor complete los campos
                                           </p>
                                       </div>
                                       <div *ngIf="modal == 'agregar'" class="form-group">
-                                          <button type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaForm.valid>Agregar</button>
-                                          <p class="alert alert-danger" *ngIf="!asignaturaForm.valid">
+                                          <button type="submit" class="btn btn-fill btn-rose " [disabled]=!asignaturaPeriodoForm.valid>Agregar</button>
+                                          <p class="alert alert-danger" *ngIf="!asignaturaPeriodoForm.valid">
                                            Por favor complete los campos
                                           </p>
                                       </div>
