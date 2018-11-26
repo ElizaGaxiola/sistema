@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper">
     <app-menu-admin></app-menu-admin>
     <div id="content-wrapper">
@@ -51,24 +52,43 @@
                           <div class="modal-body">
                             <div class="card">
                                <div class="card-header">
-                                  <strong>Modificar Periodo</strong>
+                                  <strong *ngIf="modal == 'modificar'">Modificar Periodo</strong>
+                                  <strong *ngIf="modal == 'agregar'">Agregar Periodo</strong>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="card-body">
+                                  <form [formGroup]="periodoForm" (ngSubmit)="onSubmit()">
                                     <div class="row">
                                       <div class="center-block">
                                         <div class="col-sm-12 ">
                                             <div class="form-group">
                                                 <label for="materia"> Descripción</label>
-                                                <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
+                                                <i class="fa fa-check-circle check" *ngIf="periodoForm.controls.descripcion.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="periodoForm.controls.descripcion.invalid &&
+                                                periodoForm.controls.descripcion.touched"></i>
+                                                <input  class="form-control" id="descripcion" type="text" formControlName="descripcion">
+                                                <p class="alert alert-danger" *ngIf="periodoForm.controls.descripcion.invalid &&
+                                                periodoForm.controls.descripcion.touched">
+                                                El campo Descripción es obligatorio</p>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 ">
                                             <div class="form-group">
                                                 <label for="materia"> Sección</label>
-                                                <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                <i class="fa fa-check-circle check" *ngIf="periodoForm.controls.idSeccion.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="periodoForm.controls.idSeccion.invalid &&
+                                                periodoForm.controls.idSeccion.touched"></i>
+                                                <ng-select [items]="seccionesSelect"
+                                                          bindLabel="name"
+                                                          bindValue="id"
+                                                          placeholder="Selecciona"
+                                                          formControlName="idSeccion">
+                                                </ng-select>
+                                                <p class="alert alert-danger" *ngIf="periodoForm.controls.idSeccion.invalid &&
+                                                periodoForm.controls.idSeccion.touched">
+                                                El campo Sección es obligatorio</p>
                                               </div>
                                           </div>
                                         </div>
@@ -79,75 +99,44 @@
                                             <div class="form-group">
                                               <label for="materia">Carrera</label>
                                               <div class="input-group">
-                                                  <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
+                                                  <i class="fa fa-check-circle check" *ngIf="periodoForm.controls.idCarrera.valid"></i>
+                                                  <i class="fa fa-exclamation-circle uncheck" *ngIf="periodoForm.controls.idCarrera.invalid &&
+                                                  periodoForm.controls.idCarrera.touched"></i>
+                                                  <ng-select [items]="carreraSelect"
+                                                            bindLabel="name"
+                                                            bindValue="id"
+                                                            placeholder="Selecciona"
+                                                            formControlName="idCarrera">
+                                                  </ng-select>
+                                                  <p class="alert alert-danger" *ngIf="periodoForm.controls.idCarrera.invalid &&
+                                                  periodoForm.controls.idCarrera.touched">
+                                                  El campo Carrera es obligatorio</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                             <button type="submit" class="btn btn-fill btn-rose ">Modificar</button>
-                                           </div>
+                                            <div *ngIf="modal == 'modificar'" class="form-group">
+                                                <button  type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!periodoForm.valid>Modificar</button>
+                                                <p class="alert alert-danger" *ngIf="!periodoForm.valid">
+                                                 Por favor complete los campos
+                                                </p>
+                                               </div>
+                                               <div *ngIf="modal == 'agregar'" class="form-group">
+                                                <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!periodoForm.valid>Agregar</button>
+                                                <p class="alert alert-danger" *ngIf="!periodoForm.valid">
+                                                 Por favor complete los campos
+                                                </p>
+                                              </div>
                                         </div>
                                         </div>     
-                                      </div>
+                                    </div>
+                                  </form>
                                   </div>
                               </div>
                           </div>
                     </div>
                   </div>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-agregar" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog  modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                            <div class="modal-body">
-                              <div class="card">
-                                 <div class="card-header">
-                                    <strong>Agregar Periodo por Sección</strong>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="row">
-                                        <div class="center-block">
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                                  <label for="materia"> Descripción</label>
-                                                  <input  class="form-control" id="descripcion" type="text" value="Matemáticas">
-                                              </div>
-                                          </div>
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                                  <label for="materia"> Sección</label>
-                                                  <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                                </div>
-                                            </div>
-                                          </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="center-block">
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                                <label for="materia">Carrera</label>
-                                                <div class="input-group">
-                                                    <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="col-sm-12 ">
-                                              <div class="form-group">
-                                               <button type="submit" class="btn btn-fill btn-rose ">Agregar</button>
-                                             </div>
-                                          </div> 
-                                        </div>    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
-                  </div>
+                </div> 
               </div> 
             </div>
           </div>
