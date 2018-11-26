@@ -1,4 +1,4 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component,OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AbcService } from '../abc.service';
 import { Http, Response } from '@angular/http';
 import {Escuela} from '../modelos';
@@ -17,7 +17,7 @@ export class EscuelasComponent implements OnInit {
   escuelaForm:FormGroup;
   modulo:string='Escuelas';
   modal:string;
-  dtOptions: DataTables.Settings = {};
+  dataTable: any;
   data: Escuela[]=[];
   escuela: Escuela;
   seccionesSelect: any[]=[];
@@ -31,7 +31,7 @@ export class EscuelasComponent implements OnInit {
   private _danger = new Subject<string>();
   staticAlertClosed = false;
 
-  constructor(private abc: AbcService, private pf: FormBuilder) { 
+  constructor(private abc: AbcService, private pf: FormBuilder,private chRef: ChangeDetectorRef) { 
     this.obtenerEscuelas();
     this.abc.getSecciones().subscribe((data: any) => {
       for (let seccion of data) {
@@ -137,6 +137,10 @@ export class EscuelasComponent implements OnInit {
     this.abc.getEscuela(clave)
     .subscribe((data: any) => {
       this.escuela=data;
+      this.chRef.detectChanges();
+      // Now you can use jQuery DataTables :
+      const table: any = $('table');
+      this.dataTable = table.DataTable();
     });
   }
   public modificarEscuela(escuela:Escuela){
@@ -190,27 +194,6 @@ export class EscuelasComponent implements OnInit {
       debounceTime(5000)
     ).subscribe(() => this.dangerMessage = null);
     this.inicializarForm();
-    this.dtOptions = {
-      language: {
-        "emptyTable": "Sin resultados encontrados",
-        "info": " _START_ - _END_ / _TOTAL_ ",
-        "infoEmpty": "0-0 /0",
-        "infoFiltered": "",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "<i class='fas fa-search'></i>",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
-      }
-    };
   }
 
 }

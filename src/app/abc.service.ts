@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador, Docente, Edificio } from './modelos';
+import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,10 +16,130 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+     //ABC Subciclo
+
+  //Obtener Carreras
+  getCarreras(idEscuela:number): Observable<any>{
+    return this.http.get('/api/carreras?idEscuela='+idEscuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  //Agregar Carrera 
+  insertCarrera (carrera:Carrera): Observable<any> {
+    return this.http.post('/api/carreraInsert', carrera, httpOptions).pipe(
+      tap(_ => console.log('insert carrera')),
+      catchError(this.handleError<any>('insertCarrera'))
+    );
+  }
+  //Obtener Carrera
+  getCarrera(idCarrera: number): Observable<any>{
+    return this.http.get('/api/carrera?idCarrera='+idCarrera)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  
+  //Actualizar Carrera
+  updateCarrera (carrera:Carrera): Observable<any> {
+    return this.http.put('/api/carreraUpdate', carrera, httpOptions).pipe(
+      tap(_ => console.log('updated carrera')),
+      catchError(this.handleError<any>('updateCarrera'))
+    );
+  }
+
+   //ABC Subciclo
+
+  //Obtener Subciclos
+  getSubCiclos(idEscuela:number): Observable<any>{
+    return this.http.get('/api/SubCiclos?idEscuela='+idEscuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  //Agregar Subciclo 
+  insertSubCiclo (subciclo:Subciclo): Observable<any> {
+    return this.http.post('/api/subCiclosInsert', subciclo, httpOptions).pipe(
+      tap(_ => console.log('insert subCiclo')),
+      catchError(this.handleError<any>('insertSubCiclo'))
+    );
+  }
+  //Obtener Subciclo
+  getSubCiclo(idCiclo: number,idSubCiclo: number): Observable<any>{
+    return this.http.get('/api/SubCiclo?idCiclo=' + idCiclo+'&idSubCiclo='+idSubCiclo)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  
+  //Actualizar Subciclo
+  updateSubCiclo (subciclo:Subciclo): Observable<any> {
+    return this.http.put('/api/subCiclosUpdate', subciclo, httpOptions).pipe(
+      tap(_ => console.log('updated subciclo')),
+      catchError(this.handleError<any>('updateSubCiclo'))
+    );
+  }
+
+  //ABC Ciclo
+
+  //Obtener Ciclos
+  getCiclos(idEscuela:number): Observable<any>{
+    return this.http.get('/api/ciclos?idEscuela='+idEscuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  //Agregar Ciclo 
+  insertCiclo (ciclo:Ciclo): Observable<any> {
+    return this.http.post('/api/cicloInsert', ciclo, httpOptions).pipe(
+      tap(_ => console.log('insert ciclo')),
+      catchError(this.handleError<any>('insertCiclo'))
+    );
+  }
+  //Obtener Ciclo
+  getCiclo(idCiclo: number): Observable<any>{
+    return this.http.get('/api/ciclo?idCiclo=' + idCiclo)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+  
+  //Actualizar Ciclo
+  updateCiclo (ciclo:Ciclo): Observable<any> {
+    return this.http.put('/api/cicloUpdate', ciclo, httpOptions).pipe(
+      tap(_ => console.log('updated ciclo')),
+      catchError(this.handleError<any>('updateCiclo'))
+    );
+  }
+
   //ABC Aulas
-  //Obtener Edificios
+
+  //Obtener Aulas
   getAulas(idEscuela:number): Observable<any>{
     return this.http.get('/api/aulas?idEscuela='+idEscuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Agregar Aula 
+  insertAula (aula:Aula): Observable<any> {
+    return this.http.post('/api/aulaInsert', aula, httpOptions).pipe(
+      tap(_ => console.log('insert aula')),
+      catchError(this.handleError<any>('insertAula'))
+    );
+  }
+
+  //Actualizar Aula
+  updateAula (aula:Aula): Observable<any> {
+    return this.http.put('/api/aulaUpdate', aula, httpOptions).pipe(
+      tap(_ => console.log('updated aula')),
+      catchError(this.handleError<any>('updateAula'))
+    );
+  }
+  //Obtener Aula
+  getAula(idAula: number): Observable<any>{
+    return this.http.get('/api/aula?idAula=' + idAula)
       .pipe(map(result => {
         return result;
     }))  
@@ -51,7 +171,7 @@ export class AbcService {
     );
   }
 
-  //Obtener Docente
+  //Obtener Edificio
   getEdificio(idEdificio: number): Observable<any>{
     return this.http.get('/api/edificio?idEdificio=' + idEdificio)
       .pipe(map(result => {
