@@ -30,7 +30,7 @@ export class CreargruposComponent implements OnInit {
   seccionSelect: any[]=[];
   idSubCiclo:any;
   subcicloSelect: any[]=[];
-  dataModel:any[] = ['101','102','103']
+  
   dtOptions: DataTables.Settings = {};
   data: any[]=[
     { ciclo:"Acosta", seccion:"07/08/2018", carrera:"07/07/2019"},
@@ -44,26 +44,24 @@ export class CreargruposComponent implements OnInit {
     $("#modal-modificar").modal();
   }
   public onSubmit(){
-    this.grupo = this.saveGroup();
+    this.grupo = this.saveGrupo();
   }
   public inicializarForm(){
     this.grupoForm = this.pf.group({
-      idEscuela: [''],
-      idSeccion: ['',[ Validators.required]],
-      clave: ['',[ Validators.required]],
-      nombre: ['',[ Validators.required]],
-      idMunicipio: ['',[ Validators.required]],
-      colonia:['',[ Validators.required]],
-      calle: ['',[ Validators.required]],
-      cp: ['',[ Validators.required]],
-      numero: ['',[ Validators.required]],
-      email:['',[ Validators.required, Validators.email]],
-      telefono: ['',[ Validators.required]],
-      estatus: [''],
+      idEscuela: ['',[Validators.required]],
+      idCarrera: ['',[Validators.required]],
+      idSeccion: ['',[Validators.required]],
+      idCiclo: ['',[Validators.required]],
+      idGrupo: [''],
+      idDocente: ['',[Validators.required]],
+      idGrupoAnt:['',[Validators.required]],
+      idMateria:['',[Validators.required]],
+      idPeriodo: ['',[Validators.required]],
+      idSubCiclo:['',[Validators.required]],
     });
    }
-  public saveGroup(){
-    const saveGupo ={
+  public saveGrupo(){
+    const saveGrupo ={
         idCarrera: this.grupoForm.get('idCarrera').value,
         idSeccion: this.grupoForm.get('idSeccion').value,
         idCiclo: this.grupoForm.get('idCiclo').value,
@@ -74,7 +72,7 @@ export class CreargruposComponent implements OnInit {
         idPeriodo: this.grupoForm.get('idPeriodo').value,
         idSubCiclo: this.grupoForm.get('idSubCiclo').value,
     }
-    return saveGupo;
+    return saveGrupo;
   }
   ngOnInit(): void {
     this.dtOptions = {
