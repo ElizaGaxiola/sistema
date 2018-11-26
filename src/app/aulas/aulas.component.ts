@@ -1,4 +1,4 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component,OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Aula, Administrador} from '../modelos';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
@@ -18,9 +18,8 @@ export class AulasComponent implements OnInit {
   modal:string;
   aulaForm:FormGroup;
   aula: Aula;
-
   edificioSelect: any[]=[];
-  dtOptions: DataTables.Settings = {};
+  dataTable: any;
   data: Aula[]=[];
   idUsuario: any;
   administradorUser:Administrador={
@@ -40,19 +39,62 @@ export class AulasComponent implements OnInit {
   private _success = new Subject<string>();
   private _danger = new Subject<string>();
   staticAlertClosed = false;
-  constructor( private pf: FormBuilder,private abc: AbcService) {   }
+  constructor( private pf: FormBuilder,private abc: AbcService,private chRef: ChangeDetectorRef) {   }
   
   public agregar(){
     this.inicializarForm();
     this.modal = 'agregar';
     $("#modal").modal();
   }
+  public modificar(idAula:number){
+    this.abc.getAula(idAula)
+    .subscribe((data: any) => {
+      this.aulaForm=this.pf.group({
+        idAula: data.idAula,
+        idEdificio: data.idEdificio,
+        descripcion: data.descripcion,
+        estatus: data.estatus,
+        edificio: data.edificio
+      });
+      this.modal = 'modificar';
+      $("#modal").modal();
+    }); 
+  }
   obtenerAulas(){
     this.abc.getAulas(this.administradorUser.idEscuela)
     .subscribe((data: any) => {
       this.data=data;
+      this.chRef.detectChanges();
+      // Now you can use jQuery DataTables :
+      const table: any = $('table');
+      this.dataTable = table.DataTable();
+
       console.log(data);
     });
+  }
+  public modificarAula(aula:Aula){
+    console.log(JSON.stringify(aula));
+    this.abc.updateAula(aula)
+    .subscribe(res => {
+        this._success.next('Datos modificados con éxito');
+        console.log('actualizado');
+        this.obtenerAulas();
+      }, (err) => {
+        this._danger.next('A ocurrido un error intentalo de nuevo');
+        console.log(err);
+      }
+    );
+  }
+  public status(idAula:number,estatus:number){
+    this.abc.getAula(idAula)
+    .subscribe((data: any) => {
+      this.aula=data;
+      if (estatus == 0)
+        this.aula.estatus=1;
+      else
+        this.aula.estatus=0;
+      this.modificarAula(this.aula); 
+    }); 
   }
   ngOnInit(): void {
     this.idUsuario=localStorage.getItem('idUsuario');
@@ -78,27 +120,7 @@ export class AulasComponent implements OnInit {
       debounceTime(5000)
     ).subscribe(() => this.dangerMessage = null);
     this.inicializarForm();
-    this.dtOptions = {
-      language: {
-        "emptyTable": "Sin resultados encontrados",
-        "info": " _START_ - _END_ / _TOTAL_ ",
-        "infoEmpty": "0-0 /0",
-        "infoFiltered": "",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "<i class='fas fa-search'></i>",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
-      }
-    };
+
   }
   public saveAula(){
     const saveAula ={
@@ -114,7 +136,7 @@ export class AulasComponent implements OnInit {
     this.aula = this.saveAula();
     console.log(this.aula);
     if (this.modal=='modificar'){
-      this.abc.updateEscuela(this.aula).subscribe(res => {
+      this.abc.updateAula(this.aula).subscribe(res => {
         this.obtenerAulas();
         $("#modal").modal('hide');
         this._success.next('Datos guardados con éxito');
@@ -124,7 +146,7 @@ export class AulasComponent implements OnInit {
       }
      );
     }else{
-      this.abc.insertEscuela(this.aula).subscribe(res => {
+      this.abc.insertAula(this.aula).subscribe(res => {
         this.obtenerAulas();
         $("#modal-modificar").modal('hide');
         this._success.next('Datos modificados con éxito');
