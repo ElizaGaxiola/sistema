@@ -16,6 +16,13 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+  //ABC Periodo_Asignatura
+  getAsignaturasPeriodo(idSeccion:number,idPeriodo:number,idCarrera:number): Observable<any>{
+    return this.http.get('/api/materiasPeriodos?idSeccion='+idSeccion+'&idPeriodo='+idPeriodo+'&idCarrera='+idCarrera)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
 
   //ABC Asignatura
 
@@ -26,14 +33,14 @@ export class AbcService {
         return result;
     }))  
   }
-  //Agregar periodo 
+  //Agregar asignatura 
   insertAsignatura (asignatura:Asignatura): Observable<any> {
     return this.http.post('/api/asignaturaInsert', asignatura, httpOptions).pipe(
       tap(_ => console.log('insert asignatura')),
       catchError(this.handleError<any>('insertAsignatura'))
     );
   }
-  //Obtener periodo
+  //Obtener asignatura
   getAsignatura(idAsignatura: number): Observable<any>{
     return this.http.get('/api/asignatura?idMateria='+idAsignatura)
       .pipe(map(result => {
@@ -41,7 +48,7 @@ export class AbcService {
     }))  
   }
   
-  //Actualizar periodo
+  //Actualizar asignatura
   updateAsignatura (asignatura:Asignatura): Observable<any> {
     return this.http.put('/api/asignaturaUpdate', asignatura, httpOptions).pipe(
       tap(_ => console.log('updated asignatura')),

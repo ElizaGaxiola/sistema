@@ -15,8 +15,8 @@
                 <ng-select [items]="periodoSelect"
                     bindLabel="name"
                     bindValue="id"
-                    placeholder="Selecciona"
-                    formControlName="idPeriodo"
+                    [(ngModel)]="periodo"
+                    (change)="change()"
                     style="margin-top: 30px;">
               </ng-select>
             </div>
