@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura } from './modelos';
+import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,6 +22,21 @@ export class AbcService {
       .pipe(map(result => {
         return result;
     }))  
+  }
+  //Agregar asignatura 
+  insertAsignaturaPeriodo (asignaturaPeriodo:AsignaturaPeriodo): Observable<any> {
+    return this.http.post('/api/asignaturaPeriodoInsert', asignaturaPeriodo, httpOptions).pipe(
+      tap(_ => console.log('insert asignaturaPeriodo')),
+      catchError(this.handleError<any>('insertAsignaturaPeriodo'))
+    );
+  }
+
+  //Delete asignatura 
+  deteleAsignaturaPeriodo (idMateria:number,idSeccion:number,idPeriodo:number,idCarrera:number): Observable<any> {
+    return this.http.delete('/api/asignaturaPeriodoDelete?idMateria='+idMateria+'&idSeccion='+idSeccion+'&idPeriodo='+idPeriodo+'&idCarrera='+idCarrera, httpOptions).pipe(
+      tap(_ => console.log('delete asignaturaPeriodo')),
+      catchError(this.handleError<any>('deteleAsignaturaPeriodo'))
+    );
   }
 
   //ABC Asignatura

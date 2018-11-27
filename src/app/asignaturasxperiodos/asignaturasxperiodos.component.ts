@@ -51,10 +51,18 @@ export class AsignaturasxperiodosComponent implements OnInit {
     this.inicializarForm();
     $("#modal").modal();
   }
+  public eliminar(idMateria){
+    this.abc.deteleAsignaturaPeriodo(idMateria,this.periodo.idSeccion,this.periodo.idPeriodo,this.periodo.idCarrera).subscribe(RES =>{
+      this._success.next('Datos guardados con éxito');
+      this.change();
+    }, (err) => {
+      console.log(err);
+      this._danger.next('A ocurrido un error intentalo de nuevo');
+    }
+    );
+
+  }
   public change(){
-    console.log(this.periodo.idSeccion);
-    console.log(this.periodo.idPeriodo);
-    console.log(this.periodo.idCarrera);
     this.abc.getAsignaturasPeriodo(this.periodo.idSeccion,this.periodo.idPeriodo,this.periodo.idCarrera)
     .subscribe((data: any) => {
       this.data=data;
@@ -62,16 +70,14 @@ export class AsignaturasxperiodosComponent implements OnInit {
       // Now you can use jQuery DataTables :
       const table: any = $('table');
       this.dataTable = table.DataTable();
-
-      console.log(data);
     });
   }
   public inicializarForm(){
     this.asignaturaPeriodoForm = this.pf.group({
       idMateria:['',[Validators.required]],
-      idCarrera: ['',[Validators.required]],
-      idSeccion: ['',[Validators.required]],
-      idPeriodo: ['',[Validators.required]]
+      idCarrera: [''],
+      idSeccion: [''],
+      idPeriodo: ['']
     });
    }
   ngOnInit(): void {
@@ -84,6 +90,12 @@ export class AsignaturasxperiodosComponent implements OnInit {
         for (let item of data) {
           this.id={idSeccion:item.idSeccion,idPeriodo:item.idPeriodo,idCarrera:item.idCarrera};
           this.periodoSelect = [...this.periodoSelect, {id:this.id, name: item.descripcion}];
+        }
+      });
+      this.abc.getAsignaturas(this.administradorUser.idEscuela)
+      .subscribe((data: any) => {
+        for (let item of data) {
+          this.asignaturaSelect = [...this.asignaturaSelect, {id:item.idMateria, name: item.nombre}];
         }
       });
     });
@@ -101,13 +113,22 @@ export class AsignaturasxperiodosComponent implements OnInit {
  
   onSubmit(){
     this.asignaturaPeriodo = this.saveAsignaturaPeriodo();
+    this.abc.insertAsignaturaPeriodo(this.asignaturaPeriodo).subscribe(res => {
+      this.change();
+      $("#modal").modal('hide');
+      this._success.next('Datos guardados con éxito');
+    }, (err) => {
+      console.log(err);
+      this._danger.next('A ocurrido un error intentalo de nuevo');
+    }
+   );
   }
   saveAsignaturaPeriodo(){
     const saveAsignaturaPeriodo={
       idMateria: this.asignaturaPeriodoForm.get('idMateria').value,
-      idCarrera: this.asignaturaPeriodoForm.get('idCarrera').value,
-      idSeccion: this.asignaturaPeriodoForm.get('idSeccion').value,
-      idPeriodo: this.asignaturaPeriodoForm.get('idPeriodo').value,
+      idCarrera: this.periodo.idCarrera,
+      idSeccion: this.periodo.idSeccion,
+      idPeriodo: this.periodo.idPeriodo,
     };
     return saveAsignaturaPeriodo;
   }
