@@ -68,7 +68,7 @@ export class IndexAdminComponent implements OnInit {
   
   ngOnInit() {
     this.loginadmForm=this.pf.group({
-      email:['',[Validators.required]],
+      email:['',[Validators.required, Validators.email]],
       contrasena:['',[Validators.required]]
     });
   }

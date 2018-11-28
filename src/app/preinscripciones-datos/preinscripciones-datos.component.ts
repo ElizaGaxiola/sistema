@@ -7,14 +7,10 @@ import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angula
   styleUrls: ['./preinscripciones-datos.component.css']
 })
 export class PreinscripcionesDatosComponent implements OnInit {
-  //configuración para select
-  config = {
-    multiple:false,
-    //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
-    displayKey:"description", 
-    search:true 
-  }
-  dataModel:any[] = ['101','102','103']
+  escuelaSelect: any[]=[];
+  sexoSelect: any[]=[];
+  municipioSelect: any[]=[];
+  estadoSelect: any[]=[];
   preinscripcionForm: FormGroup;
   preinscripcion: any;
   constructor(private pf: FormBuilder) { }
@@ -22,29 +18,32 @@ export class PreinscripcionesDatosComponent implements OnInit {
   ngOnInit() {
     this.preinscripcionForm=this.pf.group({
       nombre:['',[ Validators.required]],
-      apellidop:['', [Validators.required]], 
-      apellidom:['', [Validators.required]],
+      apellidoP:['', [Validators.required]], 
+      apellidoM:['', [Validators.required]],
       curp:['',[Validators.required]],
-      //sexo:['',[Validators.required]],
-      //municipio:['',[Validators.required]],
-      localidad:['',[Validators.required]],
-      lada:['',[Validators.required]],
-      telfijo:['',[Validators.required]],
-      lada2:['',[Validators.required]],
-      telcel:['',[Validators.required]],
-      correo:['',[Validators.required, Validators.email]],
-      correo2:['',[Validators.required, Validators.email]],
-      fecha:['',[Validators.required]],
+      sexo:['',[Validators.required]],
+      fechaNac:['',[Validators.required]],
+      idMunicipio:['',[Validators.required]],
+      telefonoTutor:['',[Validators.required]],
+      //idEstado:['',[Validators.required]],
+      //telefono:['',[Validators.required]],
+      celular:['',[Validators.required]],
+      email:['',[Validators.required, Validators.email]],
       colonia:['',[ Validators.required]],
-      codpos:['',[ Validators.required]],
+      cp:['',[ Validators.required]],
       calle:['',[ Validators.required]],
       numero:['',[ Validators.required]],
-      nombre1:['',[ Validators.required]],
-      apellidop1:['', [Validators.required]], 
-      apellidom1:['', [Validators.required]],
-      fecha2:['',[Validators.required]],
-      ocupacion:['',[Validators.required]],
-      suimagen:['',[Validators.required]],
+      nombreTutor:['',[ Validators.required]],
+      apellidoPTutor:['', [Validators.required]], 
+      apellidoMTutor:['', [Validators.required]],
+      fechaNacTutor:['',[Validators.required]],
+      emailTutor:['',[Validators.required, Validators.email]],
+      urlImagen:['',[Validators.required]],
+      urlActa:['',[Validators.required]],
+      urlConstancia:['',[Validators.required]],
+      urlCredencial:['',[Validators.required]],
+      urlComprobante:['',[Validators.required]],
+      idEscuela:['',[Validators.required]],
     });
   }
   onSubmit(){
@@ -53,29 +52,32 @@ export class PreinscripcionesDatosComponent implements OnInit {
   savePreinscripcion(){
     const savePreinscripcion={
       nombre: this.preinscripcionForm.get('nombre').value,
-      apellidop: this.preinscripcionForm.get('apellidop').value,
-      apellidom: this.preinscripcionForm.get('apellidom').value,
+      apellidoP: this.preinscripcionForm.get('apellidoP').value,
+      apellidoM: this.preinscripcionForm.get('apellidoM').value,
       curp: this.preinscripcionForm.get('curp').value,
-      fecha: this.preinscripcionForm.get('fecha').value,
-      //sexo: this.preinscripcionForm.get('sexo').value,
-      municipio: this.preinscripcionForm.get('municipio').value,
-      localidad: this.preinscripcionForm.get('localidad').value,
-      lada: this.preinscripcionForm.get('lada').value,
-      telfijo: this.preinscripcionForm.get('telfijo').value,
-      lada2: this.preinscripcionForm.get('lada2').value,
-      telcel: this.preinscripcionForm.get('telcel').value,
-      correo: this.preinscripcionForm.get('correo').value,
-      correo2: this.preinscripcionForm.get('correo2').value,
-      codpos: this.preinscripcionForm.get('codpos').value,
+      sexo: this.preinscripcionForm.get('sexo').value,
+      fechaNac: this.preinscripcionForm.get('fechaNac').value,
+      idMunicipio: this.preinscripcionForm.get('idMunicipio').value,
+      idEstado: this.preinscripcionForm.get('idEstado').value,
+      telefono: this.preinscripcionForm.get('telefono').value,
+      celular: this.preinscripcionForm.get('celular').value,
+      email: this.preinscripcionForm.get('email').value,
+      emailTutor: this.preinscripcionForm.get('emailTutor').value,
+      cp: this.preinscripcionForm.get('cp').value,
       colonia: this.preinscripcionForm.get('colonia').value,
       calle: this.preinscripcionForm.get('calle').value,
       numero: this.preinscripcionForm.get('numero').value,
-      nombre1: this.preinscripcionForm.get('nombre1').value,
-      apellidop1: this.preinscripcionForm.get('apellidop1').value,
-      apellidom1: this.preinscripcionForm.get('apellidom1').value,
-      fecha2: this.preinscripcionForm.get('fecha').value,
-      ocupacion: this.preinscripcionForm.get('ocupacion').value,
-      suimagen: this.preinscripcionForm.get('suimagen').value,
+      nombreTutor: this.preinscripcionForm.get('nombreTutor').value,
+      apellidoPTutor: this.preinscripcionForm.get('apellidoPTutor').value,
+      apellidoMTutor: this.preinscripcionForm.get('apellidoMTutor').value,
+      fechaNacTutor: this.preinscripcionForm.get('fechaNacTutor').value,
+      telefonoTutor: this.preinscripcionForm.get('telefonoTutor').value,
+      urlImagen: this.preinscripcionForm.get('urlImagen').value,
+      urlActa: this.preinscripcionForm.get('urlActa').value,
+      urlConstancia: this.preinscripcionForm.get('urlConstancia').value,
+      urlCredencial: this.preinscripcionForm.get('urlCredencial').value,
+      urlComprobante: this.preinscripcionForm.get('urlComprobante').value,
+      idEscuela: this.preinscripcionForm.get('idEscuela').value,
     };
     return savePreinscripcion;
   }
