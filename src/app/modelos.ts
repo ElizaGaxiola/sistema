@@ -66,15 +66,17 @@ export interface Subciclo{
 }
 
 export interface Grupo{
-    idCarrera: number;
-    idSubCiclo: number;
-    idCiclo: number;
-    idDocente: number;
     idGrupo: number;
-    idGrupoAnt: number;
-    idMateria: number;
-    idPeriodo: number;
+    clave: string;
+    idCiclo: number;
+    idSubCiclo: number;
     idSeccion: number;
+    idPeriodo: number;
+    idCarrera: number;
+    idMateria: number;
+    idDocente: number;
+    idGrupoAnt: number;
+    idEscuela:number;
 }
 
 export interface Aula{

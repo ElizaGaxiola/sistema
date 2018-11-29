@@ -131,16 +131,16 @@ export class EscuelasComponent implements OnInit {
     this.abc.getEscuelas()
     .subscribe((data: any) => {
       this.data=data;
+      this.chRef.detectChanges();
+      // Now you can use jQuery DataTables :
+      const table: any = $('table');
+      this.dataTable = table.DataTable();
     });
   }
   public obtenerEscuela(clave:string){
     this.abc.getEscuela(clave)
     .subscribe((data: any) => {
       this.escuela=data;
-      this.chRef.detectChanges();
-      // Now you can use jQuery DataTables :
-      const table: any = $('table');
-      this.dataTable = table.DataTable();
     });
   }
   public modificarEscuela(escuela:Escuela){

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo } from './modelos';
+import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo, Grupo } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,7 +16,43 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+  //ABC Grupos
+
+  //Agregar grupo 
+  insertGrupo (grupo:Grupo): Observable<any> {
+    return this.http.post('/api/gruposInsert', grupo, httpOptions).pipe(
+      tap(_ => console.log('insert grupo')),
+      catchError(this.handleError<any>('insertGrupo'))
+    );
+  }
+
+  //Obtener gruposTable
+   getGruposTable(idEscuela:number): Observable<any>{
+    return this.http.get('/api/gruposTable?idEscuela='+idEscuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Obtener grupo
+  getGrupo(idGrupo: number): Observable<any>{
+    return this.http.get('/api/grupo?idGrupo='+idGrupo)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Actualizar grupo
+  updateGrupo (grupo:Grupo): Observable<any> {
+    return this.http.put('/api/grupoUpdate', grupo, httpOptions).pipe(
+      tap(_ => console.log('updated grupo')),
+      catchError(this.handleError<any>('updateGrupo'))
+    );
+  }
+
   //ABC Periodo_Asignatura
+
+
   getAsignaturasPeriodo(idSeccion:number,idPeriodo:number,idCarrera:number): Observable<any>{
     return this.http.get('/api/materiasPeriodos?idSeccion='+idSeccion+'&idPeriodo='+idPeriodo+'&idCarrera='+idCarrera)
       .pipe(map(result => {
@@ -135,6 +171,13 @@ export class AbcService {
   }
 
    //ABC Subciclo
+  //Obtener Subciclos
+  getSubCiclos_Ciclos(idCiclo:number): Observable<any>{
+    return this.http.get('/api/SubCiclo_Ciclo?idCiclo='+idCiclo)
+      .pipe(map(result => {
+        return result;
+    })) 
+  }
 
   //Obtener Subciclos
   getSubCiclos(idEscuela:number): Observable<any>{
