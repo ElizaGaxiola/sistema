@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
-import { Grupo, Administrador } from '../modelos';
+import { Grupo, Administrador, Horario } from '../modelos';
 import { Subject } from 'rxjs';
 import { AbcService } from '../abc.service';
 import { debounceTime } from 'rxjs/operators';
@@ -18,6 +18,8 @@ export class CreargruposComponent implements OnInit {
   modal:string;
   grupoForm: FormGroup;
   grupo: Grupo;
+  horarioForm: FormGroup;
+  horario: Horario;
   cicloSelect: any[]=[];
   idCiclo: number;
   docenteSelect: any[]=[];
@@ -25,6 +27,9 @@ export class CreargruposComponent implements OnInit {
   periodoSelect: any[]=[];
   periodo:any;
   subcicloSelect: any[]=[];
+  aulaSelect: any[]=[];
+  edificioSelect: any[]=[];
+  diaSelect: any[]=[];
   data: any[]=[];
   dataTable: any;
   successMessage: string;
@@ -43,7 +48,11 @@ export class CreargruposComponent implements OnInit {
     this.modal="agregar";
     $("#modal").modal();
   }
-
+  public agregarHorario(){
+    this.inicializarForm();
+    $("#modal-horario").modal();
+  }
+  
   public modificar(idGrupo:number){
     this.abc.getGrupo(idGrupo)
     .subscribe((data: any) => {
@@ -100,6 +109,7 @@ export class CreargruposComponent implements OnInit {
 
   public onSubmit(){
     this.grupo = this.saveGrupo();
+    this.horario = this.saveHorario();
     console.log(this.grupo);
     if (this.modal=='modificar'){
       this.abc.updateGrupo(this.grupo).subscribe(res => {
@@ -157,7 +167,17 @@ export class CreargruposComponent implements OnInit {
       idDocente: ['',[Validators.required]],
       idGrupoAnt:[0],
       idEscuela: [''],
+    }); 
+    this.horarioForm = this.pf.group({
+      idGrupo:[''],
+      diaSemana:['',[Validators.required]],
+      idAula:['',[Validators.required]],
+      horaIni:['',[Validators.required]], 
+      horaFin:['',[Validators.required]],
+      idEdificio:['',[Validators.required]]
+   
     });
+
    }
   public saveGrupo(){
     const saveGrupo ={
@@ -174,6 +194,17 @@ export class CreargruposComponent implements OnInit {
         idEscuela: this.administradorUser.idEscuela,       
     }
     return saveGrupo;
+  }
+  public saveHorario(){
+    const saveHorario ={
+      idGrupo:this.grupoForm.get('idGrupo').value,
+      diaSemana:this.grupoForm.get('diaSemana').value,
+      idAula:this.grupoForm.get('idAula').value,
+      horaIni:this.grupoForm.get('horaIni').value,
+      horaFin:this.grupoForm.get('horaFin').value,
+      idEdificio:this.grupoForm.get('idEdificio').value,  
+    }
+    return saveHorario;
   }
   ngOnInit(): void {
     this.idUsuario=localStorage.getItem('idUsuario');

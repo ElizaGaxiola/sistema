@@ -56,7 +56,7 @@
                                   <button type='button' (click)='clonar(item.idGrupo)' class='btn btn-success' title='Clonar'>
                                       <i class="fas fa-clone"></i>
                                   </button>
-                                  <button type='button' (click)='horario(item.idGrupo)' class='btn btn-dark' title='Horario'>
+                                  <button type='button' (click)='agregarHorario(item.idGrupo)' class='btn btn-dark' title='Horario'>
                                         <i class="fas fa-clock"></i>
                                     </button>
                               </td>
@@ -203,6 +203,116 @@
                     </div>
                   </div>
                 </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="modal-horario" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                                <div class="modal-body">
+                                  <div class="card">
+                                     <div class="card-header">
+                                      <strong >Agregar Horario</strong>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="card-body">
+                                          <form [formGroup]="horarioForm" (ngSubmit)="onSubmit()">
+                                              <div class="row">
+                                                  <div class="col-sm-12 col-md-6">
+                                                      <div class="form-group">
+                                                          <label for="clave"> Día de la Semana</label>
+                                                          <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.diaSemana.valid"></i>
+                                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.diaSemana.invalid &&
+                                                          horarioForm.controls.diaSemana.touched"></i>
+                                                          <ng-select [items]="diaSelect"
+                                                            bindLabel="name"
+                                                            bindValue="id"
+                                                            placeholder="Selecciona"
+                                                            formControlName="diaSemana">
+                                                          </ng-select>
+                                                          <p class="alert alert-danger" *ngIf="horarioForm.controls.diaSemana.invalid &&
+                                                          horarioForm.controls.diaSemana.touched">
+                                                          El campo Día de la Semana es obligatorio</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-sm-12 col-md-6">
+                                                        <div class="form-group">
+                                                            <label> Edificio </label>
+                                                            <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.idEdificio.valid"></i>
+                                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.idEdificio.invalid &&
+                                                            horarioForm.controls.idEdificio.touched"></i>
+                                                            <ng-select [items]="edificioSelect"
+                                                                    bindLabel="name"
+                                                                    bindValue="id"
+                                                                    placeholder="Selecciona"
+                                                                    formControlName="idEdificio">
+                                                            </ng-select>
+                                                            <p class="alert alert-danger" *ngIf="horarioForm.controls.idEdificio.invalid &&
+                                                            horarioForm.controls.idEdificio.touched">
+                                                            El campo Edificio es obligatorio</p>
+                                                        </div>
+                                                    </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="col-sm-12 col-md-6">
+                                                      <div class="form-group">
+                                                          <label for="materia">Aula</label>
+                                                          <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.idAula.valid"></i>
+                                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.idAula.invalid &&
+                                                          horarioForm.controls.idAula.touched"></i>
+                                                          <ng-select [items]="aulaSelect"
+                                                                  bindLabel="name"
+                                                                  bindValue="id"
+                                                                  placeholder="Selecciona"
+                                                                  formControlName="idAula">
+                                                          </ng-select> 
+                                                          <p class="alert alert-danger" *ngIf="horarioForm.controls.idAula.invalid &&
+                                                          horarioForm.controls.idAula.touched">
+                                                          El campo Aula es obligatorio</p>
+                                                      </div> 
+                                                  </div> 
+                                                  <div class="col-sm-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <label> Hora de Inicio </label>
+                                                        <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.horaIni.valid"></i>
+                                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.horaIni.invalid &&
+                                                        horarioForm.controls.horaIni.touched"></i>
+                                                        <input name="clave" formControlName="horaIni" value="" class="form-control" type="time" />
+                                                        <p class="alert alert-danger" *ngIf="horarioForm.controls.horaIni.invalid &&
+                                                        horarioForm.controls.horaIni.touched">
+                                                        El campo Hora de Inicio es obligatorio</p>
+                                                    </div> 
+                                                </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="col-sm-12 col-md-6">
+                                                          <div class="form-group">
+                                                              <label>Hora de Terminación</label>
+                                                              <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.horaFin.valid"></i>
+                                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.horaFin.invalid &&
+                                                              horarioForm.controls.horaFin.touched"></i>
+                                                              <input name="clave" formControlName="horaFin" value="" class="form-control" type="time" />
+                                                              <p class="alert alert-danger" *ngIf="horarioForm.controls.horaFin.invalid &&
+                                                              horarioForm.controls.horaFin.touched">
+                                                              El campo Hora de Terminación es obligatorio</p>
+                                                          </div> 
+                                                </div>
+                                                <div class="col-sm-12 ">
+                                                    <div  class="form-group">
+                                                        <button  type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!horarioForm.valid>Agregar</button>
+                                                        <p class="alert alert-danger" *ngIf="!horarioForm.valid">
+                                                            Por favor complete los campos
+                                                        </p>
+                                                    </div>
+                                                </div> 
+                                              </div>
+                                          </form>
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+                        </div>
+                      </div>
               </div> 
             </div>
           </div>

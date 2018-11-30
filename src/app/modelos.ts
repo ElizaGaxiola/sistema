@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+
 export interface Escuela{
     idEscuela: number;
     idSeccion: number;
@@ -63,6 +65,14 @@ export interface Subciclo{
     descripcion:string;
     fechaFin: string;
     fechaIni: string;
+}
+export interface Horario{
+   diaSemana:string;
+   idEdificio:number;
+   idAula:number;
+   idGrupo:number;
+   horaIni:Time;
+   horaFin:Time;
 }
 
 export interface Grupo{
