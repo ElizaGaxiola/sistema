@@ -111,6 +111,7 @@ export class ModificarPerfilSuperuserComponent implements OnInit {
       this.loader = true;
       let form = new FormData();
       form.append('file',img.files[0]);
+      
       this.abc.subirImagenAdmin(form).subscribe(
         resp => {
           this.loader = false;
@@ -125,6 +126,7 @@ export class ModificarPerfilSuperuserComponent implements OnInit {
           alert('Imagen supera el tamaño permitido');
         }
       );
+      
     }
 
 
