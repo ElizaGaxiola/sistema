@@ -21,12 +21,10 @@ import { EstudiosAlumnosComponent } from './estudios-alumnos/estudios-alumnos.co
 import { HorarioAlumnosComponent } from './horario-alumnos/horario-alumnos.component';
 import { PerfilAdministrativoComponent } from './perfil-administrativo/perfil-administrativo.component';
 import { CalificacionesAlumnosComponent } from './calificaciones-alumnos/calificaciones-alumnos.component';
-import { AdeudosAlumnosComponent } from './adeudos-alumnos/adeudos-alumnos.component';
 import { PerfilAlumnosComponent } from './perfil-alumnos/perfil-alumnos.component';
 import { ModificarPerfilAdministrativoComponent } from './modificar-perfil-administrativo/modificar-perfil-administrativo.component';
 import { CalificacionesDocenteComponent } from './calificaciones-docente/calificaciones-docente.component';
 import { FaltasDocenteComponent } from './faltas-docente/faltas-docente.component';
-import { PreinscripcionesComponent } from './preinscripciones/preinscripciones.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PreinscripcionesDatosComponent } from './preinscripciones-datos/preinscripciones-datos.component';
 import { ActasDocenteComponent } from './actas-docente/actas-docente.component';
@@ -83,12 +81,10 @@ const routes = [
   { path: 'alumnos/estudios', component: EstudiosAlumnosComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/horario', component: HorarioAlumnosComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent, canActivate: [AuthGuard]},
-  { path: 'alumnos/adeudos', component: AdeudosAlumnosComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/perfil', component: PerfilAlumnosComponent, canActivate: [AuthGuard]},
   { path: 'docente/calificaciones', component: CalificacionesDocenteComponent, canActivate: [AuthGuard]},
   { path: 'docente/faltas', component: FaltasDocenteComponent, canActivate: [AuthGuard]},
   { path: 'docente/actas', component: ActasDocenteComponent, canActivate: [AuthGuard]},
-  { path: 'preinscripciones', component: PreinscripcionesComponent, canActivate: [AuthGuard]},
   { path: 'preinscripciones/datos', component: PreinscripcionesDatosComponent, canActivate: [AuthGuard]},
   { path: 'preinscripciones/comenzar', component: PreinscripcionesComenzarComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/ModificarPerfil',component: ModificarPerfilAlumnoComponent, canActivate: [AuthGuard] },
@@ -139,12 +135,10 @@ export function tokenGetter() {
     HorarioAlumnosComponent,
     PerfilAdministrativoComponent,
     CalificacionesAlumnosComponent,
-    AdeudosAlumnosComponent,
     PerfilAlumnosComponent,
     ModificarPerfilAdministrativoComponent,
     CalificacionesDocenteComponent,
     FaltasDocenteComponent,
-    PreinscripcionesComponent,
     PreinscripcionesDatosComponent,
     ActasDocenteComponent,
     PreinscripcionesComenzarComponent,
