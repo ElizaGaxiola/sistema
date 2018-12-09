@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<div id="wrapper"> 
+<div id="wrapper">
+  <app-menu-admin></app-menu-admin> 
   <div id="content-wrapper">
     <form [formGroup]="inscripcionForm" (ngSubmit)="onSubmit()">
       <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
@@ -347,7 +348,7 @@
                   <div class="col-sm-12 col-md-4">
                       <label for="postal-code">Teléfono</label>
                       <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.telefonoTutor.valid"></i>
-                    <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.telefonoTutor.invalid &&
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.telefonoTutor.invalid &&
                       inscripcionForm.controls.telefonoTutor.touched"></i>
                       <input class="form-control" id="telcel" formControlName="telefonoTutor" pattern="[0-9]{10}" type="number" >
                       <p class="alert alert-danger" *ngIf="inscripcionForm.controls.telefonoTutor.invalid &&
@@ -374,56 +375,17 @@
             <div class="row">
                 <div class="form-group col-md-12 text-center"  >
                   <div class="col-md-12">
-                      <label for="postal-code" style="margin-top: 30px">Subir Acta de Nacimiento del Aspirante </label>
-                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.urlActa.valid"></i>
-                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.urlActa.invalid &&
-                      inscripcionForm.controls.urlActa.touched"></i>
+                      <label for="postal-code" style="margin-top: 30px">Subir Certificado de Nivel Anterior </label>
+                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.urlCertificado.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.urlCertificado.invalid &&
+                      inscripcionForm.controls.urlCertificado.touched"></i>
                   </div>
                   <div class="custom-file col-md-4" style="margin-top: 20px">
                       <input type="file" formControlName="urlActa" class="custom-file-input" id="customFileLang" lang="es">
                       <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
-                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.urlActa.invalid &&
-                      inscripcionForm.controls.urlActa.touched">
+                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.urlCertificado.invalid &&
+                      inscripcionForm.controls.urlCertificado.touched">
                       El campo Acta de Nacimiento es obligatorio </p>
-                  </div>
-                  <div class="col-md-12">
-                      <label for="postal-code" style="margin-top: 30px">Subir Constancia con Calificaciones del Aspirante </label>
-                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.urlConstancia.valid"></i>
-                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.urlConstancia.invalid &&
-                      inscripcionForm.controls.urlConstancia.touched"></i>
-                  </div>
-                  <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlConstancia" class="custom-file-input" id="customFileLang" lang="es">
-                      <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
-                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.urlConstancia.invalid &&
-                      inscripcionForm.controls.urlConstancia.touched">
-                      El campo Constancia con Calificaciones es obligatorio </p>
-                  </div>
-                  <div class="col-md-12">
-                      <label for="postal-code" style="margin-top: 30px">Subir Credencial de Elector del Tutor o Aspirante </label>
-                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.urlCredencial.valid"></i>
-                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.urlCredencial.invalid &&
-                      inscripcionForm.controls.urlCredencial.touched"></i>
-                  </div>
-                  <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlCredencial" class="custom-file-input" id="customFileLang" lang="es">
-                      <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
-                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.urlCredencial.invalid &&
-                      inscripcionForm.controls.urlCredencial.touched">
-                      El campo Credencial de Elector es obligatorio </p>
-                  </div>
-                  <div class="col-md-12">
-                      <label for="postal-code" style="margin-top: 30px">Subir Comprobante de Domicilio del Aspirante </label>
-                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.urlComprobante.valid"></i>
-                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.urlComprobante.invalid &&
-                      inscripcionForm.controls.urlComprobante.touched"></i>
-                  </div>
-                  <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlComprobante" class="custom-file-input" id="customFileLang" lang="es">
-                      <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
-                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.urlComprobante.invalid &&
-                      inscripcionForm.controls.urlComprobante.touched">
-                      El campo Comprobante de Domicilio es obligatorio </p>
                   </div>
                 </div>
             </div>

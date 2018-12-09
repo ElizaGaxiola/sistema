@@ -68,7 +68,7 @@
                             <td>{{item.apellidoP}}</td>
                             <td>{{item.apellidoM}}</td>
                             <td>{{item.nombre}}</td>
-                            <td><button [id]="item.numero" type='button' (click)='calificar()' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button><button type='button' (click)='faltas()' class='btn btn-danger' title='Faltas'><i class='fas fa-calendar-times'></i></button></td>
+                            <td><button [id]="item.numero" type='button' (click)='calificar()' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button>
                         </tr>
                         </tbody>
                     </table>
@@ -119,14 +119,9 @@
                                       <option>10</option>
                                     </select>
                                   </div>
-                                  <div *ngIf="modal == 'faltas'" class="form-group col-sm-6">
-                                      <label for="ccmonth">Faltas</label>
-                                      <input class="form-control" id="faltas" type="number" value="0">
-                                    </div>
                                   <div class="col-sm-6">
                                     <div class="form-group">
                                         <button *ngIf="modal == 'calificar'" type="submit" class="btn btn-fill btn-rose float-right">Calificar</button>
-                                        <button *ngIf="modal == 'faltas'" type="submit" class="btn btn-fill btn-rose float-right">Agregar faltas</button>
                                     </div>
                                   </div>
                                 </div>

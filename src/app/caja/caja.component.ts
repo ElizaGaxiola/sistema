@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+declare var jQuery:any;
+declare var $:any;
 @Component({
   selector: 'app-caja',
   templateUrl: './caja.component.html',
@@ -7,39 +9,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CajaComponent implements OnInit {
   modulo: string ='Caja';
+  modal:string;
+  cajaForm: FormGroup;
+  caja: any;
   dtOptions: DataTables.Settings = {};
   //datos para datatable
   data: any[]=[
     { cantidad: "1", concepto:"Playera", precio:"120.50"},
     { cantidad: "2", concepto:"Constancias", precio:"10.50"},
   ];
-  constructor() { }
+  constructor(private pf: FormBuilder) { }
 
-  ngOnInit(): void {
-    this.dtOptions = {
-      searching: false, 
-      paging: false, 
-      info: false, 
-      language: {
-        "emptyTable": "Sin resultados encontrados",
-        "info": " _START_ - _END_ / _TOTAL_ ",
-        "infoEmpty": "0-0 /0",
-        "infoFiltered": "",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "Buscar:",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
-      }
-    };
+  ngOnInit() {
+    this.cajaForm=this.pf.group({
+      idUsuario:['',[ Validators.required]],
+      idAlumno:['',[ Validators.required]],
+      fecha:['',[ Validators.required]],
+      total:['',[ Validators.required]],
+    });
   }
+  onSubmit(){
+    this.caja = this.saveVenta();
+  }
+  public agregar(){
+    $("#modal").modal();
+  }
+  saveVenta(){
+    const saveVenta={
+      idUsuario: this.cajaForm.get('idUsuario').value,
+      idAlumno: this.cajaForm.get('idAlumno').value,
+      fecha: this.cajaForm.get('fecha').value,
+      total: this.cajaForm.get('total').value,
+    };
+    return saveVenta;
+  }
+
+
 
 }

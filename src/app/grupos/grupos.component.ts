@@ -28,11 +28,6 @@ export class GruposComponent implements  OnInit {
   tituloModal:string;
   constructor() { 
   }
-  public faltas(){
-    this.tituloModal= "Agregar Faltas"
-    this.modal = "faltas";
-    $("#modal").modal();
-  }
   public calificar(){
     this.tituloModal= "Calificar Alumno";
     this.modal = "calificar";

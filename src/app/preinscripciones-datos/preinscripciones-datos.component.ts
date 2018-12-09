@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
-
+declare var jQuery:any;
+declare var $:any;
 @Component({
   selector: 'app-preinscripciones-datos',
   templateUrl: './preinscripciones-datos.component.html',
   styleUrls: ['./preinscripciones-datos.component.css']
 })
 export class PreinscripcionesDatosComponent implements OnInit {
+  modal:string;
   escuelaSelect: any[]=[];
   sexoSelect: any[]=[];
   municipioSelect: any[]=[];
@@ -25,7 +27,8 @@ export class PreinscripcionesDatosComponent implements OnInit {
       fechaNac:['',[Validators.required]],
       idMunicipio:['',[Validators.required]],
       telefonoTutor:['',[Validators.required]],
-      //idEstado:['',[Validators.required]],
+      telefono:[''],
+      idEstado:[''],
       //telefono:['',[Validators.required]],
       celular:['',[Validators.required]],
       email:['',[Validators.required, Validators.email]],
@@ -45,6 +48,9 @@ export class PreinscripcionesDatosComponent implements OnInit {
       urlComprobante:['',[Validators.required]],
       idEscuela:['',[Validators.required]],
     });
+  }
+  public agregar(){
+    $("#modal").modal();
   }
   onSubmit(){
     this.preinscripcion = this.savePreinscripcion();

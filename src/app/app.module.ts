@@ -24,7 +24,6 @@ import { CalificacionesAlumnosComponent } from './calificaciones-alumnos/calific
 import { PerfilAlumnosComponent } from './perfil-alumnos/perfil-alumnos.component';
 import { ModificarPerfilAdministrativoComponent } from './modificar-perfil-administrativo/modificar-perfil-administrativo.component';
 import { CalificacionesDocenteComponent } from './calificaciones-docente/calificaciones-docente.component';
-import { FaltasDocenteComponent } from './faltas-docente/faltas-docente.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PreinscripcionesDatosComponent } from './preinscripciones-datos/preinscripciones-datos.component';
 import { ActasDocenteComponent } from './actas-docente/actas-docente.component';
@@ -83,10 +82,9 @@ const routes = [
   { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/perfil', component: PerfilAlumnosComponent, canActivate: [AuthGuard]},
   { path: 'docente/calificaciones', component: CalificacionesDocenteComponent, canActivate: [AuthGuard]},
-  { path: 'docente/faltas', component: FaltasDocenteComponent, canActivate: [AuthGuard]},
   { path: 'docente/actas', component: ActasDocenteComponent, canActivate: [AuthGuard]},
   { path: 'preinscripciones/datos', component: PreinscripcionesDatosComponent, canActivate: [AuthGuard]},
-  { path: 'preinscripciones/comenzar', component: PreinscripcionesComenzarComponent, canActivate: [AuthGuard]},
+  { path: 'preinscripciones', component: PreinscripcionesComenzarComponent, canActivate: [AuthGuard]},
   { path: 'alumnos/ModificarPerfil',component: ModificarPerfilAlumnoComponent, canActivate: [AuthGuard] },
   { path: 'administrativos/dashboard',component: DashboardAdminComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/caja',component: CajaComponent, canActivate: [AuthGuard]},
@@ -138,7 +136,6 @@ export function tokenGetter() {
     PerfilAlumnosComponent,
     ModificarPerfilAdministrativoComponent,
     CalificacionesDocenteComponent,
-    FaltasDocenteComponent,
     PreinscripcionesDatosComponent,
     ActasDocenteComponent,
     PreinscripcionesComenzarComponent,

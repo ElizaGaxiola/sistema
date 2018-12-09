@@ -15,3 +15,11 @@
     border-style: dashed; 
     border-color: #1E90FF; 
 }
+.check {
+    color: #42A948;
+    float: right;
+}
+.uncheck {
+    color: #A94442;
+    float: right;
+}
