@@ -67,8 +67,8 @@ export interface Subciclo{
     fechaIni: string;
 }
 export interface Horario{
-   diaSemana:string;
-   idEdificio:number;
+   idHorario:number;
+   diaSemana:string[];
    idAula:number;
    idGrupo:number;
    horaIni:Time;

@@ -28,12 +28,23 @@ export class CreargruposComponent implements OnInit {
   periodo:any;
   subcicloSelect: any[]=[];
   aulaSelect: any[]=[];
+  idEdificio: number;
   edificioSelect: any[]=[];
-  diaSelect: any[]=[];
+  diaSelect: any[]=[
+    {id: 1, name: 'Domingo'},
+    {id: 2, name: 'Lunes'},
+    {id: 3, name: 'Martes'},
+    {id: 4, name: 'Miércoles'},
+    {id: 5, name: 'Jueves'},
+    {id: 6, name: 'Viernes'},
+    {id: 7, name: 'Sábado'},
+  ];
   data: any[]=[];
-  dataTable: any;
+  horarios: any[]=[];
   successMessage: string;
   dangerMessage: string;
+  idGrupo:number;
+  idHorario:number=0;
   private _success = new Subject<string>();
   private _danger = new Subject<string>();
   staticAlertClosed = false;
@@ -41,18 +52,96 @@ export class CreargruposComponent implements OnInit {
   administradorUser:Administrador;
   id: { idSeccion: any; idPeriodo: any; idCarrera: any; };
   grups:Grupo;
-  constructor( private abc: AbcService, private pf: FormBuilder,private chRef: ChangeDetectorRef ) { }
+  dia: string;
+  constructor( private abc: AbcService, private pf: FormBuilder,private chRef: ChangeDetectorRef ) {
+  }
 
   public agregar(){
     this.inicializarForm();
     this.modal="agregar";
     $("#modal").modal();
   }
-  public agregarHorario(){
+
+  public eliminar(idHorario:number){
+    this.abc.deleteHorario(idHorario).subscribe(RES =>{
+      this._success.next('Datos eliminados con éxito');
+      this.obtenerHorarios(this.idGrupo);
+    }, (err) => {
+      console.log(err);
+      this._danger.next('A ocurrido un error intentalo de nuevo');
+    }
+    );
+
+  }
+
+  public obtenerHorarios (idGrupo:number){
+    this.idGrupo = idGrupo;
+    this.horarios=[];
+    this.abc.getHorarios(idGrupo)
+    .subscribe((data: any) => {
+      this.chRef.detectChanges();
+      for (let item of data) {
+        switch(item.diaSemana) { 
+          case "1": {
+            this.dia ="Domingo"; 
+            break; 
+          } 
+          case "2": { 
+            this.dia ="Lunes"; 
+            break; 
+          } 
+          case "3": { 
+            this.dia ="Martes"; 
+            break; 
+          } 
+          case "4": { 
+            this.dia ="Miércoles"; 
+            break; 
+          } 
+          case "5": { 
+            this.dia ="Jueves"; 
+            break; 
+          }
+          case "6": { 
+            this.dia ="Viernes"; 
+            break; 
+          }
+          case "7": { 
+            this.dia ="Sábado"; 
+            break; 
+          }    
+          default: { 
+            break; 
+          } 
+        } 
+        this.abc.getAula(item.idAula).subscribe((aula: any) =>{
+          this.abc.getEdificio(aula.idEdificio).subscribe((edificio: any) =>{
+            this.horarios.push({dia:this.dia,edificio:edificio.descripcion,aula:aula.descripcion,horaIni:item.horaIni,horaFin:item.horaFin,idHorario:item.idHorario});
+          });
+        });
+      }
+      console.log(this.horarios);
+      
+      // Now you can use jQuery DataTables :
+      const table: any = $('#table_horario');
+      table.DataTable();
+    });
+  }
+
+  public agregarHorario(idGrupo:number){
+    this.idGrupo = idGrupo;
+    this.obtenerHorarios(idGrupo);
     this.inicializarForm();
+    this.modal="horario";
     $("#modal-horario").modal();
   }
-  
+
+  public agregarDetalleHorario(){
+    $("#modal-horario").modal('hide');
+    this.modal="agregar-horario";
+    $("#modal-detalle-horario").modal();
+  }
+
   public modificar(idGrupo:number){
     this.abc.getGrupo(idGrupo)
     .subscribe((data: any) => {
@@ -78,6 +167,12 @@ export class CreargruposComponent implements OnInit {
       this.modal = 'modificar';
       $("#modal").modal();
     }); 
+  }
+
+  public modificarHorario(idHorario:number){
+    this.abc.getHorario(idHorario).subscribe((data: any)=>{
+      console.log(data);
+    });
   }
 
   public clonar(idGrupo:number){
@@ -106,12 +201,10 @@ export class CreargruposComponent implements OnInit {
       );
     });
   }
-
-  public onSubmit(){
-    this.grupo = this.saveGrupo();
-    this.horario = this.saveHorario();
-    console.log(this.grupo);
+  
+  public onSubmit(){    
     if (this.modal=='modificar'){
+      this.grupo = this.saveGrupo();
       this.abc.updateGrupo(this.grupo).subscribe(res => {
         $("#modal").modal('hide');
         this._success.next('Datos actualizados con éxito');
@@ -120,17 +213,35 @@ export class CreargruposComponent implements OnInit {
         this._danger.next('A ocurrido un error intentalo de nuevo');
       }
      );
-    }else{
+     this.obtenerGruposTable();
+    }else if (this.modal == 'agregar'){
+      this.grupo = this.saveGrupo();
       this.abc.insertGrupo(this.grupo).subscribe(res => {
         $("#modal").modal('hide');
-        this._success.next('Datos modificados con éxito');
+        this._success.next('Datos agregados con éxito');
       }, (err) => {
         console.log(err);
         this._danger.next('A ocurrido un error intentalo de nuevo');
       }
      );
+     this.obtenerGruposTable();
+    }else if (this.modal == 'agregar-horario'){
+      this.horario = this.saveHorario();
+      console.log(this.horario);
+      this.abc.insertHorario(this.horario).subscribe((data:any)=> {
+        console.log(data);
+        if(data.status == false){
+          this._danger.next(data.msg);
+        }else{
+          $("#modal-detalle-horario").modal('hide');
+          this._success.next('Datos agregados con éxito');
+          this.agregarHorario(this.idGrupo);
+        }
+      }, (err) => {
+        console.log(err);
+        this._danger.next('A ocurrido un error intentalo de nuevo');
+      });
     }
-    this.obtenerGruposTable();
   }
   
   public changePeriodo(){
@@ -169,12 +280,12 @@ export class CreargruposComponent implements OnInit {
       idEscuela: [''],
     }); 
     this.horarioForm = this.pf.group({
+      idHorario:[''],
       idGrupo:[''],
       diaSemana:['',[Validators.required]],
       idAula:['',[Validators.required]],
       horaIni:['',[Validators.required]], 
-      horaFin:['',[Validators.required]],
-      idEdificio:['',[Validators.required]]
+      horaFin:['',[Validators.required]]
    
     });
 
@@ -197,14 +308,27 @@ export class CreargruposComponent implements OnInit {
   }
   public saveHorario(){
     const saveHorario ={
-      idGrupo:this.grupoForm.get('idGrupo').value,
-      diaSemana:this.grupoForm.get('diaSemana').value,
-      idAula:this.grupoForm.get('idAula').value,
-      horaIni:this.grupoForm.get('horaIni').value,
-      horaFin:this.grupoForm.get('horaFin').value,
-      idEdificio:this.grupoForm.get('idEdificio').value,  
+      idHorario:this.idHorario,
+      idGrupo:this.idGrupo,
+      diaSemana:this.horarioForm.get('diaSemana').value,
+      idAula:this.horarioForm.get('idAula').value,
+      horaIni:this.horarioForm.get('horaIni').value,
+      horaFin:this.horarioForm.get('horaFin').value,
     }
     return saveHorario;
+  }
+  public change(){
+    this.abc.getAulasxEdificio(this.idEdificio).subscribe((data: any) => {
+       this.aulaSelect=[];
+       if (data != null){
+        for (let aula of data) {
+          this.aulaSelect = [...this.aulaSelect, {id: aula.idAula, name: aula.descripcion}];
+        }
+       }
+    });
+  }
+  public cerrarDetalle(){
+    this.agregarHorario(this.idGrupo);
   }
   ngOnInit(): void {
     this.idUsuario=localStorage.getItem('idUsuario');
@@ -227,6 +351,14 @@ export class CreargruposComponent implements OnInit {
           this.periodoSelect = [...this.periodoSelect, {id:this.id, name: item.descripcion}];
         }
       });
+      this.abc.getEdificios(this.administradorUser.idEscuela).subscribe((data2: any) => {
+        console.log(data2);
+        if (data2 != null){
+          for (let edificio of data2) {
+            this.edificioSelect = [...this.edificioSelect, {id: edificio.idEdificio, name: edificio.descripcion}];
+          }
+        }
+       });
     });
     setTimeout(() => this.staticAlertClosed = true, 20000);
     this._success.subscribe((message) => this.successMessage = message);
@@ -246,9 +378,8 @@ export class CreargruposComponent implements OnInit {
       this.data=data;
       this.chRef.detectChanges();
       // Now you can use jQuery DataTables :
-      const table: any = $('table');
-      this.dataTable = table.DataTable();
+      const table: any = $('#table');
+      table.DataTable();
     });
   }
-
 }

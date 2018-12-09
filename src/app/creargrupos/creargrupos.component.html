@@ -4,8 +4,8 @@
     <div id="content-wrapper">
       <div class="container-fluid">
         <app-head [nombre]="modulo"></app-head>
-        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
-        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 200;position: absolute;right:5px;top:15px;" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 200;position: absolute;right:5px;top:15px;" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                      <table class="row-border hover" id="table">
                           <thead>
                           <tr>
                               <th style="width: 10%">
@@ -215,104 +215,181 @@
                                           <span aria-hidden="true">&times;</span>
                                         </button>
                                       </div>
-                                      <div class="card-body">
-                                          <form [formGroup]="horarioForm" (ngSubmit)="onSubmit()">
-                                              <div class="row">
-                                                  <div class="col-sm-12 col-md-6">
-                                                      <div class="form-group">
-                                                          <label for="clave"> Día de la Semana</label>
-                                                          <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.diaSemana.valid"></i>
-                                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.diaSemana.invalid &&
-                                                          horarioForm.controls.diaSemana.touched"></i>
-                                                          <ng-select [items]="diaSelect"
-                                                            bindLabel="name"
-                                                            bindValue="id"
-                                                            placeholder="Selecciona"
-                                                            formControlName="diaSemana">
-                                                          </ng-select>
-                                                          <p class="alert alert-danger" *ngIf="horarioForm.controls.diaSemana.invalid &&
-                                                          horarioForm.controls.diaSemana.touched">
-                                                          El campo Día de la Semana es obligatorio</p>
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-6">
-                                                        <div class="form-group">
-                                                            <label> Edificio </label>
-                                                            <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.idEdificio.valid"></i>
-                                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.idEdificio.invalid &&
-                                                            horarioForm.controls.idEdificio.touched"></i>
-                                                            <ng-select [items]="edificioSelect"
-                                                                    bindLabel="name"
-                                                                    bindValue="id"
-                                                                    placeholder="Selecciona"
-                                                                    formControlName="idEdificio">
-                                                            </ng-select>
-                                                            <p class="alert alert-danger" *ngIf="horarioForm.controls.idEdificio.invalid &&
-                                                            horarioForm.controls.idEdificio.touched">
-                                                            El campo Edificio es obligatorio</p>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button type="submit" (click)='agregarDetalleHorario()' class="btn btn-fill btn-rose float-right">Agregar</button>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="card tabla mb-3">
+                                                        <div class="card-body">
+                                                          <div class="table-responsive">
+                                                              <table class="row-border hover" id="table_horario">
+                                                                  <thead>
+                                                                  <tr>
+                                                                      <th style="width: 20%">
+                                                                        Día
+                                                                      </th>
+                                                                      <th style="width: 20%">
+                                                                        Edificio
+                                                                      </th>
+                                                                      <th style="width: 20%">
+                                                                         Aula
+                                                                      </th>
+                                                                      <th style="width: 20%">
+                                                                         Horario
+                                                                      </th>
+                                                                      <th style="width: 20%">
+                                                                            Acciones
+                                                                      </th>
+                                                                  </tr>
+                                                                  </thead>
+                                                                  <tbody>
+                                                                  <tr *ngFor="let item of horarios">
+                                                                      <td>{{item.dia}} </td>
+                                                                      <td>{{item.edificio}} </td>
+                                                                      <td>{{item.aula}} </td>
+                                                                      <td>{{item.horaIni}} - {{item.horaFin}}</td>
+                                                                      <td>
+                                                                          <button type='button' (click)='modificarHorario(item.idHorario)' class='btn btn-warning' title='Modificar'>
+                                                                              <i class='fas fa-edit'></i>
+                                                                          </button>
+                                                                          <button type='button' (click)='eliminar(item.idHorario)' class='btn btn-danger' title='Eliminar'>
+                                                                              <i class='far fa-trash-alt'></i>
+                                                                          </button>
+                                                                      </td>
+                                                                  </tr>
+                                                                  </tbody>
+                                                              </table>
+                                                          </div>
                                                         </div>
-                                                    </div>
-                                              </div>
-                                              <div class="row">
-                                                  <div class="col-sm-12 col-md-6">
-                                                      <div class="form-group">
-                                                          <label for="materia">Aula</label>
-                                                          <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.idAula.valid"></i>
-                                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.idAula.invalid &&
-                                                          horarioForm.controls.idAula.touched"></i>
-                                                          <ng-select [items]="aulaSelect"
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                      </div>
+                                    </div>
+                                </div>
+                          </div>
+                        </div>
+                  </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modal-detalle-horario" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                                <div class="modal-body">
+                                  <div class="card">
+                                     <div class="card-header">
+                                      <strong *ngIf="modal == 'modificar-horario'">Modificar Detalle Horario</strong>
+                                      <strong *ngIf="modal == 'agregar-horario'">Agregar Detalle Horario</strong>
+                                        <button type="button" (click)='cerrarDetalle()' class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="card-body">
+                                            <form [formGroup]="horarioForm" (ngSubmit)="onSubmit()">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="clave"> Día de la Semana</label>
+                                                                <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.diaSemana.valid"></i>
+                                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.diaSemana.invalid &&
+                                                                horarioForm.controls.diaSemana.touched"></i>
+                                                                <ng-select [items]="diaSelect"
                                                                   bindLabel="name"
                                                                   bindValue="id"
                                                                   placeholder="Selecciona"
-                                                                  formControlName="idAula">
-                                                          </ng-select> 
-                                                          <p class="alert alert-danger" *ngIf="horarioForm.controls.idAula.invalid &&
-                                                          horarioForm.controls.idAula.touched">
-                                                          El campo Aula es obligatorio</p>
-                                                      </div> 
-                                                  </div> 
-                                                  <div class="col-sm-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label> Hora de Inicio </label>
-                                                        <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.horaIni.valid"></i>
-                                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.horaIni.invalid &&
-                                                        horarioForm.controls.horaIni.touched"></i>
-                                                        <input name="clave" formControlName="horaIni" value="" class="form-control" type="time" />
-                                                        <p class="alert alert-danger" *ngIf="horarioForm.controls.horaIni.invalid &&
-                                                        horarioForm.controls.horaIni.touched">
-                                                        El campo Hora de Inicio es obligatorio</p>
-                                                    </div> 
-                                                </div>
-                                              </div>
-                                              <div class="row">
-                                                <div class="col-sm-12 col-md-6">
-                                                          <div class="form-group">
-                                                              <label>Hora de Terminación</label>
-                                                              <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.horaFin.valid"></i>
-                                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.horaFin.invalid &&
-                                                              horarioForm.controls.horaFin.touched"></i>
-                                                              <input name="clave" formControlName="horaFin" value="" class="form-control" type="time" />
-                                                              <p class="alert alert-danger" *ngIf="horarioForm.controls.horaFin.invalid &&
-                                                              horarioForm.controls.horaFin.touched">
-                                                              El campo Hora de Terminación es obligatorio</p>
-                                                          </div> 
-                                                </div>
-                                                <div class="col-sm-12 ">
-                                                    <div  class="form-group">
-                                                        <button  type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!horarioForm.valid>Agregar</button>
-                                                        <p class="alert alert-danger" *ngIf="!horarioForm.valid">
-                                                            Por favor complete los campos
-                                                        </p>
+                                                                  formControlName="diaSemana">
+                                                                </ng-select>
+                                                                <p class="alert alert-danger" *ngIf="horarioForm.controls.diaSemana.invalid &&
+                                                                horarioForm.controls.diaSemana.touched">
+                                                                El campo Día de la Semana es obligatorio</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                              <div class="form-group">
+                                                                  <label> Edificio </label>
+                                                                  <ng-select [items]="edificioSelect"
+                                                                          bindLabel="name"
+                                                                          bindValue="id"
+                                                                          placeholder="Selecciona"
+                                                                          [(ngModel)]="idEdificio"
+                                                                          (change)="change()"
+                                                                          [ngModelOptions]="{standalone: true}">
+                                                                  </ng-select>
+                                                              </div>
+                                                          </div>
                                                     </div>
-                                                </div> 
-                                              </div>
-                                          </form>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="materia">Aula</label>
+                                                                <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.idAula.valid"></i>
+                                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.idAula.invalid &&
+                                                                horarioForm.controls.idAula.touched"></i>
+                                                                <ng-select [items]="aulaSelect"
+                                                                        bindLabel="name"
+                                                                        bindValue="id"
+                                                                        placeholder="Selecciona"
+                                                                        formControlName="idAula">
+                                                                </ng-select> 
+                                                                <p class="alert alert-danger" *ngIf="horarioForm.controls.idAula.invalid &&
+                                                                horarioForm.controls.idAula.touched">
+                                                                El campo Aula es obligatorio</p>
+                                                            </div> 
+                                                        </div> 
+                                                        <div class="col-sm-12 col-md-6">
+                                                          <div class="form-group">
+                                                              <label> Hora de Inicio </label>
+                                                              <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.horaIni.valid"></i>
+                                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.horaIni.invalid &&
+                                                              horarioForm.controls.horaIni.touched"></i>
+                                                              <input name="clave" formControlName="horaIni" value="" class="form-control" type="time" />
+                                                              <p class="alert alert-danger" *ngIf="horarioForm.controls.horaIni.invalid &&
+                                                              horarioForm.controls.horaIni.touched">
+                                                              El campo Hora de Inicio es obligatorio</p>
+                                                          </div> 
+                                                      </div>
+                                                    </div>
+                                                    <div class="row">
+                                                      <div class="col-sm-12 col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Hora de Terminación</label>
+                                                                    <i class="fa fa-check-circle check" *ngIf="horarioForm.controls.horaFin.valid"></i>
+                                                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="horarioForm.controls.horaFin.invalid &&
+                                                                    horarioForm.controls.horaFin.touched"></i>
+                                                                    <input name="clave" formControlName="horaFin" value="" class="form-control" type="time" />
+                                                                    <p class="alert alert-danger" *ngIf="horarioForm.controls.horaFin.invalid &&
+                                                                    horarioForm.controls.horaFin.touched">
+                                                                    El campo Hora de Terminación es obligatorio</p>
+                                                                </div> 
+                                                      </div>
+                                                      <div class="col-sm-12 ">
+                                                          <div  class="form-group">
+                                                                <div class="col-sm-12 ">
+                                                                        <div *ngIf="modal == 'modificar-horario'" class="form-group">
+                                                                            <button  type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!horarioForm.valid>Modificar</button>
+                                                                            <p class="alert alert-danger" *ngIf="!horarioForm.valid">
+                                                                                Por favor complete los campos
+                                                                            </p>
+                                                                        </div>
+                                                                        <div *ngIf="modal == 'agregar-horario'" class="form-group">
+                                                                            <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!horarioForm.valid>Agregar</button>
+                                                                            <p class="alert alert-danger" *ngIf="!horarioForm.valid">
+                                                                                Por favor complete los campos
+                                                                            </p>
+                                                                        </div>
+                                                                    </div> 
+                                                          </div>
+                                                      </div> 
+                                                    </div>
+                                                </form>
+                                          
                                         </div>
                                     </div>
                                 </div>
                           </div>
                         </div>
-                      </div>
+                </div>
               </div> 
             </div>
           </div>

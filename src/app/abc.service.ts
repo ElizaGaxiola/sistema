@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo, Grupo } from './modelos';
+import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo, Grupo, Horario } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,6 +16,40 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+  //ABC Horario 
+
+  //Obtener horario
+  getHorario(idHorario: number): Observable<any>{
+    return this.http.get('/api/horario?idHorario='+idHorario)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Delete horario 
+  deleteHorario (idHorario:number): Observable<any> {
+    return this.http.delete('/api/horarioDelete?idHorario='+idHorario, httpOptions).pipe(
+      tap(_ => console.log('delete horario')),
+      catchError(this.handleError<any>('deleteHorario'))
+    );
+  }
+
+  //Obtener Horarios x Grupo
+  getHorarios(idGrupo:number): Observable<any>{
+    return this.http.get('/api/horarios?idGrupo='+idGrupo)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+
+  //Insertar Horario
+  insertHorario (horario:Horario): Observable<any> {
+    return this.http.post('/api/horarioInsert', horario, httpOptions).pipe(map(result => {
+      return result;
+    }));  
+  }
+
   //ABC Grupos
 
   //Agregar grupo 
@@ -243,6 +277,14 @@ export class AbcService {
 
   //ABC Aulas
 
+   //Obtener AulasxEdificio
+   getAulasxEdificio(idEdificio:number): Observable<any>{
+    return this.http.get('/api/aulasxEdificio?idEdificio='+idEdificio)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
   //Obtener Aulas
   getAulas(idEscuela:number): Observable<any>{
     return this.http.get('/api/aulas?idEscuela='+idEscuela)
@@ -283,6 +325,8 @@ export class AbcService {
         return result;
     }))  
   }
+
+  
 
   //Actualizar Edificio
   updateEdificio (edificio:Edificio): Observable<any> {
