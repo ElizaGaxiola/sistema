@@ -170,9 +170,27 @@ export class CreargruposComponent implements OnInit {
   }
 
   public modificarHorario(idHorario:number){
+    this.idHorario = idHorario;
     this.abc.getHorario(idHorario).subscribe((data: any)=>{
-      console.log(data);
+      this.abc.getAula(data.idAula).subscribe((aula:any)=>{
+        this.idEdificio = aula.idEdificio;
+        this.idGrupo = data.idGrupo;
+        this.change();
+        this.chRef.detectChanges();
+        this.horarioForm = this.pf.group({
+          idHorario: data.idHorario,
+          idGrupo:   data.idGrupo,
+          diaSemana: Number(data.diaSemana),
+          idAula:    data.idAula,
+          horaIni:   data.horaIni,
+          horaFin:   data.horaFin
+        });
+      });
     });
+    $("#modal-horario").modal('hide');
+    this.modal = 'modificar-horario';
+    $("#modal-detalle-horario").modal();
+    
   }
 
   public clonar(idGrupo:number){
@@ -229,6 +247,23 @@ export class CreargruposComponent implements OnInit {
       this.horario = this.saveHorario();
       console.log(this.horario);
       this.abc.insertHorario(this.horario).subscribe((data:any)=> {
+        console.log(data);
+        if(data.status == false){
+          this._danger.next(data.msg);
+        }else{
+          $("#modal-detalle-horario").modal('hide');
+          this._success.next('Datos agregados con éxito');
+          this.agregarHorario(this.idGrupo);
+        }
+      }, (err) => {
+        console.log(err);
+        this._danger.next('A ocurrido un error intentalo de nuevo');
+      });
+    }else if (this.modal == 'modificar-horario'){
+      this.horario = this.saveHorario();
+      console.log('HORARIO');
+      console.log(this.horario);
+      this.abc.updateHorario(this.horario).subscribe((data:any)=> {
         console.log(data);
         if(data.status == false){
           this._danger.next(data.msg);
