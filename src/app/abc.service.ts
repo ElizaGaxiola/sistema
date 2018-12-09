@@ -18,6 +18,13 @@ export class AbcService {
   constructor(private http: HttpClient) { }
   //ABC Horario 
 
+  //Actualizar grupo
+  updateHorario (horario:Horario): Observable<any> {
+    return this.http.put('/api/horarioUpdate', horario, httpOptions).pipe(map(result => {
+      return result;
+    }));  
+  }
+
   //Obtener horario
   getHorario(idHorario: number): Observable<any>{
     return this.http.get('/api/horario?idHorario='+idHorario)
