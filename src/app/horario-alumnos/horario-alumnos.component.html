@@ -7,10 +7,10 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-12">
-              <div class="card tabla mb-3">
+              <div class="card tabla mb-3" style="margin-top: 15px">
                 <div class="card-header">
                   <i class="fas fa-table"></i>
-                   Calificaciones
+                  Horario
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -18,29 +18,29 @@
                           <thead>
                           <tr>
                               <th style="width: 20%; text-align: center">
-                                  Matricula
-                              </th>
-                              <th style="width: 20%">
-                                  Apellido Paterno
-                              </th>
-                              <th style="width: 20%">
-                                  Apellido Materno
-                              </th>
-                              <th style="width: 20%">
-                                  Nombre
+                                  Dia
                               </th>
                               <th style="width: 20%; text-align: center">
-                                Calificación
+                                  Materia
+                              </th>
+                              <th style="width: 20%; text-align: center">
+                                  Horario
+                              </th>
+                              <th style="width: 20%; text-align: center">
+                                  Edificio
+                              </th>
+                              <th style="width: 20%; text-align: center">
+                                Aula
                               </th>
                           </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let item of data">
-                                <td style="text-align: center">{{item.matricula}}</td>
-                                <td>{{item.apellidop}}</td>
-                                <td>{{item.apellidom}}</td>
-                                <td>{{item.nombre}}</td>
-                                <td style="text-align: center">{{item.calificacion}}</td>
+                                <td style="text-align: center">{{item.dia}}</td>
+                                <td style="text-align: center">{{item.materia}}</td>
+                                <td style="text-align: center">{{item.horario}}</td>
+                                <td style="text-align: center">{{item.edificio}}</td>
+                                <td style="text-align: center">{{item.aula}}</td>
                             </tr>
                             </tbody>
                       </table>

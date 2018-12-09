@@ -4,59 +4,61 @@
   <div id="content-wrapper">
     <div class="container-fluid">
       <app-head [nombre]="modulo"></app-head>
-    </div>
-    <div class="card" style="margin-left: 30px; margin-right: 30px">
-      <div class="card-body">
-        <div class="row">
-          <div class="form-group col-sm-6" >
-            <label for="city">Nombre de la Institución</label>
-            <input class="form-control" id="city" value="Telesecundaria Federalizada 67" type="text" disabled>
-          </div>
-          <div class="form-group col-sm-6" >
-            <label for="postal-code">Clave</label>
-            <input class="form-control" id="clave" value="25DTV0067M" type="text" disabled>
-          </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-6" >
-              <label for="city">Nivel</label>
-              <input class="form-control" id="nivel" value="Secundaria" type="text" disabled>
-            </div>
-            <div class="form-group col-sm-6" >
-              <label for="postal-code">Turno</label>
-              <input class="form-control" id="turno" value="Tiempo Completo" type="text" disabled>
-            </div>
-          </div>
-          <div class="row">
-              <div class="form-group col-sm-6" >
-                <label for="city">Direccción</label>
-                <input class="form-control" id="direccion" value="Ejido Plan de Guadalupe" type="text" disabled>
-              </div>
-              <div class="form-group col-sm-6" >
-                <label for="postal-code">Código Postal</label>
-                <input class="form-control" id="codigo-postal" value="81379" type="text" disabled>
-              </div>
-            </div>
-            <div class="row">
+      <div class="card" style="margin-left: 30px; margin-right: 30px">
+          <div class="card-body">
+            <form [formGroup]="estudiosForm" (ngSubmit)="onSubmit()">
+              <div class="row">
                 <div class="form-group col-sm-6" >
-                  <label for="city">Municipio</label>
-                  <input class="form-control" id="municipio" value="Ahome" type="text" disabled>
+                  <label for="city">Nombre de la Institución</label>
+                  <input class="form-control" formControlName="nombre" id="city" value="Telesecundaria Federalizada 67" type="text" disabled>
                 </div>
                 <div class="form-group col-sm-6" >
-                  <label for="postal-code">Estado</label>
-                  <input class="form-control" id="estado" value="Sinaloa" type="text" disabled>
+                  <label for="postal-code">Clave</label>
+                  <input class="form-control" formControlName="clave" id="clave" value="25DTV0067M" type="text" disabled>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-sm-6" >
+                  <label for="city">Nivel</label>
+                  <input class="form-control" formControlName="idSeccion" id="nivel" value="Secundaria" type="text" disabled>
+                </div>
+                <div class="form-group col-sm-6" >
+                  <label for="postal-code">Calle</label>
+                  <input class="form-control"  formControlName="calle" id="turno" value="Tiempo Completo" type="text" disabled>
                 </div>
               </div>
               <div class="row">
                   <div class="form-group col-sm-6" >
-                    <label for="city">Email</label>
-                    <input class="form-control" id="email" value="telesecundaria_67@ahome.edu.mx" type="text" disabled>
+                    <label for="city">Direccción</label>
+                    <input class="form-control" formControlName="colonia" id="direccion" value="Ejido Plan de Guadalupe" type="text" disabled>
                   </div>
                   <div class="form-group col-sm-6" >
-                    <label for="postal-code">Teléfono</label>
-                    <input class="form-control" id="telefono" value="(668)-864-0750" type="text" disabled>
+                    <label for="postal-code">Código Postal</label>
+                    <input class="form-control" formControlName="cp" id="codigo-postal" value="81379" type="text" disabled>
                   </div>
-                </div>
+              </div>
+              <div class="row">
+                    <div class="form-group col-sm-6" >
+                      <label for="city">Municipio</label>
+                      <input class="form-control" formControlName="idMunicipio" id="municipio" value="Ahome" type="text" disabled>
+                    </div>
+                    <div class="form-group col-sm-6" >
+                      <label for="postal-code">Estado</label>
+                      <input class="form-control" formControlName="idEstado" id="estado" value="Sinaloa" type="text" disabled>
+                    </div>
+              </div>
+              <div class="row">
+                      <div class="form-group col-sm-6" >
+                        <label for="city">Email</label>
+                        <input class="form-control" formControlName="email" id="email" value="telesecundaria_67@ahome.edu.mx" type="email" disabled>
+                      </div>
+                      <div class="form-group col-sm-6" >
+                        <label for="postal-code">Teléfono</label>
+                        <input class="form-control" formControlName="telefono" id="telefono" value="(668)-864-0750" type="text" disabled>
+                      </div>
+              </div>
+            </form>
+          </div>
       </div>
     </div>
     <app-footer></app-footer>

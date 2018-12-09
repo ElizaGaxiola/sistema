@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HorarioAlumnosComponent implements OnInit {
   public modulo: string = "Horario"
+  dtOptions: DataTables.Settings = {};
   constructor() { }
 
   ngOnInit() {
