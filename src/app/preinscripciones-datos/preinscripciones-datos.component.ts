@@ -36,6 +36,7 @@ export class PreinscripcionesDatosComponent implements OnInit {
   urlCredencial: string;
   urlComprobante: string;
   idCandidato:number;
+  idEscuela:number;
   constructor(private abc: AbcService, private pf: FormBuilder,private chRef: ChangeDetectorRef) { }
 
   public change(){
@@ -47,6 +48,15 @@ export class PreinscripcionesDatosComponent implements OnInit {
           this.municipiosSelect = [...this.municipiosSelect, {id: municipio.idMunicipio, name: municipio.nombre}];
         }
        }
+    });
+  }
+  public changeEsc(){
+    console.log(this.idEscuela);
+    this.carreraSelect=[];
+    this.abc.getCarreras(this.idEscuela).subscribe((carreras: any) => {
+        for (let carrera of carreras) {
+        this.carreraSelect = [...this.carreraSelect, {id: carrera.idCarrera, name: carrera.descripcion}];
+        }
     });
   }
 
@@ -81,7 +91,6 @@ export class PreinscripcionesDatosComponent implements OnInit {
       telefonoTutor:['',[Validators.required]],
       telefono:[''],
       idEstado:[''],
-      //telefono:['',[Validators.required]],
       celular:['',[Validators.required]],
       email:['',[Validators.required, Validators.email]],
       colonia:['',[ Validators.required]],

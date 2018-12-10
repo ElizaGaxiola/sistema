@@ -22,10 +22,13 @@
                       <table datatable [dtOptions]="dtOptions" class="row-border hover">
                           <thead>
                           <tr>
-                              <th style="width: 33%">
+                              <th style="width: 40%">
                                   Descripción
                               </th>
-                              <th style="width: 34%">
+                              <th style="width: 30%">
+                                  Precio
+                              </th>
+                              <th style="width: 30%">
                                 Acciones
                               </th>
                           </tr>
@@ -33,6 +36,7 @@
                           <tbody>
                           <tr *ngFor="let item of data">
                               <td>{{item.descripcion}}</td>
+                              <td>${{item.precio}}</td>
                               <td>
                                 <button type='button' (click)='modificar(item.idCarrera)' class='btn btn-warning' title='Modificar'>
                                   <i class='fas fa-edit'></i>
@@ -78,6 +82,18 @@
                                             El campo Título es obligatorio</p>
                                           </div>
                                         </div>
+                                        <div class="col-sm-12 ">
+                                            <div class="form-group">
+                                              <label for="precio">Precio</label>
+                                              <i class="fa fa-check-circle check" *ngIf="carreraForm.controls.precio.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="carreraForm.controls.precio.invalid &&
+                                              carreraForm.controls.precio.touched"></i>
+                                              <input  class="form-control" id="precio" type="text" formControlName="precio">
+                                              <p class="alert alert-danger" *ngIf="carreraForm.controls.precio.invalid &&
+                                              carreraForm.controls.precio.touched">
+                                              El campo Precio es obligatorio</p>
+                                            </div>
+                                          </div>
                                         <div class="col-sm-12">
                                             <div *ngIf="modal == 'modificar'" class="form-group">
                                                 <button type="submit" class="btn btn-fill btn-rose " [disabled]=!carreraForm.valid>Modificar</button>

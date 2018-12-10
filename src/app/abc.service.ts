@@ -18,6 +18,22 @@ export class AbcService {
   constructor(private http: HttpClient) { }
   //ABC Preinscripcion
 
+  //Obtener candidato Curp
+  getTutorCandidato(idCandidato: string): Observable<any>{
+    return this.http.get('/api/tutorCandidato?idCandidato='+idCandidato)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Obtener candidato Curp
+  getCandidatoCurp(curp: string): Observable<any>{
+    return this.http.get('/api/candidatoCurp?curp='+curp)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
   //Obtener candidato
   getCandidato(idCandidato: number): Observable<any>{
     return this.http.get('/api/candidato?idCandidato='+idCandidato)

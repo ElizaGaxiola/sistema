@@ -13,7 +13,7 @@
               <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.curp.valid"></i>
               <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.curp.invalid &&
               inscripcionForm.controls.curp.touched"></i>
-              <input class="form-control" id="curp" formControlName="curp" type="text" pattern="([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)">
+              <input (keydown)="buscar($event)" [(ngModel)]="curp" class="form-control" id="curp" formControlName="curp" type="text" pattern="([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)">
               <p class="alert alert-danger" *ngIf="inscripcionForm.controls.curp.invalid &&
               inscripcionForm.controls.curp.touched">
               El campo Curp es obligatorio</p>
@@ -93,18 +93,7 @@
           <div class="row">
               <div class="form-group col-md-12 text-center">
                 <label for="city">Escuela</label>
-                <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.idEscuela.valid"></i>
-                <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.idEscuela.invalid &&
-                inscripcionForm.controls.idEscuela.touched"></i>
-                <ng-select [items]="escuelaSelect"
-                    bindLabel="name"
-                    bindValue="id"
-                    placeholder="Selecciona"
-                    formControlName="idEscuela">
-                </ng-select>
-                <p class="alert alert-danger" *ngIf="inscripcionForm.controls.idEscuela.invalid &&
-                inscripcionForm.controls.idEscuela.touched">
-                El campo Escuela es obligatorio</p>
+                <input class="form-control" [(ngModel)]="escuela" [ngModelOptions]="{standalone: true}" disabled  type="text" >
               </div>
           </div>
           <div class="row">
@@ -232,11 +221,13 @@
                   <div class="form-group row">
                       <label>Estado:</label>
                       <div class="col-12">
-                          <ng-select [items]="estadoSelect"
+                          <ng-select [items]="estadosSelect"
                             bindLabel="name"
                             bindValue="id"
-                            placeholder="Selecciona"
-                            formControlName="idEstado">
+                            [(ngModel)]="idEstado"
+                            (change)="change()"
+                            [ngModelOptions]="{standalone: true}"
+                            placeholder="Selecciona">
                           </ng-select>
                       </div>
                   </div>
@@ -247,7 +238,7 @@
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.idMunicipio.invalid &&
                 inscripcionForm.controls.idMunicipio.touched"></i>
                 <div class="col-12">
-                    <ng-select [items]="municipioSelect"
+                    <ng-select [items]="municipiosSelect"
                       bindLabel="name"
                       bindValue="id"
                       placeholder="Selecciona"
@@ -381,7 +372,7 @@
                       inscripcionForm.controls.urlCertificado.touched"></i>
                   </div>
                   <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlActa" class="custom-file-input" id="customFileLang" lang="es">
+                      <input type="file" formControlName="urlCertificado" class="custom-file-input" id="customFileLang" lang="es">
                       <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
                       <p class="alert alert-danger" *ngIf="inscripcionForm.controls.urlCertificado.invalid &&
                       inscripcionForm.controls.urlCertificado.touched">
@@ -404,7 +395,7 @@
                       inscripcionForm.controls.urlImagen.touched"></i>
                   </div>
                     <div class="col-md-12">
-                        <img src="../../assets/images/alumnos/profile.png"  style="width:200px; height:200px; " alt=""/>
+                        <img src="http://localhost:8080/Apis/assets/images/alumnos/{{urlImagen}}"  style="width:200px; height:200px; " alt=""/>
                     </div>
                   <div class="custom-file col-md-4" style="margin-top: 20px">
                       <input type="file" formControlName="urlImagen" class="custom-file-input" id="customFileLang" lang="es">

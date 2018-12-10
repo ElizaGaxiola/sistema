@@ -51,6 +51,7 @@ export class CarrerasComponent implements OnInit {
       this.carreraForm=this.pf.group({
         idCarrera:data.idCarrera,
         descripcion:data.descripcion,
+        precio:data.precio,
         idEscuela:data.idEscuela,
         estatus:data.estatus 
       });
@@ -142,6 +143,7 @@ export class CarrerasComponent implements OnInit {
     const saveCarrera ={
         idCarrera: this.carreraForm.get('idCarrera').value,
         descripcion: this.carreraForm.get('descripcion').value, 
+        precio :this.carreraForm.get('precio').value,
         idEscuela: this.administradorUser.idEscuela,
         estatus: this.carreraForm.get('estatus').value, 
     }
@@ -151,6 +153,7 @@ export class CarrerasComponent implements OnInit {
     this.carreraForm = this.pf.group({
       idCarrera: [''],
       descripcion: ['',[Validators.required]],
+      precio: ['',[Validators.required,Validators.pattern('[0-9]*.[0-9]*')]],
       idEscuela:[''],
       estatus:[0]      
     });

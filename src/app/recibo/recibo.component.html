@@ -7,22 +7,22 @@
                     <img src="../../assets/images/logo-chico.jpg">
                 </div>
                 <div class="col-md-11">
-                    <p style="text-align:center">Universidad Autónoma de Sinaloa</p>
+                    <p style="text-align:center">{{nombreEsc}}</p>
                 </div>
             </div>
           </td>
         </tr>
         <tr>
-            <td>Recibo de pago del Alumno(a): Elizabeth Gaxiola Carrillo</td>
+            <td>Recibo de pago del Alumno(a): {{nombreCan}}</td>
         </tr>
     </table>
     <table border>
         <tr>
-            <td>Carrera: Licenciatura en Ingeniería de Software</td>
-            <td rowspan="2">Importe:</td>
+            <td>Carrera: {{nombreCar}}</td>
+            <td rowspan="2">Importe:$ {{importe}}</td>
         </tr>
         <tr>
-            <td>Grado: 3ro</td>
+            <td>Grado: Primero</td>
         </tr> 
     </table>
     <table border>
@@ -33,15 +33,15 @@
         </tr>
         <tr>
             <td>Banorte</td>
-            <td rowspan="3"></td>
-            <td rowspan="3"></td>
+            <td rowspan="3"> Inscripción</td>
+            <td rowspan="3">$ {{importe}}</td>
         </tr>
         <tr>
             <td>Referencia:</td>
             
         </tr>
         <tr>
-            <td>00000000000000</td>
+            <td>{{ref}}</td>
             
         </tr>
         
@@ -56,22 +56,22 @@
                     <img src="../../assets/images/logo-chico.jpg">
                 </div>
                 <div class="col-md-11">
-                    <p style="text-align:center">Universidad Autónoma de Sinaloa</p>
+                    <p style="text-align:center">{{nombreEsc}}</p>
                 </div>
             </div>
           </td>
         </tr>
         <tr>
-            <td>Recibo de pago del Alumno(a): Elizabeth Gaxiola Carrillo</td>
+            <td>Recibo de pago del Alumno(a): {{nombreCan}}</td>
         </tr>
     </table>
     <table border>
         <tr>
-            <td>Carrera: Licenciatura en Ingeniería de Software</td>
-            <td rowspan="2">Importe:</td>
+            <td>Carrera: {{nombreCar}}</td>
+            <td rowspan="2">Importe:$ {{importe}}</td>
         </tr>
         <tr>
-            <td>Grado: 3ro</td>
+            <td>Grado: Primero</td>
         </tr> 
     </table>
     <table border>
@@ -82,15 +82,15 @@
         </tr>
         <tr>
             <td>Banorte</td>
-            <td rowspan="3"></td>
-            <td rowspan="3"></td>
+            <td rowspan="3"> Inscripción</td>
+            <td rowspan="3">$ {{importe}}</td>
         </tr>
         <tr>
             <td>Referencia:</td>
             
         </tr>
         <tr>
-            <td>00000000000000</td>
+            <td>{{ref}}</td>
             
         </tr>
         
@@ -105,23 +105,23 @@
                     <img src="../../assets/images/logo-chico.jpg">
                 </div>
                 <div class="col-md-11">
-                    <p style="text-align:center">Universidad Autónoma de Sinaloa</p>
+                    <p style="text-align:center">{{nombreEsc}}</p>
                 </div>
             </div>
           </td>
         </tr>
         <tr>
-            <td>Recibo de pago del Alumno(a): Elizabeth Gaxiola Carrillo</td>
+            <td>Recibo de pago del Alumno(a): {{nombreCan}}</td>
         </tr>
       
     </table>
     <table border>
         <tr>
-            <td>Carrera: Licenciatura en Ingeniería de Software</td>
-            <td rowspan="2">Importe:</td>
+            <td>Carrera: {{nombreCar}}</td>
+            <td rowspan="2">Importe:$ {{importe}}</td>
         </tr>
         <tr>
-            <td>Grado: 3ro</td>
+            <td>Grado: Primero</td>
         </tr> 
     </table>
     <table border>
@@ -132,15 +132,15 @@
         </tr>
         <tr>
             <td>Banorte</td>
-            <td rowspan="3"></td>
-            <td rowspan="3"></td>
+            <td rowspan="3"> Inscripción</td>
+            <td rowspan="3">$ {{importe}}</td>
         </tr>
         <tr>
             <td>Referencia:</td>
             
         </tr>
         <tr>
-            <td>00000000000000</td>
+            <td>{{ref}}</td>
             
         </tr>
         
@@ -148,4 +148,4 @@
     <p>Copia para el Banco</p>
     <p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
 </div>
-<input type="button" value="Imprimir Recibo" onclick="window.print()"> 
+<input type="button" value="Imprimir Recibo" onclick="window.print()" routerLinkActive="active" routerLink=""> 

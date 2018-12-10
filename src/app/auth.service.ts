@@ -17,6 +17,7 @@ export class AuthService {
           this.taki=JSON.parse(atob(result.token.split('.')[1]));
           console.log(this.taki);
           localStorage.setItem('idUsuario', this.taki.idUsuario);
+          localStorage.setItem('tipo', this.taki.idTipo);
           return true;
         })
       );

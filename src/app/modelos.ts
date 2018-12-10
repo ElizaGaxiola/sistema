@@ -70,6 +70,7 @@ export interface AsignaturaPeriodo{
 export interface Carrera{
     idCarrera: number;
     descripcion:string;
+    precio: number;
     idEscuela:number;
     estatus:number;
 }

@@ -18,7 +18,9 @@
                       bindLabel="name"
                       bindValue="id"
                       placeholder="Selecciona"
-                      formControlName="idEscuela">
+                      formControlName="idEscuela"
+                      [(ngModel)]="idEscuela"
+                      (change)="changeEsc()">
                   </ng-select>
                   <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.idEscuela.invalid &&
                   preinscripcionForm.controls.idEscuela.touched">
