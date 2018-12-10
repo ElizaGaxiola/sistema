@@ -57,10 +57,26 @@
               </a>
           </li>
           <li class="nav-item ">
-              <a class="nav-link" routerLinkActive="active" routerLink="/administrativos/inscripciones">
+              <a class="nav-link" data-toggle="collapse" href="#pagesInscripciones">
                 <i class="fas fa-shapes"></i>
                   <p> Inscripciones </p>
               </a>
+              <div class="collapse" id="pagesInscripciones">
+                    <ul class="nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" routerLinkActive="active" routerLink="/administrativos/inscripciones/inscripcion">
+                              <span class="sidebar-mini"> I </span>
+                              <span class="sidebar-normal"> Inscripción </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" routerLinkActive="active" routerLink="/administrativos/inscripciones/reinscripcion">
+                              <span class="sidebar-mini"> R </span>
+                              <span class="sidebar-normal"> Reinscripción </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
           </li>
           <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#pagesPersonal">
@@ -151,7 +167,7 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" routerLinkActive="active" routerLink="/administrativos/creargrupos">
-                            <span class="sidebar-mini"> D </span>
+                            <span class="sidebar-mini"> G </span>
                             <span class="sidebar-normal"> Grupos </span>
                         </a>
                     </li>

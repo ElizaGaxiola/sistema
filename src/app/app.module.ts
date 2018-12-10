@@ -69,7 +69,9 @@ import { AdministrativoService } from './administrativo.service';
 import { AlumnoService} from './alumno.service';
 import { DocenteService} from './docente.service';
 import { SuperuserService} from './superuser.service';
-
+import { ReinscripcionComponent } from './reinscripcion/reinscripcion.component';
+import { ReciboreinscripcionComponent } from './reciboreinscripcion/reciboreinscripcion.component';
+import { AlumnoreinscripcionComponent } from './alumnoreinscripcion/alumnoreinscripcion.component';
 const routes = [
   { path:'',component: PaginaprincipalComponent},
   { path:'alumnos',component: IndexComponent},
@@ -110,8 +112,11 @@ const routes = [
   { path: 'administrativos/personal/administrativo', component: PersonaladminComponent, canActivate: [AdministrativoService]},
   { path: 'administrativos/personal/docente', component: PersonaldocenteComponent, canActivate: [AdministrativoService]},
   { path: 'administrativos/crearavisos', component: AvisosComponent, canActivate: [AdministrativoService]},
-  { path: 'administrativos/inscripciones', component: InscripcionesComponent, ccanActivate: [AdministrativoService]},
+  { path: 'administrativos/inscripciones/inscripcion', component: InscripcionesComponent, ccanActivate: [AdministrativoService]},
   { path: 'preinscripciones/recibo/:id', component: ReciboComponent, },
+  { path: 'administrativos/inscripciones/reinscripcion', component: ReinscripcionComponent, ccanActivate: [AdministrativoService]},
+  { path: 'alumnos/reinscripcion/recibo', component: ReciboreinscripcionComponent, canActivate: [AlumnoService]},
+  { path: 'alumnos/reinscripcion', component: AlumnoreinscripcionComponent, ccanActivate: [AlumnoService]}, 
   { path:'**',component: PaginaprincipalComponent},
 ];
 
@@ -169,6 +174,9 @@ export function tokenGetter() {
     PerfilDocenteComponent,
     ModificarPerfilDocenteComponent,
     AsignaturasxperiodosComponent,
+    ReinscripcionComponent,
+    ReciboreinscripcionComponent,
+    AlumnoreinscripcionComponent
   ],
   imports: [
     NgbModule,
