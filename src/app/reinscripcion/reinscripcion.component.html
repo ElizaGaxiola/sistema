@@ -1,3 +1,430 @@
-<p>
-  reinscripcion works!
-</p>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<div id="wrapper">
+  <app-menu-admin></app-menu-admin> 
+  <div id="content-wrapper">
+      <ngb-alert class="float-right" style="z-index: 500" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+      <ngb-alert class="float-right" style="z-index: 500" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>  
+    <form [formGroup]="inscripcionForm" (ngSubmit)="onSubmit()">
+        <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
+            <div class="card-body">
+                <p style="text-align: center">BUSCAR ALUMNO</p>
+                <hr>
+              <div class="row">
+                <div class="form-group col-sm-4" >
+                  <label for="postal-code">Matrícula</label>
+                  <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.matricula.valid"></i>
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.matricula.invalid &&
+                  inscripcionForm.controls.matricula.touched"></i>
+                  <input class="form-control" id="telfijo" formControlName="matricula" pattern="[0-9]{8}"  type="number" >
+                  <p class="alert alert-danger" *ngIf="inscripcionForm.controls.matricula.invalid &&
+                  inscripcionForm.controls.matricula.touched">
+                  El campo Matrícula es obligatorio</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
+        <div class="card-body">
+          <p style="text-align: center">DATOS PERSONALES</p>
+          <hr>
+        <div class="row">
+          <div class="form-group col-sm-4" >
+              <label for="city">Curp</label>
+              <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.curp.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.curp.invalid &&
+              inscripcionForm.controls.curp.touched"></i>
+              <input (keydown)="buscar($event)" [(ngModel)]="curp" class="form-control" id="curp" formControlName="curp" type="text" pattern="([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)">
+              <p class="alert alert-danger" *ngIf="inscripcionForm.controls.curp.invalid &&
+              inscripcionForm.controls.curp.touched">
+              El campo Curp es obligatorio</p>
+          </div>
+          <div class="form-group col-sm-4" >
+            <label for="postal-code">Apellido Paterno</label>
+            <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.apellidoP.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.apellidoP.invalid &&
+                inscripcionForm.controls.apellidoP.touched"></i>
+            <input class="form-control" id="apellidop" formControlName="apellidoP" type="text" >
+            <p class="alert alert-danger" *ngIf="inscripcionForm.controls.apellidoP.invalid &&
+                  inscripcionForm.controls.apellidoP.touched">
+                  El campo Apellido Paterno es obligatorio</p>
+          </div>
+          <div class="form-group col-sm-4" >
+              <label>Apellido Materno</label>
+              <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.apellidoM.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.apellidoM.invalid &&
+                inscripcionForm.controls.apellidoM.touched"></i>
+              <input class="form-control" id="apellidom" formControlName="apellidoM" type="text" >
+              <p class="alert alert-danger" *ngIf="inscripcionForm.controls.apellidoM.invalid &&
+                  inscripcionForm.controls.apellidoM.touched">
+                  El campo Apellido Materno es obligatorio</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4" >
+                <label for="city">Nombre del Aspirante</label>
+                <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.nombre.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.nombre.invalid &&
+                inscripcionForm.controls.nombre.touched"></i>
+                <input class="form-control" id="nombre" formControlName="nombre" type="text" >
+                <p class="alert alert-danger" *ngIf="inscripcionForm.controls.nombre.invalid &&
+                inscripcionForm.controls.nombre.touched">
+                El campo Nombre es obligatorio</p>
+            
+            </div>
+            <div class="form-group col-sm-4" >
+              <label for="postal-code">Sexo</label>
+              <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.sexo.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.sexo.invalid &&
+              inscripcionForm.controls.sexo.touched"></i>
+              <div class="col-12">
+                <ng-select [items]="sexoSelect"
+                  bindLabel="name"
+                  bindValue="id"
+                  placeholder="Selecciona"
+                  formControlName="sexo">
+                </ng-select>
+                <p class="alert alert-danger" *ngIf="inscripcionForm.controls.sexo.invalid &&
+                inscripcionForm.controls.sexo.touched">
+                El campo Sexo es obligatorio</p>
+            </div>
+            </div>
+            <div class="col-md-4">
+                <label>Fecha de nacimiento</label>
+                <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.fechaNac.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.fechaNac.invalid &&
+                inscripcionForm.controls.fechaNac.touched"></i>
+                <div class="input-group">
+                  <input class="form-control" [minDate]="minDate" formControlName="fechaNac" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                  <div class="input-group-btn">
+                      <button  type="button" class="btn btn-calendar" (click)="dp.show() " ><i class="fas fa-calendar-alt"></i></button>
+                  </div>
+                </div>
+                <p class="alert alert-danger" *ngIf="inscripcionForm.controls.fechaNac.invalid &&
+                  inscripcionForm.controls.fechaNac.touched">
+                El campo Fecha es obligatorio</p>
+            </div>
+          </div>
+      </div>
+      </div>
+      <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
+          <div class="card-body">
+            <p style="text-align: center">DATOS DE LA ESCUELA</p>
+            <hr> 
+          <div class="row">
+              <div class="form-group col-md-12 text-center">
+                <label for="city">Escuela</label>
+                <input class="form-control" [(ngModel)]="escuela" [ngModelOptions]="{standalone: true}" disabled  type="text" >
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group col-sm-6" >
+                <label for="postal-code">Ciclo Escolar</label>
+                <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.idCiclo.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.idCiclo.invalid &&
+                inscripcionForm.controls.idCiclo.touched"></i>
+                <div class="col-12">
+                    <ng-select [items]="cicloSelect"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="Selecciona"
+                      formControlName="idCiclo"
+                      (change)="changeCiclo()"
+                      [(ngModel)]="idCiclo">
+                    </ng-select>
+                    <p class="alert alert-danger" *ngIf="inscripcionForm.controls.idCiclo.invalid &&
+                    inscripcionForm.controls.idCiclo.touched">
+                    El campo Ciclo Escolar es obligatorio</p>
+                </div>
+              </div>
+              <div class="form-group col-sm-6" >
+                  <label for="postal-code">Subciclo Escolar</label>
+                  <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.idSubCiclo.valid"></i>
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.idSubCiclo.invalid &&
+                  inscripcionForm.controls.idSubCiclo.touched"></i>
+                  <div class="col-12">
+                      <ng-select [items]="subcicloSelect"
+                        bindLabel="name"
+                        bindValue="id"
+                        placeholder="Selecciona"
+                        formControlName="idSubCiclo"
+                        
+                        [(ngModel)]="idSubCiclo">
+                      </ng-select>
+                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.idSubCiclo.invalid &&
+                      inscripcionForm.controls.idSubCiclo.touched">
+                      El campo Subciclo Escolar es obligatorio</p>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group col-sm-6" >
+                  <label for="postal-code">Periodo</label>
+                  <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.idPeriodo.valid"></i>
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.idPeriodo.invalid &&
+                  inscripcionForm.controls.idPeriodo.touched"></i>
+                  <div class="col-12">
+                      <ng-select [items]="periodoSelect"
+                        bindLabel="name"
+                        bindValue="id"
+                        placeholder="Selecciona"
+                        formControlName="idPeriodo"
+                        
+                        [(ngModel)]="idPeriodo">
+                      </ng-select>
+                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.idPeriodo.invalid &&
+                      inscripcionForm.controls.idPeriodo.touched">
+                      El campo Periodo es obligatorio</p>
+                  </div>
+                </div>
+          </div>
+          </div>
+      </div>
+      <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
+        <div class="card-body">
+            <p style="text-align: center">DATOS DE CONTACTO</p>
+            <hr>
+          <div class="row">
+            <div class="form-group col-sm-4" >
+              <label for="postal-code">Teléfono Fijo</label>
+              <input class="form-control" id="telfijo" formControlName="telefono" pattern="[0-9]{10}"  type="number" >
+            </div>
+            <div class="form-group col-sm-4" >
+                <label for="postal-code">Teléfono Celular</label>
+                <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.celular.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.celular.invalid &&
+                inscripcionForm.controls.celular.touched"></i>
+                <input class="form-control" id="telcel" formControlName="celular" pattern="[0-9]{10}" type="number" >
+                <p class="alert alert-danger" *ngIf="inscripcionForm.controls.celular.invalid &&
+                inscripcionForm.controls.celular.touched">
+                El campo Teléfono Celular es obligatorio</p>
+            </div>
+            <div class="form-group col-sm-4" >
+                <label for="city">Correo Electrónico</label>
+                <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.email.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.email.invalid &&
+                  inscripcionForm.controls.email.touched"></i>
+                <input class="form-control" id="correo" formControlName="email" type="email" >
+                <p class="alert alert-danger" *ngIf="inscripcionForm.controls.email.invalid &&
+                  inscripcionForm.controls.email.touched">
+                  Correo Electrónico no válido</p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
+          <div class="card-body">
+              <p style="text-align: center">DOMICILIO ASPIRANTE</p>
+              <hr>
+            <div class="row">
+              <div class="form-group col-sm-4" >
+                <label for="city">Código Postal</label>
+                <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.cp.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.cp.invalid &&
+                  inscripcionForm.controls.cp.touched"></i>
+                <input class="form-control"  id="codpos" formControlName="cp" pattern="[0-9]{5}" type="number"  >
+                <p class="alert alert-danger" *ngIf="inscripcionForm.controls.cp.invalid &&
+                inscripcionForm.controls.cp.touched">
+                El campo Código Postal es obligatorio</p>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                  <div class="form-group row">
+                      <label>Estado:</label>
+                      <div class="col-12">
+                          <ng-select [items]="estadosSelect"
+                            bindLabel="name"
+                            bindValue="id"
+                            [(ngModel)]="idEstado"
+                            (change)="change()"
+                            [ngModelOptions]="{standalone: true}"
+                            placeholder="Selecciona">
+                          </ng-select>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group col-sm-4" >
+                <label for="postal-code">Municipio</label>
+                <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.idMunicipio.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.idMunicipio.invalid &&
+                inscripcionForm.controls.idMunicipio.touched"></i>
+                <div class="col-12">
+                    <ng-select [items]="municipiosSelect"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="Selecciona"
+                      formControlName="idMunicipio">
+                    </ng-select>
+                    <p class="alert alert-danger" *ngIf="inscripcionForm.controls.idMunicipio.invalid &&
+                    inscripcionForm.controls.idMunicipio.touched">
+                    El campo Municipio depende del Estado</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                  <div class="form-group col-sm-4" >
+                    <label for="city">Colonia</label>
+                    <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.colonia.valid"></i>
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.colonia.invalid &&
+                      inscripcionForm.controls.colonia.touched"></i>
+                    <input class="form-control" id="colonia" formControlName="colonia" type="text" >
+                    <p class="alert alert-danger" *ngIf="inscripcionForm.controls.colonia.invalid &&
+                    inscripcionForm.controls.colonia.touched">
+                    El campo Colonia es obligatorio</p>
+                  </div>
+                  <div class="form-group col-sm-4" >
+                      <label for="city">Calle</label>
+                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.calle.valid"></i>
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.calle.invalid &&
+                      inscripcionForm.controls.calle.touched"></i>
+                      <input class="form-control" id="calle" formControlName="calle" type="text" >
+                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.calle.invalid &&
+                    inscripcionForm.controls.calle.touched">
+                    El campo Calle es obligatorio</p>
+                  </div>
+                  <div class="form-group col-sm-4" >
+                      <label for="postal-code">Número</label>
+                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.numero.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.numero.invalid &&
+                      inscripcionForm.controls.numero.touched"></i>
+                      <input class="form-control" id="numero" formControlName="numero" type="text" >
+                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.numero.invalid &&
+                      inscripcionForm.controls.numero.touched">
+                      El campo Número es obligatorio</p>
+                    </div>
+              </div>
+          </div>
+      </div>
+      <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; margin-bottom: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
+            <div class="card-body">
+                <p style="text-align: center">DATOS DE LA MADRE/PADRE O TUTOR</p>
+                <hr>
+              <div class="row">
+                <div class="form-group col-sm-4" >
+                  <label for="city">Nombre</label>
+                  <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.nombreTutor.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.nombreTutor.invalid &&
+                  inscripcionForm.controls.nombreTutor.touched"></i>
+                  <input class="form-control" id="nombre1" formControlName="nombreTutor" type="text">
+                  <p class="alert alert-danger" *ngIf="inscripcionForm.controls.nombreTutor.invalid &&
+                      inscripcionForm.controls.nombreTutor.touched">
+                      El campo Nombre es obligatorio</p>
+                </div>
+                <div class="form-group col-sm-4" >
+                    <label for="city">Apellido Paterno</label>
+                    <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.apellidoPTutor.valid"></i>
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.apellidoPTutor.invalid &&
+                      inscripcionForm.controls.apellidoPTutor.touched"></i>
+                    <input class="form-control" id="apellidop1" formControlName="apellidoPTutor" type="text">
+                    <p class="alert alert-danger" *ngIf="inscripcionForm.controls.apellidoPTutor.invalid &&
+                      inscripcionForm.controls.apellidoPTutor.touched">
+                      El campo Apellido Paterno es obligatorio</p>
+                </div>
+                  <div class="form-group col-sm-4" >
+                      <label for="city">Apellido Materno</label>
+                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.apellidoMTutor.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.apellidoMTutor.invalid &&
+                      inscripcionForm.controls.apellidoMTutor.touched"></i>
+                      <input class="form-control" id="apellidom1" formControlName="apellidoMTutor" type="text">
+                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.apellidoMTutor.invalid &&
+                      inscripcionForm.controls.apellidoMTutor.touched">
+                      El campo Apellido Materno es obligatorio</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-4">
+                      <label>Fecha de nacimiento</label>
+                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.fechaNacTutor.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.fechaNacTutor.invalid &&
+                        inscripcionForm.controls.fechaNacTutor.touched"></i>
+                    <div class="input-group">
+                      <input class="form-control" formControlName="fechaNacTutor" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
+                      <div class="input-group-btn">
+                          <button type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
+                      </div>
+                    </div>
+                    <p class="alert alert-danger" *ngIf="inscripcionForm.controls.fechaNacTutor.invalid &&
+                    inscripcionForm.controls.fechaNacTutor.touched">
+                    El campo Fecha es obligatorio</p>
+                  </div>
+                  <div class="col-sm-12 col-md-4">
+                      <label for="postal-code">Teléfono</label>
+                      <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.telefonoTutor.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.telefonoTutor.invalid &&
+                      inscripcionForm.controls.telefonoTutor.touched"></i>
+                      <input class="form-control" id="telcel" formControlName="telefonoTutor" pattern="[0-9]{10}" type="number" >
+                      <p class="alert alert-danger" *ngIf="inscripcionForm.controls.telefonoTutor.invalid &&
+                      inscripcionForm.controls.telefonoTutor.touched">
+                      El campo Teléfono es obligatorio</p>
+                  </div>
+                    <div class="form-group col-sm-4" >
+                        <label for="postal-code">Correo Electrónico</label>
+                        <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.emailTutor.valid"></i>
+                        <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.emailTutor.invalid &&
+                        inscripcionForm.controls.emailTutor.touched"></i>
+                        <input class="form-control" id="ocupacion" formControlName="emailTutor" type="text" >
+                        <p class="alert alert-danger" *ngIf="inscripcionForm.controls.emailTutor.invalid &&
+                      inscripcionForm.controls.emailTutor.touched">
+                      Correo Electrónico no válido</p>
+                      </div>
+                </div>
+            </div>
+      </div>
+      <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; margin-bottom: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
+          <div class="card-body">
+            <p style="text-align: center">IMAGEN DEL ASPIRANTE</p>
+            <hr>
+            <div class="row">
+                <div class="form-group col-md-12 text-center"  >
+                  <div class="col-md-12">
+                      <label for="postal-code">Subir Imagen del Aspirante </label>
+                  </div>
+                    <div class="col-md-12">
+                        <img src="http://localhost:8080/Apis/assets/images/alumnos/{{urlImagen}}"  style="width:200px; height:200px; " alt=""/>
+                    </div>
+                  <div class="custom-file col-md-4" style="margin-top: 20px">
+                      <input (change)="cargandoImagen($event)" accept="image/*" type="file" class="custom-file-input" id="customFileLang" lang="es">
+                      <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
+                  </div>
+                  <div class="col-md-12">
+                      <button type="submit" style="background-color: #AB2E5F; margin-top: 30px; color:white; border-radius: 30px; width:90px; height:40px; border: 0px !important" [disabled]=!inscripcionForm.valid>Guardar</button>
+                      <p class="alert alert-danger" *ngIf="!inscripcionForm.valid">
+                          Por favor complete los campos
+                      </p>
+                  </div>
+                
+                </div>
+            </div>
+          </div>
+      </div>
+    </form>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+                <div class="modal-body">
+                  <div class="card">
+                     <div class="card-header">
+                        <strong >Registro exitoso</strong>
+                        <button (onclick)="ngOnInit()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 ">
+                                <div  class="form-group">
+                                    <p style="text-align: center">Credenciales del estudiante:</p>
+                                    <p>Matricula: {{matricula}}</p>
+                                    <p>Contraseña: {{contra}}</p>
+                                </div>
+                              </div>       
+                        </div>
+                      </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+  <app-footer></app-footer>
+  </div>
+</div>
+  
+        
