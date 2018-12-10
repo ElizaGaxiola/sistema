@@ -324,6 +324,8 @@
                       <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.urlActa.valid"></i>
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlActa.invalid &&
                       preinscripcionForm.controls.urlActa.touched"></i>
+                  </div>
+                  <div class="col-md-12" style="margin-top: 20px">
                       <input accept="application/pdf" type="file" formControlName="urlActa" (change)="cargandoUrlActa($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlActa.invalid &&
                       preinscripcionForm.controls.urlActa.touched">
@@ -335,7 +337,7 @@
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlConstancia.invalid &&
                       preinscripcionForm.controls.urlConstancia.touched"></i>
                   </div>
-                  <div class="col-md-4" style="margin-top: 20px">
+                  <div class="col-md-12" style="margin-top: 20px">
                       <input accept="application/pdf" type="file" formControlName="urlConstancia" (change)="cargandoUrlConstancia($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlConstancia.invalid &&
                       preinscripcionForm.controls.urlConstancia.touched">
@@ -347,7 +349,7 @@
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlCredencial.invalid &&
                       preinscripcionForm.controls.urlCredencial.touched"></i>
                   </div>
-                  <div class="col-md-4" style="margin-top: 20px">
+                  <div class="col-md-12" style="margin-top: 20px">
                       <input accept="application/pdf" type="file" formControlName="urlCredencial" (change)="cargandoUrlCredencial($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlCredencial.invalid &&
                       preinscripcionForm.controls.urlCredencial.touched">
@@ -359,7 +361,7 @@
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlComprobante.invalid &&
                       preinscripcionForm.controls.urlComprobante.touched"></i>
                   </div>
-                  <div class="col-md-4" style="margin-top: 20px">
+                  <div class="col-md-12" style="margin-top: 20px">
                       <input accept="application/pdf" type="file" formControlName="urlComprobante" (change)="cargandoUrlComprobante($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlComprobante.invalid &&
                       preinscripcionForm.controls.urlComprobante.touched">
