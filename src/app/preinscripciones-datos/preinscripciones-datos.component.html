@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <div id="wrapper"> 
   <div id="content-wrapper">
+      <ngb-alert class="float-right" style="z-index: 100" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+      <ngb-alert class="float-right" style="z-index: 100" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
     <form [formGroup]="preinscripcionForm" (ngSubmit)="onSubmit()">
       <div class="card" style="margin-left: 30px; margin-right: 30px; margin-top: 30px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);">
             <div class="card-body">
@@ -158,11 +160,13 @@
                   <div class="form-group row">
                       <label>Estado:</label>
                       <div class="col-12">
-                          <ng-select [items]="estadoSelect"
+                          <ng-select [items]="estadosSelect"
                             bindLabel="name"
                             bindValue="id"
                             placeholder="Selecciona"
-                            formControlName="idEstado">
+                            [(ngModel)]="idEstado"
+                            (change)="change()"
+                            [ngModelOptions]="{standalone: true}">
                           </ng-select>
                       </div>
                   </div>
@@ -173,7 +177,7 @@
                 <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.idMunicipio.invalid &&
                 preinscripcionForm.controls.idMunicipio.touched"></i>
                 <div class="col-12">
-                    <ng-select [items]="municipioSelect"
+                    <ng-select [items]="municipiosSelect"
                       bindLabel="name"
                       bindValue="id"
                       placeholder="Selecciona"
@@ -299,19 +303,18 @@
             <p style="text-align: center">DOCUMENTACIÓN DEL ASPIRANTE</p>
             <hr>
             <div class="row">
-                <div class="form-group col-md-12 text-center"  >
-                  <div class="col-md-12">
+                <div class="form-group col-md-12 text-center">
+                  <div class="custom-file col-md-12">
                       <label for="postal-code" style="margin-top: 30px">Subir Acta de Nacimiento del Aspirante </label>
                       <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.urlActa.valid"></i>
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlActa.invalid &&
                       preinscripcionForm.controls.urlActa.touched"></i>
                   </div>
-                  <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlActa" class="custom-file-input" id="customFileLang" lang="es">
-                      <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
+                  <div class="col-md-4" style="margin-top: 20px">
+                      <input accept="application/pdf" type="file" formControlName="urlActa" (change)="cargandoUrlActa($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlActa.invalid &&
                       preinscripcionForm.controls.urlActa.touched">
-                      El campo Acta de Nacimiento es obligatorio </p>
+                      El campo acta de nacimineto es obligatorio </p>
                   </div>
                   <div class="col-md-12">
                       <label for="postal-code" style="margin-top: 30px">Subir Constancia con Calificaciones del Aspirante </label>
@@ -319,9 +322,8 @@
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlConstancia.invalid &&
                       preinscripcionForm.controls.urlConstancia.touched"></i>
                   </div>
-                  <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlConstancia" class="custom-file-input" id="customFileLang" lang="es">
-                      <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
+                  <div class="col-md-4" style="margin-top: 20px">
+                      <input accept="application/pdf" type="file" formControlName="urlConstancia" (change)="cargandoUrlConstancia($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlConstancia.invalid &&
                       preinscripcionForm.controls.urlConstancia.touched">
                       El campo Constancia con Calificaciones es obligatorio </p>
@@ -332,9 +334,8 @@
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlCredencial.invalid &&
                       preinscripcionForm.controls.urlCredencial.touched"></i>
                   </div>
-                  <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlCredencial" class="custom-file-input" id="customFileLang" lang="es">
-                      <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
+                  <div class="col-md-4" style="margin-top: 20px">
+                      <input accept="application/pdf" type="file" formControlName="urlCredencial" (change)="cargandoUrlCredencial($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlCredencial.invalid &&
                       preinscripcionForm.controls.urlCredencial.touched">
                       El campo Credencial de Elector es obligatorio </p>
@@ -345,9 +346,8 @@
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlComprobante.invalid &&
                       preinscripcionForm.controls.urlComprobante.touched"></i>
                   </div>
-                  <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlComprobante" class="custom-file-input" id="customFileLang" lang="es">
-                      <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
+                  <div class="col-md-4" style="margin-top: 20px">
+                      <input accept="application/pdf" type="file" formControlName="urlComprobante" (change)="cargandoUrlComprobante($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlComprobante.invalid &&
                       preinscripcionForm.controls.urlComprobante.touched">
                       El campo Comprobante de Domicilio es obligatorio </p>
@@ -369,17 +369,17 @@
                       preinscripcionForm.controls.urlImagen.touched"></i>
                   </div>
                     <div class="col-md-12">
-                        <img src="../../assets/images/alumnos/profile.png"  style="width:200px; height:200px; " alt=""/>
+                        <img src="http://localhost:8080/Apis/assets/images/alumnos/{{urlImagen}}"  style="width:200px; height:200px; " alt=""/>
                     </div>
                   <div class="custom-file col-md-4" style="margin-top: 20px">
-                      <input type="file" formControlName="urlImagen" class="custom-file-input" id="customFileLang" lang="es">
+                      <input (change)="cargandoImagen($event)" accept="image/*" type="file" formControlName="urlImagen" class="custom-file-input" id="customFileLang" lang="es">
                       <label class="custom-file-label"  for="customFileLang">Seleccionar Archivo</label>
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlImagen.invalid &&
                       preinscripcionForm.controls.urlImagen.touched">
                       El campo Imagen es obligatorio </p>
                   </div>
                   <div class="col-md-12">
-                      <button type="submit" (click)='agregar()' style="background-color: #AB2E5F; margin-top: 30px; color:white; border-radius: 30px; width:90px; height:40px; border: 0px !important" [disabled]=!preinscripcionForm.valid>Guardar</button>
+                      <button type="submit"  style="background-color: #AB2E5F; margin-top: 30px; color:white; border-radius: 30px; width:90px; height:40px; border: 0px !important" [disabled]=!preinscripcionForm.valid>Guardar</button>
                       <p class="alert alert-danger" *ngIf="!preinscripcionForm.valid">
                           Por favor complete los campos
                       </p>
@@ -405,7 +405,7 @@
                         <div class="row">
                             <div class="col-sm-12 ">
                                 <div  class="form-group">
-                                    <button style="margin-left: 150px" type="submit" class="btn btn-fill btn-rose " routerLinkActive="active" routerLink="/preinscripciones/recibo" >Imprimir Recibo</button>
+                                    <button style="margin-left: 150px" type="submit" class="btn btn-fill btn-rose " routerLinkActive="active" routerLink="/preinscripciones/recibo/{{idCandidato}}" >Imprimir Recibo</button>
                                 </div>
                               </div>       
                         </div>

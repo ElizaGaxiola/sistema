@@ -16,6 +16,34 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+  //ABC Preinscripcion
+
+  //Obtener candidato
+  getCandidato(idCandidato: number): Observable<any>{
+    return this.http.get('/api/candidato?idCandidato='+idCandidato)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //subir preinscripción
+  insertPreinscripcion(datos:any):Observable<any>{
+    return this.http.post('/api/preinscripcionInsert', datos);
+  }
+
+  //subir imagen aspirante
+  subirImagenAsp(datos:any):Observable<any>{
+    return this.http.post('/api/subirImagen', datos);
+  }
+
+  //subir doc 
+  subirDoc(datos:any):Observable<any>{
+    return this.http.post('/api/subirdoc', datos);
+  }
+
+
+
+
   //ABC Horario 
 
   //Actualizar grupo

@@ -109,7 +109,7 @@ const routes = [
   { path: 'administrativos/personal/docente', component: PersonaldocenteComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/crearavisos', component: AvisosComponent, canActivate: [AuthGuard]},
   { path: 'administrativos/inscripciones', component: InscripcionesComponent, canActivate: [AuthGuard]},
-  { path: 'preinscripciones/recibo', component: ReciboComponent, canActivate: [AuthGuard]},
+  { path: 'preinscripciones/recibo/:id', component: ReciboComponent, canActivate: [AuthGuard]},
   { path:'**',component: PaginaprincipalComponent},
 ];
 

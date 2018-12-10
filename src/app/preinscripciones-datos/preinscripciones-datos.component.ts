@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { AbcService } from '../abc.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 declare var jQuery:any;
 declare var $:any;
 @Component({
@@ -10,14 +13,62 @@ declare var $:any;
 export class PreinscripcionesDatosComponent implements OnInit {
   modal:string;
   escuelaSelect: any[]=[];
-  sexoSelect: any[]=[];
-  municipioSelect: any[]=[];
-  estadoSelect: any[]=[];
+  sexoSelect: any[]=[
+    {id: 1, name: 'Masculino'},
+    {id: 2, name: 'Femenino'},
+    {id: 3, name: 'Indefinido'}
+  ];
+  idEstado:any;
+  estadosSelect: any[]=[];
+  idMunicipio:any;
+  municipiosSelect: any[]=[];
   preinscripcionForm: FormGroup;
   preinscripcion: any;
-  constructor(private pf: FormBuilder) { }
+  loader:Boolean = false;
+  successMessage: string;
+  dangerMessage: string;
+  private _success = new Subject<string>();
+  private _danger = new Subject<string>();
+  urlImagen: string = 'profile.png';
+  urlActa: string;
+  urlConstancia: string;
+  urlCredencial: string;
+  urlComprobante: string;
+  idCandidato:number;
+  constructor(private abc: AbcService, private pf: FormBuilder,private chRef: ChangeDetectorRef) { }
+
+  public change(){
+    console.log(this.idEstado);
+    this.abc.getMunicipioEdo(this.idEstado).subscribe((data: any) => {
+       this.municipiosSelect=[];
+       if (data != null){
+        for (let municipio of data) {
+          this.municipiosSelect = [...this.municipiosSelect, {id: municipio.idMunicipio, name: municipio.nombre}];
+        }
+       }
+    });
+  }
 
   ngOnInit() {
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
+    this._danger.subscribe((message) => this.dangerMessage = message);
+    this._danger.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.dangerMessage = null);
+    
+    this.abc.getEstados().subscribe((data: any) => {
+      for (let estado of data) {
+        this.estadosSelect = [...this.estadosSelect, {id: estado.idEstado, name: estado.nombre}];
+      }
+    });
+    this.abc.getEscuelas().subscribe((data: any) => {
+      for (let escuela of data) {
+      this.escuelaSelect = [...this.escuelaSelect, {id: escuela.idEscuela, name: escuela.nombre}];
+      }
+    });
     this.preinscripcionForm=this.pf.group({
       nombre:['',[ Validators.required]],
       apellidoP:['', [Validators.required]], 
@@ -49,11 +100,24 @@ export class PreinscripcionesDatosComponent implements OnInit {
       idEscuela:['',[Validators.required]],
     });
   }
-  public agregar(){
-    $("#modal").modal();
-  }
   onSubmit(){
     this.preinscripcion = this.savePreinscripcion();
+    console.log(this.preinscripcion);
+    this.abc.insertPreinscripcion(this.preinscripcion).subscribe(
+      resp => {
+        this.loader = false;
+        if(resp.status){
+          this.idCandidato = resp.msg;
+          $("#modal").modal();
+        }else{
+          this._danger.next('A ocurrido un error, por favor vuelve a intentarlo');
+        }
+      },
+      error => {
+        this.loader = false;
+        this._danger.next(' error vuelva a intentarlo ');
+      }
+    );
   }
   savePreinscripcion(){
     const savePreinscripcion={
@@ -78,14 +142,131 @@ export class PreinscripcionesDatosComponent implements OnInit {
       apellidoMTutor: this.preinscripcionForm.get('apellidoMTutor').value,
       fechaNacTutor: this.preinscripcionForm.get('fechaNacTutor').value,
       telefonoTutor: this.preinscripcionForm.get('telefonoTutor').value,
-      urlImagen: this.preinscripcionForm.get('urlImagen').value,
-      urlActa: this.preinscripcionForm.get('urlActa').value,
-      urlConstancia: this.preinscripcionForm.get('urlConstancia').value,
-      urlCredencial: this.preinscripcionForm.get('urlCredencial').value,
-      urlComprobante: this.preinscripcionForm.get('urlComprobante').value,
+      urlImagen: this.urlImagen,
+      urlActa: this.urlActa,
+      urlConstancia: this.urlConstancia,
+      urlCredencial: this.urlCredencial,
+      urlComprobante: this.urlComprobante,
       idEscuela: this.preinscripcionForm.get('idEscuela').value,
     };
     return savePreinscripcion;
+  }
+  
+  public cargandoImagen(e){
+    let img:any = e.target;
+    if(img.files.length > 0){
+      this.loader = true;
+      let form = new FormData();
+      form.append('file',img.files[0]);
+      this.abc.subirImagenAsp(form).subscribe(
+        resp => {
+          this.loader = false;
+          if(resp.status){
+            this.urlImagen = resp.generatedName;
+          }else{
+            this._danger.next('Revise la extención de su imagen');
+          }
+        },
+        error => {
+          this.loader = false;
+          alert('Imagen supera el tamaño permitido');
+        }
+      );
+    }
+
+
+  }
+
+  public cargandoUrlActa(e){
+    let doc:any = e.target;
+    if(doc.files.length > 0){
+      this.loader = true;
+      let form = new FormData();
+      form.append('file',doc.files[0]);
+      this.abc.subirDoc(form).subscribe(
+        resp => {
+          this.loader = false;
+          if(resp.status){
+            this.urlActa = resp.generatedName;
+          }else{
+            this._danger.next('Revise la extención de su documento');
+          }
+        },
+        error => {
+          this.loader = false;
+          this._danger.next('documento supera el tamaño permitido');
+        }
+      );
+    }
+  }
+
+  public cargandoUrlConstancia(e){
+    let doc:any = e.target;
+    if(doc.files.length > 0){
+      this.loader = true;
+      let form = new FormData();
+      form.append('file',doc.files[0]);
+      this.abc.subirDoc(form).subscribe(
+        resp => {
+          this.loader = false;
+          if(resp.status){
+            this.urlConstancia = resp.generatedName;
+          }else{
+            this._danger.next('Revise la extención de su documento');
+          }
+        },
+        error => {
+          this.loader = false;
+          this._danger.next('documento supera el tamaño permitido');
+        }
+      );
+    }
+  }
+
+  public cargandoUrlCredencial(e){
+    let doc:any = e.target;
+    if(doc.files.length > 0){
+      this.loader = true;
+      let form = new FormData();
+      form.append('file',doc.files[0]);
+      this.abc.subirDoc(form).subscribe(
+        resp => {
+          this.loader = false;
+          if(resp.status){
+            this.urlCredencial = resp.generatedName;
+          }else{
+            this._danger.next('Revise la extención de su documento');
+          }
+        },
+        error => {
+          this.loader = false;
+          this._danger.next('documento supera el tamaño permitido');
+        }
+      );
+    }
+  }
+
+  public cargandoUrlComprobante(e){
+    let doc:any = e.target;
+    if(doc.files.length > 0){
+      this.loader = true;
+      let form = new FormData();
+      form.append('file',doc.files[0]);
+      this.abc.subirDoc(form).subscribe(
+        resp => {
+          this.loader = false;
+          if(resp.status){
+            this.urlComprobante = resp.generatedName;
+          }else{
+            this._danger.next('Revise la extención de su documento');
+          }
+        },
+        error => {
+          this.loader = false;
+          this._danger.next('documento supera el tamaño permitido');
+        }
+      );
+    }
   }
 
 }

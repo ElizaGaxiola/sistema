@@ -1,4 +1,27 @@
 import { Time } from "@angular/common";
+export interface Candidato{
+    idCandidato:number;
+    nombre:string;
+    apellidoP:string;
+    apellidoM:string;
+    fechaNac:string;
+    email:string;
+    telefono:string;
+    celular:string;
+    curp:string;
+    sexo:number;
+    idMunicipio:number;
+    colonia:string;
+    calle:string;
+    numero:string;
+    cp:string;
+    urlImagen:string;
+    idEscuela:string;
+    cardexDoc:string;
+    actaNacDoc:string;
+    comprobanteDoc:string;
+    credencialDoc:string;
+}
 
 export interface Escuela{
     idEscuela: number;
