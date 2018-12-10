@@ -18,6 +18,11 @@ export class AbcService {
   constructor(private http: HttpClient) { }
   //ABC Preinscripcion
 
+  //subir inscripcion
+  insertIscripcion(datos:any):Observable<any>{
+    return this.http.post('/api/inscripcionInsert', datos);
+  }
+
   //Obtener candidato Curp
   getTutorCandidato(idCandidato: string): Observable<any>{
     return this.http.get('/api/tutorCandidato?idCandidato='+idCandidato)
@@ -27,8 +32,8 @@ export class AbcService {
   }
 
   //Obtener candidato Curp
-  getCandidatoCurp(curp: string): Observable<any>{
-    return this.http.get('/api/candidatoCurp?curp='+curp)
+  getCandidatoCurp(curp: string,idEscuela:number): Observable<any>{
+    return this.http.get('/api/candidatoCurp?curp='+curp+'&idEscuela='+idEscuela)
       .pipe(map(result => {
         return result;
     }))  
@@ -61,6 +66,14 @@ export class AbcService {
 
 
   //ABC Horario 
+
+  //Obtener grupos Inscripcion
+  getGruposIns(idCiclo: number,idSubCiclo:number,idSeccion:number,idPeriodo:number,idCarrera:number): Observable<any>{
+    return this.http.get('/api/gruposIns?idCiclo='+idCiclo+'&idSubCiclo='+idSubCiclo+'&idSeccion='+idSeccion+'&idPeriodo='+idPeriodo+'&idCarrera='+idCarrera)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
 
   //Actualizar grupo
   updateHorario (horario:Horario): Observable<any> {

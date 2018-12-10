@@ -8,7 +8,7 @@
                     <i class="fa fa-check-circle check" *ngIf="loginalumForm.controls.usuario.valid"></i>
                     <i class="fa fa-exclamation-circle uncheck" *ngIf="loginalumForm.controls.usuario.invalid &&
                     loginalumForm.controls.usuario.touched"></i>
-                    <input  class="form-control" formControlName="usuario" type="text" name="usuario" placeholder="Matrícula" />
+                    <input   class="form-control" formControlName="usuario" type="text" name="usuario" placeholder="Matrícula" />
                     <p class="alert alert-danger" *ngIf="loginalumForm.controls.usuario.invalid &&
                     loginalumForm.controls.usuario.touched">
                     El campo Matrícula es obligatorio</p>

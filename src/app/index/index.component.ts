@@ -20,7 +20,9 @@ export class IndexComponent{
 
   constructor(private router: Router, private auth: AuthService, private pf:FormBuilder ) { }
   private autenticar() {
-    this.auth.login(this.usuario, this.password )
+    console.log(this.loginalum.usuario);
+    console.log(this.loginalum.contrasena);
+    this.auth.login(this.loginalum.usuario, this.loginalum.contrasena )
       .pipe(first())
       .subscribe(
         result => this.router.navigate(['alumnos/avisos']),
@@ -29,7 +31,7 @@ export class IndexComponent{
   }
 
   private submit(){
-    this.auth.getUser(this.usuario)
+    this.auth.getUser(this.loginalum.usuario)
     .subscribe((data: any) => {
       this.usuarioData.idUsuario=data.idUsuario;
       this.usuarioData.idTipo=data.idTipo;

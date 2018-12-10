@@ -4,6 +4,8 @@ import { AbcService } from '../abc.service';
 import { Administrador } from '../modelos';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+declare var jQuery:any;
+declare var $:any;
 
 @Component({
   selector: 'app-inscripciones',
@@ -24,7 +26,6 @@ export class InscripcionesComponent implements OnInit {
   cicloSelect: any[]=[];
   subcicloSelect: any[]=[];
   periodoSelect: any[]=[];
-  grupoSelect: any[]=[];
   inscripcionForm: FormGroup;
   inscripcion: any;
   curp:string;
@@ -42,12 +43,20 @@ export class InscripcionesComponent implements OnInit {
     imagen:''
   };
   telefono: string;
+  loader:Boolean = false;
   successMessage: string;
   dangerMessage: string;
   private _success = new Subject<string>();
   private _danger = new Subject<string>();
   staticAlertClosed = false;
   urlImagen :string = 'profile.png';
+  idCiclo:number;
+  idSubCiclo:number;
+  idPeriodo:any;
+  id: { idSeccion: any; idPeriodo: any; idCarrera: any; };
+  idAlumno: any;
+  matricula:string='';
+  contra:string='';
   constructor(private pf: FormBuilder,private abc: AbcService) { }
   public change(){
     console.log(this.idEstado);
@@ -60,47 +69,78 @@ export class InscripcionesComponent implements OnInit {
        }
     });
   }
+  public changeCiclo(){
+    console.log(this.idCiclo);
+    this.subcicloSelect=[];
+    this.inscripcionForm.get ('idSubCiclo') .reset (); 
+    this.abc.getSubCiclos_Ciclos(this.idCiclo).subscribe((data:any) => {
+      for (let subCiclo of data) {
+        this.subcicloSelect = [...this.subcicloSelect, {id: subCiclo.idSubCiclo, name: subCiclo.descripcion}];
+      }
+    });
+  }
   public buscar(event: any){
     if (event.keyCode == 13)
     {
-      this.abc.getCandidatoCurp(this.curp).subscribe((data:any)=>{
-        this.abc.getMunicipio(data.idMunicipio).subscribe((mun: any) => {
-          this.urlImagen = data.urlImagen;
-          this.idEstado=mun.idEstado;
-          this.change();
-          console.log(mun);
-        });
-        this.abc.getTutorCandidato(data.idCandidato).subscribe((tutor:any)=>{
-          this.inscripcionForm=this.pf.group({
-            nombre : data.nombre,
-            apellidoP: data.apellidoP, 
-            apellidoM: data.apellidoM,
-            curp: data.curp,
-            sexo: Number(data.sexo),
-            fechaNac:data.fechaNac,
-            idMunicipio: data.idMunicipio,
-            celular: data.celular,
-            telefono:data.telefono,
-            email: data.email,
-            colonia: data.colonia,
-            cp: data.cp,
-            calle: data.calle,
-            numero: data.numero,
-            urlImagen: data.urlImagen,
-            idEscuela: data.idEscuela,
-            nombreTutor:tutor.nombre,
-            apellidoPTutor:tutor.apellidoP,
-            apellidoMTutor:tutor.apellidoM,
-            fechaNacTutor:tutor.fechaNac,
-            emailTutor:tutor.email,
-            telefonoTutor:tutor.celular,
-            urlCertificado:'',
-            idGrupo:'',
-            idSubCiclo:'',
-            idCiclo:'',
-            idPeriodo:''
+      this.abc.getCandidatoCurp(this.curp,this.administradorUser.idEscuela).subscribe((data:any)=>{
+        if(data.status==false){
+          this._danger.next(data.msg);
+        }else{
+          this.periodoSelect=[];
+          this.abc.getPeriodos(data.idEscuela).subscribe((esc: any) => {
+            for (let item of esc) {
+              if (item.idCarrera == data.idCarrera){
+                this.id={idSeccion:item.idSeccion,idPeriodo:item.idPeriodo,idCarrera:item.idCarrera};
+                this.periodoSelect = [...this.periodoSelect, {id:this.id, name: item.descripcion}];
+              }
+            }
           });
-        });
+          this.abc.getMunicipio(data.idMunicipio).subscribe((mun: any) => {
+            this.urlImagen = data.urlImagen;
+            this.idEstado=mun.idEstado;
+            this.change();
+            console.log(mun);
+          });
+          for (var _i = 0; _i < 8; _i++) {
+            this.matricula = this.matricula + Math.floor(Math.random() * 10).toString();
+          }
+          this.abc.getTutorCandidato(data.idCandidato).subscribe((tutor:any)=>{
+            this.inscripcionForm=this.pf.group({
+              nombre : data.nombre,
+              apellidoP: data.apellidoP, 
+              apellidoM: data.apellidoM,
+              curp: data.curp,
+              sexo: Number(data.sexo),
+              fechaNac:data.fechaNac,
+              idMunicipio: data.idMunicipio,
+              celular: data.celular,
+              telefono:data.telefono,
+              email: data.email,
+              colonia: data.colonia,
+              cp: data.cp,
+              calle: data.calle,
+              numero: data.numero,
+              urlImagen: data.urlImagen,
+              idEscuela: data.idEscuela,
+              nombreTutor:tutor.nombre,
+              apellidoPTutor:tutor.apellidoP,
+              apellidoMTutor:tutor.apellidoM,
+              fechaNacTutor:tutor.fechaNac,
+              emailTutor:tutor.email,
+              telefonoTutor:tutor.celular,
+              idSubCiclo:[],
+              idCiclo:[],
+              idPeriodo:[],
+              idSeccion: [],
+              idCarrera:[],
+              cardexDoc: data.cardexDoc ,
+              actaNacDoc:data.actaNacDoc,
+              comprobanteDoc:data.comprobanteDoc,
+              credencialDoc:data.credencialDoc,
+              matricula:this.matricula
+            });
+          });
+        }
       });
     }
   }
@@ -111,11 +151,23 @@ export class InscripcionesComponent implements OnInit {
           this.estadosSelect = [...this.estadosSelect, {id: estado.idEstado, name: estado.nombre}];
         }
       });
+      
       this.idUsuario=localStorage.getItem('idUsuario');
       this.abc.getAdministrador_Usuario(this.idUsuario).subscribe((data: any) => {
         this.administradorUser=data;
+        this.abc.getCiclos(data.idEscuela).subscribe((ciclos: any) => {
+          for (let ciclo of ciclos) {
+            this.cicloSelect = [...this.cicloSelect, {id: ciclo.idCiclo, name: ciclo.descripcion}];
+          }
+        });
         this.abc.getEscuela_Id(data.idEscuela).subscribe((escuela:any)=>{
           this.escuela = escuela.nombre;
+        });
+        this.abc.getPeriodos(data.idEscuela).subscribe((data: any) => {
+          for (let item of data) {
+            this.id={idSeccion:item.idSeccion,idPeriodo:item.idPeriodo,idCarrera:item.idCarrera};
+            this.periodoSelect = [...this.periodoSelect, {id:this.id, name: item.descripcion}];
+          }
         });
       });
       setTimeout(() => this.staticAlertClosed = true, 20000);
@@ -148,17 +200,40 @@ export class InscripcionesComponent implements OnInit {
       apellidoMTutor:['', [Validators.required]],
       fechaNacTutor:['',[Validators.required]],
       emailTutor:['',[Validators.required, Validators.email]],
-      urlImagen:['',[Validators.required]],
-      urlCertificado:['',[Validators.required]],
-      idGrupo:['',[Validators.required]],
+      urlImagen:[''],
       idSubCiclo:['',[Validators.required]],
       idCiclo:['',[Validators.required]],
       idPeriodo:['',[Validators.required]],
+      idSeccion: [''],
+      idCarrera:[''],
       idEscuela: [''],
+      cardexDoc: [''],
+      actaNacDoc:[''],
+      comprobanteDoc:[''],
+      credencialDoc:[''],
+      matricula:['']
     });
   }
   onSubmit(){
     this.inscripcion = this.saveInscripcion();
+    console.log(this.inscripcion);
+    this.abc.insertIscripcion(this.inscripcion).subscribe(
+      resp => {
+        this.loader = false;
+        if(resp.status){
+          this.idAlumno = resp.msg;
+          this.contra = resp.contra;
+          this.inscripcionForm.reset();
+          $("#modal").modal();
+        }else{
+          this._danger.next('A ocurrido un error, por favor vuelve a intentarlo');
+        }
+      },
+      error => {
+        this.loader = false;
+        this._danger.next(' error vuelva a intentarlo ');
+      }
+    );
   }
   saveInscripcion(){
     const saveInscripcion={
@@ -169,7 +244,6 @@ export class InscripcionesComponent implements OnInit {
       sexo: this.inscripcionForm.get('sexo').value,
       fechaNac: this.inscripcionForm.get('fechaNac').value,
       idMunicipio: this.inscripcionForm.get('idMunicipio').value,
-      idEstado: this.inscripcionForm.get('idEstado').value,
       telefono: this.inscripcionForm.get('telefono').value,
       celular: this.inscripcionForm.get('celular').value,
       email: this.inscripcionForm.get('email').value,
@@ -183,16 +257,41 @@ export class InscripcionesComponent implements OnInit {
       apellidoMTutor: this.inscripcionForm.get('apellidoMTutor').value,
       fechaNacTutor: this.inscripcionForm.get('fechaNacTutor').value,
       telefonoTutor: this.inscripcionForm.get('telefonoTutor').value,
-      urlImagen: this.inscripcionForm.get('urlImagen').value,
-      urlCertificado: this.inscripcionForm.get('urlCertificado').value,
+      urlImagen: this.urlImagen,
       idEscuela: this.administradorUser.idEscuela,
-      idGrupo: this.inscripcionForm.get('idGrupo').value,
       idCiclo: this.inscripcionForm.get('idCiclo').value,
       idSubCiclo: this.inscripcionForm.get('idSubCiclo').value,
-      idPeriodo: this.inscripcionForm.get('idPeriodo').value,
+      idPeriodo: this.id.idPeriodo,
+      idSeccion: this.id.idSeccion,
+      idCarrera: this.id.idCarrera,
+      cardexDoc: this.inscripcionForm.get('cardexDoc').value,
+      actaNacDoc: this.inscripcionForm.get('actaNacDoc').value,
+      comprobanteDoc:this.inscripcionForm.get('comprobanteDoc').value,
+      credencialDoc:this.inscripcionForm.get('credencialDoc').value,
+      matricula:this.inscripcionForm.get('matricula').value,
     };
     return saveInscripcion;
   }
-
-
+  public cargandoImagen(e){
+    let img:any = e.target;
+    if(img.files.length > 0){
+      this.loader = true;
+      let form = new FormData();
+      form.append('file',img.files[0]);
+      this.abc.subirImagenAsp(form).subscribe(
+        resp => {
+          this.loader = false;
+          if(resp.status){
+            this.urlImagen = resp.generatedName;
+          }else{
+            this._danger.next('Revise la extención de su imagen');
+          }
+        },
+        error => {
+          this.loader = false;
+          alert('Imagen supera el tamaño permitido');
+        }
+      );
+    }
+  }
 }
