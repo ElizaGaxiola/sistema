@@ -51,6 +51,8 @@ export interface Aviso{
     titulo: string;
     fechaFin: string;
     fechaIni: string;
+    idEscuela: string;
+    idTipo: number;
 }
 
 export interface Asignatura{

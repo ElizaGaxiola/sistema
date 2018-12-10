@@ -94,7 +94,7 @@ export class PersonaldocenteComponent implements OnInit {
         telefonol: data.telefono,
         titulo: data.titulo,
         curp:data.curp,
-        sexo:data.sexo,
+        sexo:Number(data.sexo),
         idMunicipio: data.idMunicipio,
         colonia: data.colonia,
         calle: data.calle,

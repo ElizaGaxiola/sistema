@@ -4,6 +4,8 @@
     <div id="content-wrapper">
       <div class="container-fluid">
         <app-head [nombre]="modulo"></app-head>
+        <ngb-alert class="float-right" style="z-index: 200;position: absolute;right:5px;top:15px;" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 200;position: absolute;right:5px;top:15px;" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -17,29 +19,40 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                      <table datatable id="table" class="row-border hover">
                           <thead>
                           <tr>
-                              <th style="width: 25%">
+                              <th style="width: 20%">
                                   Título
                               </th>
-                              <th style="width: 25%">
+                              <th style="width: 20%">
                                   Fecha Inicio
                               </th>
-                              <th style="width: 25%">
+                              <th style="width: 20%">
                                   Fecha Final
                               </th>
-                              <th style="width: 25%">
+                              <th style="width: 20%">
+                                  Tipo
+                              </th>
+                              <th style="width: 20%">
                                 Acciones
                               </th>
                           </tr>
                           </thead>
                           <tbody>
-                          <tr *ngFor="let item of data">
+                          <tr *ngFor="let item of datosTable">
                               <td>{{item.titulo}}</td>
                               <td>{{item.fechaIni}}</td>
                               <td>{{item.fechaFin}}</td>
-                              <td><button [id]="item.clave" type='button' (click)='modificar()' class='btn btn-warning' title='Modificar'><i class='fas fa-edit'></i></button><button type='button' (click)='status()' class='btn btn-danger' title='Status'><i class='far fa-check-circle'></i></button></td>
+                              <td>{{item.tipo}}</td>
+                              <td>
+                                <button type='button' (click)='modificar(item.idAviso)' class='btn btn-warning' title='Modificar'>
+                                  <i class='fas fa-edit'></i>
+                                </button>
+                                <button type='button' (click)='eliminar(item.idAviso)' class='btn btn-danger' title='Eliminar'>
+                                  <i class='far fa-trash-alt'></i>
+                                </button>
+                              </td>
                           </tr>
                           </tbody>
                       </table>
@@ -87,6 +100,25 @@
                                         </div>
                                   </div>
                                   <div class="row">
+                                      <div class="col-sm-12 col-md-12">
+                                          <div class="form-group">
+                                              <label for="tipo">Tipo</label>
+                                              <i class="fa fa-check-circle check" *ngIf="avisoForm.controls.idTipo.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="avisoForm.controls.idTipo.invalid &&
+                                              avisoForm.controls.idTipo.touched"></i>
+                                              <ng-select [items]="tipos"
+                                                      bindLabel="name"
+                                                      bindValue="id"
+                                                      placeholder="Selecciona"
+                                                      formControlName="idTipo">
+                                              </ng-select> 
+                                              <p class="alert alert-danger" *ngIf="avisoForm.controls.idTipo.invalid &&
+                                              avisoForm.controls.idTipo.touched">
+                                              El campo Tipo es obligatorio</p>
+                                          </div> 
+                                      </div>
+                                  </div>
+                                  <div class="row">
                                       <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="materia">Fecha Inicio</label>
@@ -94,7 +126,7 @@
                                             <i class="fa fa-exclamation-circle uncheck" *ngIf="avisoForm.controls.fechaIni.invalid &&
                                             avisoForm.controls.fechaIni.touched"></i>
                                             <div class="input-group">
-                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" formControlName="fechaIni" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                                                <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="mm/dd/aaaa" formControlName="fechaIni" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig" >
                                                 <div class="input-group-btn">
                                                     <button  type="button" class="btn btn-calendar" (click)="dp.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                 </div>
@@ -111,7 +143,7 @@
                                             <i class="fa fa-exclamation-circle uncheck" *ngIf="avisoForm.controls.fechaFin.invalid &&
                                             avisoForm.controls.fechaFin.touched"></i>
                                             <div class="input-group">
-                                                <input class="form-control" [minDate]="minDate"  [maxDate]="maxDate" formControlName="fechaFin" placeholder="dd/mm/aaaa" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig">
+                                                <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="mm/dd/aaaa" formControlName="fechaFin" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig" >
                                                 <div class="input-group-btn">
                                                     <button  type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
                                                 </div>

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo, Grupo, Horario } from './modelos';
+import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo, Grupo, Horario, Aviso } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,6 +16,48 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+  //ABC Avisos
+
+  //Delete horario 
+  deleteAviso (idAviso:number): Observable<any> {
+    return this.http.delete('/api/avisoDelete?idAviso='+idAviso, httpOptions).pipe(
+      tap(_ => console.log('delete aviso')),
+      catchError(this.handleError<any>('deleteAviso'))
+    );
+  }
+
+  //Obtener Avisos
+  getAvisos(idEScuela:number): Observable<any>{
+    return this.http.get('/api/avisos?idEscuela='+idEScuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Actualizar Aviso
+  updateAviso (aviso:Aviso): Observable<any> {
+    return this.http.put('/api/avisoUpdate', aviso, httpOptions).pipe(
+      tap(_ => console.log('updated aviso')),
+      catchError(this.handleError<any>('updateAviso'))
+    );
+  }
+
+  //Agregar Aviso 
+  insertAviso (aviso:Aviso): Observable<any> {
+    return this.http.post('/api/avisoInsert', aviso, httpOptions).pipe(
+      tap(_ => console.log('insert Aviso')),
+      catchError(this.handleError<any>('insertAviso'))
+    );
+  }
+
+  //Obtener Aviso
+  getAviso(idAviso: number): Observable<any>{
+    return this.http.get('/api/aviso?idAviso=' + idAviso)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
   //ABC Preinscripcion
 
   //subir inscripcion
