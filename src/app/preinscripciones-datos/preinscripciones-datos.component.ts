@@ -22,6 +22,7 @@ export class PreinscripcionesDatosComponent implements OnInit {
   estadosSelect: any[]=[];
   idMunicipio:any;
   municipiosSelect: any[]=[];
+  carreraSelect: any[]=[];
   preinscripcionForm: FormGroup;
   preinscripcion: any;
   loader:Boolean = false;
@@ -98,6 +99,7 @@ export class PreinscripcionesDatosComponent implements OnInit {
       urlCredencial:['',[Validators.required]],
       urlComprobante:['',[Validators.required]],
       idEscuela:['',[Validators.required]],
+      idCarrera:['',[Validators.required]],
     });
   }
   onSubmit(){
@@ -148,6 +150,7 @@ export class PreinscripcionesDatosComponent implements OnInit {
       urlCredencial: this.urlCredencial,
       urlComprobante: this.urlComprobante,
       idEscuela: this.preinscripcionForm.get('idEscuela').value,
+      idCarrera: this.preinscripcionForm.get('idCarrera').value,
     };
     return savePreinscripcion;
   }

@@ -9,7 +9,7 @@
               <p style="text-align: center">ESCUELA A LA QUE DESEA INGRESAR</p>
               <hr> 
             <div class="row">
-                <div class="form-group col-md-12 text-center">
+                <div class="form-group col-sm-6">
                   <label for="city">Escuela</label>
                   <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.idEscuela.valid"></i>
                   <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.idEscuela.invalid &&
@@ -24,6 +24,21 @@
                   preinscripcionForm.controls.idEscuela.touched">
                   El campo Escuela es obligatorio</p>
                 </div>
+                <div class="form-group col-sm-6">
+                    <label for="city">Carrera</label>
+                    <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.idCarrera.valid"></i>
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.idCarrera.invalid &&
+                    preinscripcionForm.controls.idCarrera.touched"></i>
+                    <ng-select [items]="carreraSelect"
+                        bindLabel="name"
+                        bindValue="id"
+                        placeholder="Selecciona"
+                        formControlName="idCarrera">
+                    </ng-select>
+                    <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.idCarrera.invalid &&
+                    preinscripcionForm.controls.idCarrera.touched">
+                    El campo Carrera es obligatorio</p>
+                  </div>
               </div>
           </div>
       </div>
@@ -309,8 +324,6 @@
                       <i class="fa fa-check-circle check" *ngIf="preinscripcionForm.controls.urlActa.valid"></i>
                       <i class="fa fa-exclamation-circle uncheck" *ngIf="preinscripcionForm.controls.urlActa.invalid &&
                       preinscripcionForm.controls.urlActa.touched"></i>
-                  </div>
-                  <div class="col-md-4" style="margin-top: 20px">
                       <input accept="application/pdf" type="file" formControlName="urlActa" (change)="cargandoUrlActa($event)">
                       <p class="alert alert-danger" *ngIf="preinscripcionForm.controls.urlActa.invalid &&
                       preinscripcionForm.controls.urlActa.touched">
