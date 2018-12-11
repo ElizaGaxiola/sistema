@@ -3,7 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { from } from 'rxjs';
-import { Docente } from '../modelos';
+import { Docente, Grupo } from '../modelos';
 import { AbcService } from '../abc.service';
 
 @Component({
@@ -39,6 +39,7 @@ export class MenuComponent implements OnInit {
   };
   idUsuario:any;
   email:any;
+  grupos:Grupo[]=[];
   constructor(private auth: AuthService,private abc: AbcService) { }
   public salir(){
     this.auth.logout();
@@ -47,6 +48,11 @@ export class MenuComponent implements OnInit {
     this.idUsuario=localStorage.getItem('idUsuario');
     this.abc.getDocente_Usuario(this.idUsuario).subscribe((data: any) => {
       this.docente=data;
+      this.abc.getGruposDocente(this.docente.idDocente).subscribe((grupos:any)=>
+      {
+        this.grupos=grupos;
+        console.log(grupos);
+      });
       this.auth.getUserId(data.usuarioId)
     .subscribe((user: any) => {
       this.email = user.usuario;

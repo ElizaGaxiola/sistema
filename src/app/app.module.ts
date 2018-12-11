@@ -78,7 +78,7 @@ const routes = [
   { path:'alumnos',component: IndexComponent},
   { path:'administrativos',component: IndexAdminComponent},
   { path:'docente/dashboard',component: DashboardDocenteComponent, canActivate: [DocenteService]},
-  { path:'docente/grupos',component: GruposComponent, canActivate: [DocenteService]},
+  { path:'docente/grupos/:id',component: GruposComponent, canActivate: [DocenteService]},
   { path:'docente/perfil',component: PerfilDocenteComponent, canActivate: [DocenteService]},
   { path:'docente/ModificarPerfil',component: ModificarPerfilDocenteComponent, canActivate: [DocenteService]},
   { path: 'alumnos/avisos', component: DashboardAlumnosComponent, canActivate: [AlumnoService]},
