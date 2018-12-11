@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { AbcService } from '../abc.service';
+import { Administrador, Escuela } from '../modelos';
+
 
 @Component({
   selector: 'app-estudios-alumnos',
@@ -10,41 +13,82 @@ export class EstudiosAlumnosComponent implements OnInit {
   public modulo: string = "Estudios"
   estudiosForm: FormGroup;
   estudios: any;
-  constructor(private pf: FormBuilder) { }
-  onSubmit(){
-    this.estudios = this.saveEstudios();
-  }
+  escuela: Escuela;
+  idUsuario: any;
+  municipio:any;
+  seccion:any;
+  estado: any;
+  administradorUser:Administrador={
+    idAdministrador:0,
+    nombre:'',
+    apellidoP:'',
+    apellidoM:'',
+    email:'',
+    contrasena:'',
+    idUsuario:0,
+    idEscuela:0,
+    estatus:0,
+    imagen:''
+  };
+  constructor(private pf: FormBuilder, private abc: AbcService) { }
+ 
   
   ngOnInit() {
-    this.estudiosForm=this.pf.group({
-      nombre:[''],
-      clave:[''],
-      idSeccion:[''],
-      idMunicipio:[''],
-      telefono:[''],
-      idEstado:[''],
-      email:[''],
-      colonia:[''],
-      cp:[''],
-      calle:[''],
+    this.inicializarForm();
+    this.idUsuario=localStorage.getItem('idUsuario');
+    this.abc.getAlumnoUsuario(this.idUsuario).subscribe((data: any) => {
+      console.log(data);
+      this.abc.getEscuela_Id(data.idEscuela).subscribe((escuela: any)=>{
+       console.log(escuela);
+       this.abc.getSeccion(escuela.idSeccion).subscribe((sec: any) => {
+        console.log(sec);
+        this.seccion=sec;
+        this.abc.getMunicipio(escuela.idMunicipio).subscribe((mun: any) => {
+        console.log(mun);
+        this.municipio=mun;
+        this.abc.getEstado(mun.idEstado).subscribe((est: any) => {
+        console.log(est);
+        this.estado=est;
+        this.escuela=escuela;
+        this.estudiosForm=this.pf.group({
+         idEscuela: escuela.idEscuela,
+         idSeccion: this.seccion.descripcion,
+         clave: escuela.clave,
+         nombre: escuela.nombre,
+         idMunicipio: this.municipio.nombre,
+         idEstado: est.nombre,
+         colonia: escuela.colonia,
+         calle: escuela.calle,
+         cp: escuela.cp,
+         numero: escuela.numero,
+         email:escuela.email,
+         telefono: escuela.telefono,
+         estatus: escuela.estatus
+       });
+       console.log(this.estudiosForm)
+      });
+      });
+      });
+      });
     });
+    
   }
-
-  saveEstudios(){
-    const saveEstudios={
-      nombre: this.estudiosForm.get('nombre').value,
-      clave: this.estudiosForm.get('clave').value,
-      idSeccion: this.estudiosForm.get('idSeccion').value,
-      idMunicipio: this.estudiosForm.get('idMunicipio').value,
-      idEstado: this.estudiosForm.get('idEstado').value,
-      telefono: this.estudiosForm.get('telefono').value,
-      email: this.estudiosForm.get('email').value,
-      cp: this.estudiosForm.get('cp').value,
-      colonia: this.estudiosForm.get('colonia').value,
-      calle: this.estudiosForm.get('calle').value,
-     
-      
-    };
-    return saveEstudios;
-  }
+public inicializarForm(){
+    this.estudiosForm = this.pf.group({
+      idEscuela: [''],
+      idSeccion: [''],
+      clave: [''],
+      nombre: [''],
+      idEstado:[''],
+      idMunicipio: [''],
+      colonia:[''],
+      calle: [''],
+      cp: [''],
+      numero: [''],
+      email:[''],
+      telefono: [''],
+      estatus: [''],
+    });
+   }
+  
 }
