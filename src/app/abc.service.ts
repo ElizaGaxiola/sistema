@@ -18,6 +18,14 @@ export class AbcService {
   constructor(private http: HttpClient) { }
   //ABC ALUMNOS
 
+  //Obtener alumnos
+  getAlumnosxGrupo(idGrupo:number): Observable<any>{
+    return this.http.get('/api/alumnosG?idGrupo='+idGrupo)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
   //subir inscripcion
   reinsertIscripcion(datos:any):Observable<any>{
     return this.http.post('/api/reinscripcionInsert', datos);
@@ -179,6 +187,14 @@ export class AbcService {
   }
 
   //ABC Grupos
+  //Obtener grupos x docente
+  getGruposDocente(idDocente:number): Observable<any>{
+    return this.http.get('/api/gruposDocente?idDocente='+idDocente)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
 
   //Agregar grupo 
   insertGrupo (grupo:Grupo): Observable<any> {

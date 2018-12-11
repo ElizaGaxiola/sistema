@@ -1,5 +1,8 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component,OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { AbcService } from '../abc.service';
+import { ActivatedRoute } from '@angular/router';
+import { Grupo } from '../modelos';
 declare var jQuery:any;
 declare var $:any;
 @Component({
@@ -9,24 +12,46 @@ declare var $:any;
 })
 export class GruposComponent implements  OnInit {
   modulo:string="Grupos";
-  //configuración para select
-  config = {
-    multiple:false,
-    //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
-    displayKey:"description", 
-    search:true 
-  }
-  dataModel:any[] = ['Matemáticas','Español','Hitoria']
+  idGrupo:number;
+  grupo:Grupo;
+  clave:string='';
+  ciclo:string='';
+  materia:string='';
   dtOptions: DataTables.Settings = {};
   //datos para datatable
-  data: any[]=[
-    { numero: "1", apellidoP:"Acosta", apellidoM: "Rocha", nombre:"Jesús Carlos"},
-    { numero: "2", apellidoP:"Castro", apellidoM: "Galaviz", nombre:"Evelyn Guadalupe"},
-    { numero: "3", apellidoP:"Gaxiola", apellidoM: "Carrillo", nombre:"Elizabeth"},
-  ];
+  data: any[]=[];
   modal: string;
   tituloModal:string;
-  constructor() { 
+  constructor(private _route: ActivatedRoute,private abc: AbcService,private chRef: ChangeDetectorRef) { 
+    console.log(this._route.snapshot.paramMap.get('id'));
+    this.idGrupo = Number(this._route.snapshot.paramMap.get('id'));
+    this.abc.getGrupo(this.idGrupo)
+    .subscribe((data: any) => {
+      console.log(data);
+      this.grupo=data;
+      this.clave=data.clave;
+      this.abc.getCiclo(data.idCiclo).subscribe((ciclo:any)=>{
+        this.ciclo=ciclo.descripcion;
+        console.log(this.ciclo);
+      });
+      this.abc.getAsignatura(data.idMateria).subscribe((asignatura:any)=>{
+        this.materia=asignatura.nombre;
+        console.log(this.materia);
+      });
+    }); 
+    this.obtenerAlumnos();
+  }
+  public obtenerAlumnos(){
+    this.abc.getAlumnosxGrupo(this.idGrupo)
+    .subscribe((data: any) => {
+      console.log(data);
+      console.log('data');
+      this.data=data;
+      this.chRef.detectChanges();
+      // Now you can use jQuery DataTables :
+      const table: any = $('#table');
+      table.DataTable();
+    });
   }
   public calificar(){
     this.tituloModal= "Calificar Alumno";
