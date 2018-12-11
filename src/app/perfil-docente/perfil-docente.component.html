@@ -6,19 +6,19 @@
         <app-head [nombre]="modulo"></app-head>
         <aside class="profile-card scrollbar-dusty-grass thin">
             <div class="container emp-profile">
-                <form method="post">
+                <form>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="profile-img">
-                                <img src="http://localhost:8080/Apis/assets/images/administradores/{{administrador.imagen}}" alt=""/>
+                                <img src="http://localhost:8080/Apis/assets/images/administradores/{{docente.urlImagen}}" alt=""/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="profile-head">
-                                    <h5>Cha Eun Woo</h5>
+                                    <h5>{{docente.nombre}} {{docente.apellidoP}} {{docente.apellidoM}}</h5>
                                     <div class="row">
-                                      <div class="col-md-6"><h6>Lic. en Informática</h6></div>
+                                      <div class="col-md-6"><h6>{{docente.titulo}}</h6></div>
                                       <div class="col-md-6"><h6>Profesor</h6></div>
                                     </div>
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -48,7 +48,7 @@
                                                 <label>Nombre</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <p>Eun Woo</p>
+                                                <p> {{docente.nombre}}</p>
                                               </div>
                                           </div>
                                           <div class="row">
@@ -56,7 +56,7 @@
                                                 <label>Apellido Paterno</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <p>Cha</p>
+                                                <p> {{docente.apellidoP}}</p>
                                               </div>
                                           </div>
                                           <div class="row">
@@ -64,7 +64,7 @@
                                                   <label>Apellido Materno</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                  <p></p>
+                                                  <p> {{docente.apellidoM}}</p>
                                                 </div>
                                           </div>
                                           <div class="row">
@@ -72,7 +72,7 @@
                                                   <label>Fecha de nacimiento</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                  <p>30-03-1997</p>
+                                                  <p> {{docente.fechaNac}}</p>
                                                 </div>
                                           </div>
                                           <div class="row">
@@ -80,7 +80,7 @@
                                                   <label>Núm de seguro social</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                  <p>35156488412345</p>
+                                                  <p>{{docente.nss}}</p>
                                                 </div>
                                           </div>                                            
                                         </div>
@@ -90,7 +90,7 @@
                                                   <label>Correo electrónico</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                  <p>maestro@gmail.com</p>
+                                                  <p>{{email}}</p>
                                                 </div>
                                             </div>  
                                             <div class="row">
@@ -98,17 +98,9 @@
                                                 <label>Teléfono</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <p>818 12 12</p>
+                                                <p>{{docente.telefono}}</p>
                                               </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6" >
-                                                  <label>Celular</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                  <p>668 2325850</p>
-                                                </div>
-                                            </div>      
                                         </div>
                                     </div>
                                 </div>

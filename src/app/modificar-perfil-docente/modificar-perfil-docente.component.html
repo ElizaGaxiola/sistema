@@ -2,20 +2,22 @@
 <div id="wrapper">
   <!-- Sidebar -->
   <app-menu></app-menu>
+  <ngb-alert class="float-right" style="z-index: 100" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+  <ngb-alert class="float-right" style="z-index: 100" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
   <div id="content-wrapper">
     <div class="container-fluid">
       <app-head [nombre]="modulo"></app-head>
       <aside class="profile-card scrollbar-dusty-grass thin">
           <div class="container emp-profile">
-            <form [formGroup]="moddocenteForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="docenteForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                       <div class="col-md-6">
                           <div class="profile-img">
-                              <img src="../../assets/images/alumnos/avatar2.jpg" alt=""/>
-                              <div class="file btn btn-lg btn-primary">
-                                Cambiar imagen
-                                <input type="file" name="file"/>
-                            </div>
+                              <img src="http://localhost:8080/Apis/assets/images/administradores/{{imagen}}" alt=""/>
+                                <div class="file btn btn-lg btn-primary">
+                                    Cambiar imagen
+                                <input accept="image/*" name="file" id="file-input" type="file" (change)="cargandoImagen($event)"/>
+                                </div>
                           </div>
                       </div>
                       <div class="col-md-6">
@@ -51,45 +53,45 @@
                                         <div class="row">
                                             <div class="col-md-6" >
                                               <label>Nombre</label>
-                                              <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.nombre.valid"></i>
-                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.nombre.invalid &&
-                                              moddocenteForm.controls.nombre.touched"></i>
+                                              <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.nombre.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.nombre.invalid &&
+                                              docenteForm.controls.nombre.touched"></i>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="text"  id="nombre" formControlName="nombre" >
+                                              <input class="form-control" formControlName="nombre" type="text">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                               <label>Apellido Paterno</label>
-                                              <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.app.valid"></i>
-                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.app.invalid &&
-                                              moddocenteForm.controls.app.touched"></i>
+                                              <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.apellidoP.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.apellidoP.invalid &&
+                                              docenteForm.controls.apellidoP.touched"></i>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="text"  id="app" formControlName="app" >
+                                              <input class="form-control" formControlName="apellidoP" type="text" >
                                             </div>
                                         </div>
                                         <div class="row">
                                               <div class="col-md-6">
                                                 <label>Apellido Materno</label>
-                                                <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.apm.valid"></i>
-                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.apm.invalid &&
-                                                moddocenteForm.controls.apm.touched"></i>
+                                                <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.apellidoM.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.apellidoM.invalid &&
+                                                docenteForm.controls.apellidoM.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="text"  id="apm" formControlName="apm" >
+                                                <input class="form-control" formControlName="apellidoM" type="text">
                                               </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6" >
                                               <label>Contraseña</label>
-                                              <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.contra.valid"></i>
-                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.contra.invalid &&
-                                                moddocenteForm.controls.contra.touched"></i>
+                                                <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.contrasena.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.contrasena.invalid &&
+                                                docenteForm.controls.contrasena.touched"></i>
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="password" id="contra" formControlName="contra" >
+                                                <input class="form-control" formControlName="contrasena" type="password">
                                             </div>
                                         </div>   
                                         <div class="row">
@@ -98,7 +100,7 @@
                                               </div>
                                               <div class="col-md-6">
                                                 <div class="input-group">
-                                                  <input class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" disabled>
+                                                  <input class="form-control" formControlName="fechaNac" disabled>
                                                   <div class="input-group-btn">
                                                       <button type="button" class="btn btn-calendar" (click)="dp.show() " disabled><i class="fas fa-calendar-alt"></i></button>
                                                   </div>
@@ -110,7 +112,7 @@
                                                 <label>Núm de seguro social</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="number"  id="nss" formControlName="nss" disabled >
+                                                <input class="form-control" type="number" formControlName="nss"  id="nss"  disabled >
                                               </div>
                                         </div>                                            
                                       </div>
@@ -118,38 +120,23 @@
                                           <div class="row">
                                               <div class="col-md-6" >
                                                 <label>Correo electrónico</label>
-                                                <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.correo.valid"></i>
-                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.correo.invalid &&
-                                                moddocenteForm.controls.correo.touched"></i>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="email" value="maestro@gmail.com" id="correo" formControlName="correo" >
+                                                <input formControlName="usuario" class="form-control" type="email"   disabled >
                                               </div>
                                           </div>  
                                           <div class="row">
                                             <div class="col-md-6" >
                                               <label>Teléfono</label>
-                                              <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.tel.valid"></i>
-                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.tel.invalid &&
-                                                moddocenteForm.controls.tel.touched"></i>
+                                                <i class="fa fa-check-circle check" *ngIf="docenteForm.controls.telefono.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="docenteForm.controls.telefono.invalid &&
+                                                docenteForm.controls.telefono.touched"></i>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="text"  id="tel" formControlName="tel" pattern="[0-9]{7}">
+                                              <input class="form-control" type="text"  formControlName="telefono" pattern="[0-9]{7}">
                                               <p></p>
                                             </div>
-                                          </div>
-                                          <div class="row">
-                                              <div class="col-md-6" >
-                                                <label>Celular</label>
-                                                <i class="fa fa-check-circle check" *ngIf="moddocenteForm.controls.telcel.valid"></i>
-                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="moddocenteForm.controls.telcel.invalid &&
-                                                moddocenteForm.controls.telcel.touched"></i>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <input class="form-control" type="text"  id="telcel" formControlName="telcel">
-                                                <p></p>
-                                              </div>
-                                          </div>      
+                                          </div>    
                                       </div>
                                   </div>
                               </div>
@@ -157,9 +144,6 @@
                           <div class="row">
                               <div class="col-12 text-center">
                                   <button type="submit" class="btn btn-fill btn-rose float-right">Guardar</button>
-                                  <p class="alert alert-danger" *ngIf="!moddocenteForm.valid">
-                                    Por favor complete los campos
-                                  </p>
                                 </div>
                           </div>   
                       </div>

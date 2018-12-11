@@ -29,6 +29,12 @@ export class AuthService {
         return result;
     }))  
   }
+  getUserId(idUsuario: string): Observable<any> {
+    return this.http.get('/api/usuarioid?idUsuario=' + idUsuario)
+    .pipe(map(result => {
+      return result;
+  }))  
+}
 
   logout() {
     localStorage.removeItem('access_token');

@@ -170,8 +170,10 @@ export class PersonaldocenteComponent implements OnInit {
       this.abc.insertDocenete(this.docente).subscribe(res => {
         this.obtenerDocentes();
         $("#modal-modificar").modal('hide');
+        this._success.next('Datos modificados con éxito');
       }, (err) => {
         console.log(err);
+        this._danger.next('A ocurrido un error intentalo de nuevo');
       }
      );
     }

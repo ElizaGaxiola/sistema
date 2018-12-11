@@ -15,7 +15,7 @@
                   <i class="fa fa-check-circle check" *ngIf="inscripcionForm.controls.matricula.valid"></i>
                   <i class="fa fa-exclamation-circle uncheck" *ngIf="inscripcionForm.controls.matricula.invalid &&
                   inscripcionForm.controls.matricula.touched"></i>
-                  <input class="form-control" id="telfijo" formControlName="matricula" pattern="[0-9]{8}"  type="number" >
+                  <input (keydown)="buscar($event)" class="form-control" [(ngModel)]="matricula" formControlName="matricula" pattern="[0-9]{8}"  type="number" >
                   <p class="alert alert-danger" *ngIf="inscripcionForm.controls.matricula.invalid &&
                   inscripcionForm.controls.matricula.touched">
                   El campo Matrícula es obligatorio</p>
@@ -186,7 +186,7 @@
           <div class="row">
             <div class="form-group col-sm-4" >
               <label for="postal-code">Teléfono Fijo</label>
-              <input class="form-control" id="telfijo" formControlName="telefono" pattern="[0-9]{10}"  type="number" >
+              <input class="form-control"  formControlName="telefono" pattern="[0-9]{10}"  type="number" >
             </div>
             <div class="form-group col-sm-4" >
                 <label for="postal-code">Teléfono Celular</label>

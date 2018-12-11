@@ -16,6 +16,28 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+  //ABC ALUMNOS
+
+  //subir inscripcion
+  reinsertIscripcion(datos:any):Observable<any>{
+    return this.http.post('/api/reinscripcionInsert', datos);
+  }
+
+  //Obtener tutor
+  getTutorAlumno(idAlumno: number): Observable<any>{
+    return this.http.get('/api/tutorAlumno?idAlumno='+idAlumno)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Obtener alumno mat
+  getAlumnoMat(idMatricula: string): Observable<any>{
+    return this.http.get('/api/alumnoMatricula?mat='+ idMatricula)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
   //ABC Avisos
 
   //Delete horario 
@@ -460,6 +482,14 @@ export class AbcService {
 
 
   //ABC Docente
+  
+   //Obtener Docente_Usuario
+   getDocente_Usuario(idUsuario: number): Observable<any>{
+    return this.http.get('/api/docenteUsuario?idUsuario=' + idUsuario)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
 
   //Obtener Docenetes
   getDocenetes(idEScuela:number): Observable<any>{
