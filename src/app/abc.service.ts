@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { map,catchError,retry, tap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo, Grupo, Horario, Aviso } from './modelos';
+import { Escuela, Administrador, Docente, Edificio, Aula, Ciclo, Subciclo, Carrera, Periodo, Asignatura, AsignaturaPeriodo, Grupo, Horario, Aviso, calificacion } from './modelos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,7 +16,43 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+  //Subir calificacion
+  insertCalificacion(calificacion:calificacion):Observable<any>{
+    return this.http.post('/api/calificacionInsert', calificacion);
+  }
+  //Obtener calificacion
+  getCalificacion(idConfCalificacion:number,idGrupo:number,idAlumno:number ): Observable<any>{
+    return this.http.get('/api/calificacion?idConfCalificacion='+idConfCalificacion+'&idAlumno='+idAlumno+'&idGrupo='+idGrupo)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+
   //ABC ALUMNOS
+  //Obtener alumno
+  getAlumnoUsuario(idUsuario: number): Observable<any>{
+    return this.http.get('/api/alumnoUsuario?idUsuario='+idUsuario)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Obtener alumno
+  getAlumno(idAlumno: number): Observable<any>{
+    return this.http.get('/api/alumno?idAlumno='+idAlumno)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  //Obtener tutor
+  getActa(idSeccion: number,idPeriodo:number,idCarrera:number ): Observable<any>{
+    return this.http.get('/api/acta?idSeccion='+idSeccion+'&idPeriodo='+idPeriodo+'&idCarrera='+idCarrera)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
 
   //Obtener alumnos
   getAlumnosxGrupo(idGrupo:number): Observable<any>{
@@ -47,6 +83,14 @@ export class AbcService {
     }))  
   }
   //ABC Avisos
+
+  //Obtener Avisos Activos
+  getAvisosAct(idEScuela:number): Observable<any>{
+    return this.http.get('/api/avisosAct?idEscuela='+idEScuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
 
   //Delete horario 
   deleteAviso (idAviso:number): Observable<any> {

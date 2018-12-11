@@ -3,6 +3,8 @@
   <div id="content-wrapper">
     <div class="container-fluid">
       <app-head [nombre]="modulo"></app-head>
+      <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <ngb-alert class="float-right" style="z-index: 100;position: absolute;right:5px;top:15px;" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
       <div class="container">
           <div class="row">
               <!-- grupo -->
@@ -42,7 +44,7 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                    <table datatable [dtOptions]="dtOptions" id="table" class="row-border hover">
+                    <table datatable class="row-border hover">
                         <thead>
                         <tr>
                             <th style="width: 20%">
@@ -64,75 +66,69 @@
                             <td>{{item.apellidoP}}</td>
                             <td>{{item.apellidoM}}</td>
                             <td>{{item.nombre}}</td>
-                            <td><button type='button' (click)='calificar()' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button>
+                            <td>
+                              <button *ngIf="cali" type='button'  (click)='calificar(item.idAlumno)' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button>
+                              <button *ngIf="!cali" disabled type='button' (click)='calificar(item.idAlumno)' class='btn btn-warning' title='Calificar'><i class='fas fa-chalkboard-teacher'></i></button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
               </div>
-              <!-- Modal Recuperar -->
+              <!-- Modal Calificar -->
               <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                         <div class="modal-body">
                           <div class="card">
                              <div class="card-header">
-                                <strong>{{tituloModal}}</strong>
+                                <strong>Calificar Alumno</strong>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
                               <div class="card-body">
                                 <div class="row">
-                                  <div class="col-sm-12">
+                                  <div class="col-sm-12 col-md-12">
                                     <div class="form-group">
                                       <label for="name">Nombre</label>
-                                      <input disabled value="Jesús Carlos Acosta Rocha" class="form-control" id="nombre" type="text">
+                                      <input disabled value="{{nombreAlu}}" class="form-control" id="nombre" type="text">
                                     </div>
                                   </div>
                                 </div>
+                                <form [formGroup]="calificacionForm" (ngSubmit)="onSubmit()">
                                 <div class="row">
-                                  <div class="col-sm-12">
-                                    <div class="form-group">
-                                      <label for="materia">Materia</label>
-                                      <input disabled class="form-control" id="materia" type="text" value="Matemáticas">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div *ngIf="modal == 'calificar'" class="form-group col-sm-6">
-                                    <label for="ccmonth">Calificación</label>
-                                    <select class="form-control" id="ccmonth">
-                                      <option>1</option>
-                                      <option>2</option>
-                                      <option>3</option>
-                                      <option>4</option>
-                                      <option>5</option>
-                                      <option>6</option>
-                                      <option>7</option>
-                                      <option>8</option>
-                                      <option>9</option>
-                                      <option>10</option>
-                                    </select>
-                                  </div>
-                                  <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <button *ngIf="modal == 'calificar'" type="submit" class="btn btn-fill btn-rose float-right">Calificar</button>
-                                    </div>
-                                  </div>
+                                    <div class="form-group col-md-12">
+                                        <label> Calificación</label>
+                                        <i class="fa fa-check-circle check" *ngIf="calificacionForm.controls.calificacion.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="calificacionForm.controls.calificacion.invalid &&
+                                        calificacionForm.controls.calificacion.touched"></i> 
+                                        <ng-select [items]="select"
+                                                    bindLabel="name"
+                                                    bindValue="id"
+                                                    formControlName="calificacion"
+                                                    placeholder="Selecciona">
+                                        </ng-select>
+                                        <p class="alert alert-danger" *ngIf="calificacionForm.controls.calificacion.invalid &&
+                                        calificacionForm.controls.calificacion.touched">
+                                        El campo calificación es obligatorio</p>
                                 </div>
                               </div>
+                              <div class="row">
+                                  <div class="form-group col-md-12">
+                                      <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!calificacionForm.valid>Agregar</button>
+                                      <p class="alert alert-danger" *ngIf="!calificacionForm.valid">
+                                          Por favor complete los campos
+                                      </p>
+                                  </div>
+                              </div>
+                            </form>
                             </div>
                         </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-fill btn-rose float-right">Cerrar actas</button>
-                </div>
-            </div>  
           </div>
         </div>
       </div>

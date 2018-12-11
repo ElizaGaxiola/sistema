@@ -87,7 +87,7 @@ const routes = [
   { path: 'alumnos/calificaciones', component: CalificacionesAlumnosComponent, canActivate: [AlumnoService]},
   { path: 'alumnos/perfil', component: PerfilAlumnosComponent, canActivate: [AlumnoService]},
   { path: 'docente/calificaciones', component: CalificacionesDocenteComponent, canActivate: [DocenteService]},
-  { path: 'docente/actas', component: ActasDocenteComponent,canActivate: [DocenteService]},
+  { path: 'docente/actas/:id', component: ActasDocenteComponent,canActivate: [DocenteService]},
   { path: 'preinscripciones/datos', component: PreinscripcionesDatosComponent, },
   { path: 'preinscripciones', component: PreinscripcionesComenzarComponent, },
   { path: 'alumnos/ModificarPerfil',component: ModificarPerfilAlumnoComponent, canActivate: [AlumnoService] },

@@ -1,4 +1,12 @@
 import { Time } from "@angular/common";
+
+export interface calificacion{
+    idConfCalificacion:number;
+    idAlumno:number;
+    calificacion:number;
+    idGrupo:number;
+}
+
 export interface Candidato{
     idCandidato:number;
     nombre:string;

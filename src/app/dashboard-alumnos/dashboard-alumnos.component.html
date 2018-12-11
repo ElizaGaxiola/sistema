@@ -6,49 +6,53 @@
       <app-head [nombre]="modulo"></app-head>
     </div>
         <div class="row" style="background-color: #EEEEEE;">
-          <div class="col-sm-12 col-md-6" style="margin-top: 30px;" >
-            <div class="card text-white bg-primary">
-              <div class="card-header" style="background-color: #007BFF"> 
-                ¡Ultimas noticias! 
-              </div>
-              <div class="card-body"> 
-                El día Martes 1ro de Noviembre se llevará a cabo el concurso de altares, solo participará un altar por grupo y deben de contar con una catrina. No repetir al ofrendado.
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-6" style=" margin-top: 30px;">
-            <div class="card text-white bg-success">
-              <div class="card-header" style="background-color: #28A745"> 
-              ¡Próximos exámenes!
-              </div>
-              <div class="card-body"> 
-                Se les informa a todos los alumnos que la semana correspondiente del 8 al 14 de Diciembre del presente año se llevará a cabo la evaluación del 2do Bimestre. ¡¡SUERTE!!
-              </div>
-            </div>
-          </div> 
-        </div>
-        <div class="row" style="background-color: #EEEEEE;">
-          <div class="col-sm-12 col-md-6" style="  margin-top: 30px;">
-              <div class="card text-white bg-danger">
-                <div class="card-header" style="background-color:#DC3545"> 
-                  ¡Suspensión de clases! 
+          <div *ngFor="let item of datos" class="col-sm-12 col-md-6" style="margin-top: 30px;">
+                <div *ngIf="item?.idTipo==1" class="col-sm-12">
+                  <div class="card text-white bg-primary">
+                    <div class="card-header" style="background-color: #007BFF"> 
+                      ¡Ultimas noticias! 
+                    </div>
+                    <div class="card-body">
+                      <p>{{item.titulo}}</p> 
+                      {{item.mensaje}}
+                    </div>
+                  </div>
                 </div>
-                <div class="card-body"> 
-                    Continúa la suspensión de clases para el día de mañana viernes 21, en base a las recomendaciones de Protección Civil e información de la Comisión Nacional del Agua, por las intensas lluvias e inundaciones que prevalecen en la región.
+                <div *ngIf="item?.idTipo==2" class="col-sm-12">
+                  <div class="card text-white bg-success">
+                    <div class="card-header" style="background-color: #28A745"> 
+                    ¡Próximos exámenes!
+                    </div>
+                    <div class="card-body"> 
+                        <p>{{item.titulo}}</p> 
+                        {{item.mensaje}}
+                    </div>
+                  </div>
+                </div> 
+                <div *ngIf="item?.idtipo==4" class="col-sm-12">
+                    <div class="card text-white bg-danger">
+                      <div class="card-header" style="background-color:#DC3545"> 
+                        ¡Suspensión de clases! 
+                      </div>
+                      <div class="card-body"> 
+                          <p>{{item.titulo}}</p> 
+                           {{item.mensaje}}
+                      </div>
+                    </div>
                 </div>
-              </div>
-        </div>
-          <div class="col-sm-12 col-md-6" style=" margin-top: 30px; ">
-            <div class="card text-white bg-warning">
-              <div class="card-header" style="background-color:#FFC107"> 
-                !Reunión de Padres de Familia!
-              </div>
-              <div class="card-body"> 
-                El día Lunes 29 de Noviembre se llevará a cabo una reunión de padres de familia, con motivo de informar la situación actual de sus hijos, por lo que esperamos su puntual asistencia a las instalaciones del plantel en punto de las 10 hrs.
-              </div>
-            </div>
+                <div *ngIf="item?.idTipo==3" class="col-sm-12">
+                  <div class="card text-white bg-warning">
+                    <div class="card-header" style="background-color:#FFC107"> 
+                      !Reunión de Padres de Familia!
+                    </div>
+                    <div class="card-body"> 
+                        <p>{{item.titulo}}</p> 
+                        {{item.mensaje}}
+                    </div>
+                  </div>
+                </div>
           </div>
-        </div>    
+        </div>
     <app-footer></app-footer>
   
 </div>
