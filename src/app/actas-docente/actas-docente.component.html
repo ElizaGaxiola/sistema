@@ -42,35 +42,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                      <table datatable [dtOptions]="dtOptions" class="row-border hover">
-                          <thead>
-                          <tr>
-                              <th style="width: 20%">
-                                  Num. Lista
-                              </th>
-                              <th style="width: 20%">
-                                  Apellido Paterno
-                              </th>
-                              <th style="width: 20%">
-                                  Apellido Materno
-                              </th>
-                              <th style="width: 20%">
-                                  Nombre(s)
-                              </th>
-                              <th style="width: 20%">
-                                Calificación
-                              </th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr *ngFor="let item of data">
-                              <td>{{item.numero}}</td>
-                              <td>{{item.apellidoP}}</td>
-                              <td>{{item.apellidoM}}</td>
-                              <td>{{item.nombre}}</td>
-                              <td>{{item.cal}}</td>
-                          </tr>
-                          </tbody>
+                      <table #dataTable class="row-border hover" style="width:100%">
                       </table>
                   </div>
                 </div>

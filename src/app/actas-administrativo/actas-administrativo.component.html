@@ -19,7 +19,7 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                    <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                    <table datatable class="row-border hover">
                         <thead>
                         <tr>
                             <th style="width: 17%">
@@ -44,9 +44,9 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let item of data">
-                            <td>{{item.idSeccion}}</td>
-                            <td>{{item.idPeriodo}}</td>
-                            <td>{{item.idCarrera}}</td>
+                            <td>{{item.seccion}}</td>
+                            <td>{{item.periodo}}</td>
+                            <td>{{item.carrera}}</td>
                             <td>{{item.numEvaluacion}}</td>
                             <td>{{item.fechaIni}}</td>
                             <td>{{item.fechaFin}}</td>
@@ -72,52 +72,29 @@
                                 <div class="row">
                                       <div class="col-sm-12 col-md-6">
                                           <div class="form-group">
-                                            <label for="materia"> Sección</label>
-                                            <i class="fa fa-check-circle check" *ngIf="actaForm.controls.idSeccion.valid"></i>
-                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="actaForm.controls.idSeccion.invalid &&
-                                            actaForm.controls.idSeccion.touched"></i>
-                                            <ng-select [items]="seccionSelect"
-                                                bindLabel="name"
-                                                bindValue="id"
-                                                placeholder="Selecciona"
-                                                formControlName="idSeccion">
+                                            <label for="materia"> Periodo</label>
+                                            <ng-select [items]="periodoSelect"
+                                                            bindLabel="name"
+                                                            bindValue="id"
+                                                            [(ngModel)]="periodo"
+                                                            [ngModelOptions]="{standalone: true}">
                                             </ng-select>
-                                            <p class="alert alert-danger" *ngIf="actaForm.controls.idSeccion.invalid &&
-                                            actaForm.controls.idSeccion.touched">
-                                            El campo Sección es obligatorio</p>
                                           </div>
                                       </div>
                                       <div class="col-sm-12 col-md-6">
-                                          <div class="form-group">
-                                            <label for="materia"> Periodo</label>
-                                            <i class="fa fa-check-circle check" *ngIf="actaForm.controls.idPeriodo.valid"></i>
-                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="actaForm.controls.idPeriodo.invalid &&
-                                            actaForm.controls.idPeriodo.touched"></i>
-                                            <ng-select [items]="periodoSelect"
-                                                bindLabel="name"
-                                                bindValue="id"
-                                                placeholder="Selecciona"
-                                                formControlName="idPeriodo">
-                                            </ng-select>
-                                            <p class="alert alert-danger" *ngIf="actaForm.controls.idPeriodo.invalid &&
-                                            actaForm.controls.idPeriodo.touched">
-                                            El campo Periodo es obligatorio</p>
-                                          </div>
+                                            <div class="form-group">
+                                              <label for="materia">Número de Evaluación</label>
+                                              <i class="fa fa-check-circle check" *ngIf="actaForm.controls.numEvaluacion.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="actaForm.controls.numEvaluacion.invalid &&
+                                              actaForm.controls.numEvaluacion.touched"></i>  
+                                            <input  class="form-control" id="apm" formControlName="numEvaluacion" type="text" >
+                                            <p class="alert alert-danger" *ngIf="actaForm.controls.numEvaluacion.invalid &&
+                                            actaForm.controls.numEvaluacion.touched">
+                                            El campo Número de Evaluación es obligatorio</p>
+                                            </div>
                                       </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                          <label for="materia">Número de Evaluación</label>
-                                          <i class="fa fa-check-circle check" *ngIf="actaForm.controls.numEvaluacion.valid"></i>
-                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="actaForm.controls.numEvaluacion.invalid &&
-                                          actaForm.controls.numEvaluacion.touched"></i>  
-                                        <input  class="form-control" id="apm" formControlName="numEvaluacion" type="text" >
-                                        <p class="alert alert-danger" *ngIf="actaForm.controls.numEvaluacion.invalid &&
-                                        actaForm.controls.numEvaluacion.touched">
-                                        El campo Número de Evaluación es obligatorio</p>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                           <label for="materia">Fecha Inicio</label>
@@ -134,35 +111,33 @@
                                             El campo Fecha Inicio es obligatorio</p>
                                           </div>
                                         </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                              <label for="materia">Fecha Final</label>
+                                              <i class="fa fa-check-circle check" *ngIf="actaForm.controls.fechaFin.valid"></i>
+                                              <i class="fa fa-exclamation-circle uncheck" *ngIf="actaForm.controls.fechaFin.invalid &&
+                                              actaForm.controls.fechaFin.touched"></i>  
+                                              <div class="input-group">
+                                                <input [bsValue]="bsValue" class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" formControlName="fechaFin" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig" >
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
+                                                </div>
+                                                <p class="alert alert-danger" *ngIf="actaForm.controls.fechaFin.invalid &&
+                                                actaForm.controls.fechaFin.touched">
+                                                El campo Fecha Final es obligatorio</p>
+                                              </div>
+                                            </div>
                                     </div>     
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                          <label for="materia">Fecha Final</label>
-                                          <i class="fa fa-check-circle check" *ngIf="actaForm.controls.fechaFin.valid"></i>
-                                          <i class="fa fa-exclamation-circle uncheck" *ngIf="actaForm.controls.fechaFin.invalid &&
-                                          actaForm.controls.fechaFin.touched"></i>  
-                                          <div class="input-group">
-                                            <input [bsValue]="bsValue" class="form-control" [minDate]="minDate" [maxDate]="maxDate" placeholder="dd/mm/aaaa" formControlName="fechaFin" bsDatepicker #dp2="bsDatepicker" [bsConfig]="bsConfig" >
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn btn-calendar" (click)="dp2.show() " ><i class="fas fa-calendar-alt"></i></button>
-                                            </div>
-                                            <p class="alert alert-danger" *ngIf="actaForm.controls.fechaFin.invalid &&
-                                            actaForm.controls.fechaFin.touched">
-                                            El campo Fecha Final es obligatorio</p>
-                                          </div>
-                                        </div>
-                                    </div> 
-                                    <div class="col-sm-12 col-md-6">
+                                <div class="row"> 
+                                    <div class="col-sm-12 col-md-12">
                                         <button type="submit" class="btn btn-fill btn-rose float-right" [disabled]=!actaForm.valid>Agregar</button>
                                         <p class="alert alert-danger" *ngIf="!actaForm.valid">
                                             Por favor complete los campos
                                         </p>
                                     </div>
                                 </div>
-                                
-                                
                                 </form>
                               </div>
                             </div>

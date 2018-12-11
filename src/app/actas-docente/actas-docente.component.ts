@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Grupo } from '../modelos';
 import { ActivatedRoute } from '@angular/router';
@@ -20,60 +20,13 @@ export class ActasDocenteComponent implements OnInit {
   ciclo:string='';
   materia:string='';
   acta:any;
-
-  dtOptions: any = {};
+  @ViewChild('dataTable') table;
+  dataTable: any;
+  dtOptions: any;
 
   //datos para datatable
-  data: any[]=[
-    { numero: "1", apellidoP:"Acosta", apellidoM: "Rocha", nombre:"Jesús Carlos", cal:"10"},
-    { numero: "2", apellidoP:"Castro", apellidoM: "Galaviz", nombre:"Evelyn Guadalupe", cal:"10"},
-    { numero: "3", apellidoP:"Gaxiola", apellidoM: "Carrillo", nombre:"Elizabeth", cal:"10"},
-  ];
+  data: any[]=[];
   ngOnInit() {
-    this.dtOptions = {
-      "ajax":{
-        url:'',
-        type:'GET'
-      },
-      "ordering": false,
-      dom: 'Bfrtip',
-      buttons: [
-                'copy',
-                {
-                    extend: 'excel',
-                    title: 'ACTA'
-                },
-                {
-                    extend: 'pdf',
-                    title: 'ACTA'
-                },
-                {
-                    extend: 'print',
-                    title: 'ACTA'
-                }
-            ],
-      language: {
-        "emptyTable": "Sin resultados encontrados",
-        "info": " _START_ - _END_ / _TOTAL_ ",
-        "infoEmpty": "0-0 /0",
-        "infoFiltered": "",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "<i class='fas fa-search'></i>",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        },
-      }
-    };
-  }
-  constructor(private _route: ActivatedRoute,private abc: AbcService,private chRef: ChangeDetectorRef) { 
     console.log(this._route.snapshot.paramMap.get('id'));
     this.idGrupo = Number(this._route.snapshot.paramMap.get('id'));
     this.abc.getGrupo(this.idGrupo)
@@ -86,7 +39,73 @@ export class ActasDocenteComponent implements OnInit {
          //no hay para mostrar
         }else{
           this.acta=acta;
-          console.log(acta);
+          this.dtOptions = {
+            "Sort":false,
+            "ajax":{
+              url:'http://localhost:8080/Apis/public/api/alumnosGCalificacion?idGrupo='+this.idGrupo+'&idConfCalificacion='+this.acta.idConfCalificacion,
+              type:'GET'
+            },
+            columns:[
+              {
+                title:'Matricula',
+                data:'matricula'
+              },
+              {
+                title:'Apellido Paterno',
+                data:'apellidoP'
+              },
+              {
+                title:'Apellido Materno',
+                data:'apellidoM'
+              },
+              {
+                title:'Nombre',
+                data:'nombre'
+              },
+              {
+                title:'Calificación',
+                data:'calificacion'
+              }
+            ],
+            "ordering": false,
+            dom: 'Bfrtip',
+            buttons: [
+                      'copy',
+                      {
+                          extend: 'excel',
+                          title: 'ACTA'
+                      },
+                      {
+                          extend: 'pdf',
+                          title: 'ACTA'
+                      },
+                      {
+                          extend: 'print',
+                          title: 'ACTA'
+                      }
+                  ],
+            language: {
+              "emptyTable": "Sin resultados encontrados",
+              "info": " _START_ - _END_ / _TOTAL_ ",
+              "infoEmpty": "0-0 /0",
+              "infoFiltered": "",
+              "infoPostFix": "",
+              "thousands": ",",
+              "lengthMenu": "Mostrar _MENU_ registros",
+              "loadingRecords": "Cargando...",
+              "processing": "Procesando...",
+              "search": "<i class='fas fa-search'></i>",
+              "zeroRecords": "Sin resultados encontrados",
+              "paginate": {
+                  "first": "Primero",
+                  "last": "Ultimo",
+                  "next": "Siguiente",
+                  "previous": "Anterior"
+              },
+            }
+          };
+          this.dataTable = $(this.table.nativeElement);
+          this.dataTable.DataTable(this.dtOptions);
         }
       });
       this.abc.getCiclo(data.idCiclo).subscribe((ciclo:any)=>{
@@ -97,20 +116,9 @@ export class ActasDocenteComponent implements OnInit {
         this.materia=asignatura.nombre;
         console.log(this.materia);
       });
-    }); 
-    this.obtenerAlumnos();
+    });    
   }
-  public obtenerAlumnos(){
-    this.abc.getAlumnosxGrupo(this.idGrupo)
-    .subscribe((data: any) => {
-      console.log(data);
-      console.log('data');
-      this.data=data;
-      this.chRef.detectChanges();
-      // Now you can use jQuery DataTables :
-      const table: any = $('table');
-      table.DataTable();
-    });
+  constructor(private _route: ActivatedRoute,private abc: AbcService,private chRef: ChangeDetectorRef) { 
 
   }
 }

@@ -16,6 +16,43 @@ const httpOptions = {
 export class AbcService {
 
   constructor(private http: HttpClient) { }
+
+  //ABC ConfCal
+
+  //Obtener ConfCal
+  getCals(idEScuela:number): Observable<any>{
+    return this.http.get('/api/cals?idEscuela='+idEScuela)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+  
+
+  //Actualizar ConfCal
+  updateCal (cal:any): Observable<any> {
+    return this.http.put('/api/calUpdate', cal, httpOptions).pipe(
+      tap(_ => console.log('updated confCal')),
+      catchError(this.handleError<any>('updateCal'))
+    );
+  }
+
+  //Agregar ConfCal 
+  insertCal (cal:any): Observable<any> {
+    return this.http.post('/api/calInsert', cal, httpOptions).pipe(
+      tap(_ => console.log('insert confCal')),
+      catchError(this.handleError<any>('insertCal'))
+    );
+  }
+
+  //Obtener ConfCal
+  getCal(idConfCalificacion: number): Observable<any>{
+    return this.http.get('/api/cal?idConfCalificacion=' + idConfCalificacion)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
   //Subir calificacion
   insertCalificacion(calificacion:calificacion):Observable<any>{
     return this.http.post('/api/calificacionInsert', calificacion);
