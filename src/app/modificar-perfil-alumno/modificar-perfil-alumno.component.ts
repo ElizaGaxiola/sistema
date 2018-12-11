@@ -9,29 +9,26 @@ import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angula
 })
 export class ModificarPerfilAlumnoComponent implements OnInit {
   modulo:string='Modificar Perfil';
- //configuración para select
- config = {
-  multiple:false,
-  //value:la variable de modelo en la que desea guardar las opciones seleccionadas.
-  displayKey:"description", 
-  search:true 
-}
-dataModel:any[] = ['101','102','103']
+
 modalumnoForm: FormGroup;
 modalumno: any;
 constructor(private pf: FormBuilder) { }
 
   ngOnInit() {
     this.modalumnoForm=this.pf.group({
-      app:['',[ Validators.required]],
-      nombre:['',[ Validators.required]],
-      apm:['',[ Validators.required]],
-      correo:['',[ Validators.required, Validators.email]],
-      idTelefono:['',[ Validators.required]],
-      idCelular:['',[ Validators.required, Validators.minLength(10)]],
-      idDom:['',[ Validators.required]],
-      idCp:['',[ Validators.required]],
-      contra:['',[Validators.required]]
+      apellidoP:[''],
+      nombre:[''],
+      apellidoM:[''],
+      email:[''],
+      telefono:[''],
+      celular:[''],
+      idDom:[''],
+      idMunicipio:[''],
+      idEstado:[''],
+      fechaNac:[''],
+      nss:[''],
+      cp:[''],
+      contrasena:['',[Validators.required]]
     });
   }
   onSubmit(){
@@ -39,15 +36,19 @@ constructor(private pf: FormBuilder) { }
   }
   saveModalumno(){
     const saveModalumno={
-      app: this.modalumnoForm.get('app').value,
+      apellidoP: this.modalumnoForm.get('apellidoP').value,
       nombre: this.modalumnoForm.get('nombre').value,
-      apm: this.modalumnoForm.get('apm').value,
-      correo: this.modalumnoForm.get('correo').value,
-      idTelefono: this.modalumnoForm.get('idTelefono').value,
-      idCelular: this.modalumnoForm.get('idCelular').value,
+      apellidoM: this.modalumnoForm.get('apellidoM').value,
+      email: this.modalumnoForm.get('email').value,
+      telefono: this.modalumnoForm.get('telefono').value,
+      celular: this.modalumnoForm.get('celular').value,
       idDom: this.modalumnoForm.get('idDom').value,
-      idCp: this.modalumnoForm.get('idCp').value,
-      contra:this.modalumnoForm.get('contra').value
+      nss:this.modalumnoForm.get('nss').value,
+      idMunicipio: this.modalumnoForm.get('idMunicipio').value,
+      idEstado: this.modalumnoForm.get('idEstado').value,
+      cp: this.modalumnoForm.get('cp').value,
+      fechaNac: this.modalumnoForm.get('fechaNac').value,
+      contrasena:this.modalumnoForm.get('contrasena').value,
     };
     return saveModalumno;
   }
