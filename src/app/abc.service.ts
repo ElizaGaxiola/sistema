@@ -19,6 +19,13 @@ export class AbcService {
 
   //ABC ConfCal
 
+  getGruposAlumno(idAlumno:number): Observable<any>{
+    return this.http.get('/api/GrupoA?idAlumno='+idAlumno)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
   //Obtener ConfCal
   getCals(idEScuela:number): Observable<any>{
     return this.http.get('/api/cals?idEscuela='+idEScuela)
@@ -219,6 +226,7 @@ export class AbcService {
 
 
   //ABC Horario 
+  
 
   //Obtener grupos Inscripcion
   getGruposIns(idCiclo: number,idSubCiclo:number,idSeccion:number,idPeriodo:number,idCarrera:number): Observable<any>{
