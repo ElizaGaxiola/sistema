@@ -72,6 +72,7 @@ import { SuperuserService} from './superuser.service';
 import { ReinscripcionComponent } from './reinscripcion/reinscripcion.component';
 import { ReciboreinscripcionComponent } from './reciboreinscripcion/reciboreinscripcion.component';
 import { AlumnoreinscripcionComponent } from './alumnoreinscripcion/alumnoreinscripcion.component';
+import { ActasAdministrativoComponent } from './actas-administrativo/actas-administrativo.component';
 const routes = [
   { path:'',component: PaginaprincipalComponent},
   { path:'alumnos',component: IndexComponent},
@@ -117,6 +118,7 @@ const routes = [
   { path: 'administrativos/inscripciones/reinscripcion', component: ReinscripcionComponent, ccanActivate: [AdministrativoService]},
   { path: 'alumnos/reinscripcion/recibo', component: ReciboreinscripcionComponent, canActivate: [AlumnoService]},
   { path: 'alumnos/reinscripcion', component: AlumnoreinscripcionComponent, ccanActivate: [AlumnoService]}, 
+  { path: 'administrativos/actas', component: ActasAdministrativoComponent, canActivate: [AdministrativoService]},
   { path:'**',component: PaginaprincipalComponent},
 ];
 
@@ -176,7 +178,8 @@ export function tokenGetter() {
     AsignaturasxperiodosComponent,
     ReinscripcionComponent,
     ReciboreinscripcionComponent,
-    AlumnoreinscripcionComponent
+    AlumnoreinscripcionComponent,
+    ActasAdministrativoComponent
   ],
   imports: [
     NgbModule,
