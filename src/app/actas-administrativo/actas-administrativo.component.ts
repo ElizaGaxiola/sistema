@@ -9,7 +9,7 @@ declare var $:any;
   styleUrls: ['./actas-administrativo.component.css']
 })
 export class ActasAdministrativoComponent implements OnInit {
-  modulo:string='Ciclos';
+  modulo:string='Abrir Actas';
   modal:string;
   actaForm: FormGroup;
   acta: any;
