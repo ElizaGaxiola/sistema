@@ -5,7 +5,7 @@
 .register-photo .image-holder {
   display:table-cell;
   width:auto;
-  background:url(../../assets/images/logo.JPG);
+  background:url(../../assets/images/sie.PNG);
   background-size:cover;
 }
 .register-photo .form-container {
