@@ -9,7 +9,7 @@
           <div class="row">
               <div class="form-group col-md-12 text-center">
                 <label for="city">Escuela</label>
-                <input class="form-control"  disabled  type="text" >
+                <input class="form-control" [(ngModel)]="escuela" [ngModelOptions]="{standalone: true}"  disabled  type="text" >
               </div>
           </div>
           <div class="row">
@@ -23,7 +23,9 @@
                       bindLabel="name"
                       bindValue="id"
                       placeholder="Selecciona"
-                      formControlName="idCiclo">
+                      formControlName="idCiclo"
+                      (change)="changeCiclo()"
+                      [(ngModel)]="idCiclo">
                     </ng-select>
                     <p class="alert alert-danger" *ngIf="reinscripcionForm.controls.idCiclo.invalid &&
                     reinscripcionForm.controls.idCiclo.touched">
@@ -59,7 +61,8 @@
                         bindLabel="name"
                         bindValue="id"
                         placeholder="Selecciona"
-                        formControlName="idPeriodo">
+                        formControlName="idPeriodo"
+                        [(ngModel)]="idPeriodo">
                       </ng-select>
                       <p class="alert alert-danger" *ngIf="reinscripcionForm.controls.idPeriodo.invalid &&
                       reinscripcionForm.controls.idPeriodo.touched">

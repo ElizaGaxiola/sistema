@@ -3,7 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Grupo } from '../modelos';
 import { ActivatedRoute } from '@angular/router';
 import { AbcService } from '../abc.service';
-import { type } from 'os';
 declare var jQuery:any;
 declare var $:any;
 

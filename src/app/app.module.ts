@@ -116,7 +116,7 @@ const routes = [
   { path: 'administrativos/inscripciones/inscripcion', component: InscripcionesComponent, ccanActivate: [AdministrativoService]},
   { path: 'preinscripciones/recibo/:id', component: ReciboComponent, },
   { path: 'administrativos/inscripciones/reinscripcion', component: ReinscripcionComponent, ccanActivate: [AdministrativoService]},
-  { path: 'alumnos/reinscripcion/recibo', component: ReciboreinscripcionComponent, canActivate: [AlumnoService]},
+  { path: 'alumnos/reinscripcion/recibo/:idA/:idCi/:idCa', component: ReciboreinscripcionComponent, canActivate: [AlumnoService]},
   { path: 'alumnos/reinscripcion', component: AlumnoreinscripcionComponent, ccanActivate: [AlumnoService]}, 
   { path: 'administrativos/actas', component: ActasAdministrativoComponent, canActivate: [AdministrativoService]},
   { path:'**',component: PaginaprincipalComponent},

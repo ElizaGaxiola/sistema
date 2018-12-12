@@ -10,37 +10,45 @@ import { AbcService } from '../abc.service';
 })
 export class ReciboreinscripcionComponent { 
   @ViewChild('content') content: ElementRef
-  idCandidato:number;
+  idAlumno:number;
+  idCiclo:number;
+  idCarrera:number;
   nombreCan:string;
   nombreEsc:string;
   nombreCar:String;
   importe:number;
   ref:string;
+  ciclo:string='';
   f = new Date();
 
   constructor(private _route: ActivatedRoute,private abc: AbcService) { 
-    console.log(this._route.snapshot.paramMap.get('id'));
-    this.idCandidato = Number(this._route.snapshot.paramMap.get('id'));
-    this.abc.getCandidato(this.idCandidato).subscribe((data:any)=>{
+    this.idAlumno = Number(this._route.snapshot.paramMap.get('idA'));
+    this.idCiclo = Number(this._route.snapshot.paramMap.get('idCi'));
+    this.idCarrera = Number(this._route.snapshot.paramMap.get('idCa'));
+    this.abc.getAlumno(this.idAlumno).subscribe((data:any)=>{
       this.obtenerRef(data);
       this.nombreCan = data.nombre + ' ' + data.apellidoP + ' ' + data.apellidoM;
       this.abc.getEscuela_Id(data.idEscuela).subscribe((escuela:any)=>{
         this.nombreEsc = escuela.nombre;
       });
-      this.abc.getCarrera(data.idCarrera).subscribe((carrera:any)=>{
+      this.abc.getCarrera(this.idCarrera).subscribe((carrera:any)=>{
         this.nombreCar=carrera.descripcion;
         this.importe = carrera.precio;
       });
+    });
+    this.abc.getCiclo(this.idCiclo).subscribe((data:any)=>
+    {
+      this.ciclo=data.descripcion;
     });
   }
 
   public obtenerRef(data:any){
     let escuela = data.idEscuela.toString();
-    if(escuela<10) {
+    if(Number(escuela)<10) {
       escuela='0'+escuela;
     } 
-    let carrera = data.idCarrera.toString();
-    if(carrera<10) {
+    let carrera = this.idCarrera.toString();
+    if(Number(carrera)<10) {
       carrera='0'+ carrera;
     }
     let dd = this.f.getDate().toString();

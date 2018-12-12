@@ -74,6 +74,28 @@ export class AbcService {
 
 
   //ABC ALUMNOS
+
+  //Actualizar contraseña alumno
+  updateContrAlumno (data:any): Observable<any> {
+    return this.http.put('/api/contraAlumnoUpdate', data, httpOptions).pipe(
+      tap(_ => console.log('updated')),
+      catchError(this.handleError<any>('updateContrAlumno'))
+    );
+  }
+
+  //Actualizar Aviso
+  updateImagenAlumno (data:any): Observable<any> {
+    return this.http.put('/api/AlumnoUpdate', data, httpOptions).pipe(
+      tap(_ => console.log('updated')),
+      catchError(this.handleError<any>('updateImagenAlumno'))
+    );
+  }
+
+  
+  //subir imagen aspirante
+  subirImagenAlumno(datos:any):Observable<any>{
+    return this.http.post('/api/subirImagenAlumno', datos);
+  }
   //Obtener alumno
   getAlumnoUsuario(idUsuario: number): Observable<any>{
     return this.http.get('/api/alumnoUsuario?idUsuario='+idUsuario)

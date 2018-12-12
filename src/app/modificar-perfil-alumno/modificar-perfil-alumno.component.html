@@ -5,23 +5,25 @@
   <div id="content-wrapper">
     <div class="container-fluid">
       <app-head [nombre]="modulo"></app-head>
+      <ngb-alert class="float-right" style="z-index: 100" *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+      <ngb-alert class="float-right" style="z-index: 100" *ngIf="dangerMessage" type="danger" (close)="dangerMessage = null">{{ dangerMessage }}</ngb-alert>
       <aside class="profile-card scrollbar-dusty-grass thin">
           <div class="container emp-profile">
               <form [formGroup]="modalumnoForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                       <div class="col-md-6">
                           <div class="profile-img">
-                              <img src="../../assets/images/alumnos/dylan.jpg" alt=""/>
+                              <img src="http://localhost:8080/Apis/assets/images/alumnos/{{urlImagen}}" alt=""/>
                               <div class="file btn btn-lg btn-primary">
-                                Cambiar imagen
-                                <input type="file" name="file"/>
+                                  Cambiar imagen
+                              <input accept="image/*" name="file" id="file-input" type="file" (change)="cargandoImagen($event)"/>
                               </div>
                           </div>
                       </div>
                       <div class="col-md-6">
                           <div class="row">
                               <div class="profile-head">
-                                  <h5>Dylan Wang</h5>
+                                  <h5>{{alumno.nombre}} {{alumno.apellidoP}}</h5>
                                   <div class="row">
                                     <div class="col-md-6"><h6>Estudiante</h6></div>
                                     <div class="col-md-6"><h6>3er Grado</h6></div>
@@ -45,7 +47,7 @@
                                             <label>Matricula</label>
                                           </div>
                                           <div class="col-md-6">
-                                            <p>12345</p>
+                                            <p>{{alumno.matricula}}</p>
                                           </div>
                                         </div>
                                         <div class="row">
@@ -53,7 +55,7 @@
                                               <label>Nombre</label>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control"   formControlName="nombre" type="text"  id="nombre" disabled>
+                                              <input class="form-control"  [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.nombre" type="text"   disabled>
                                               
                                             </div>
                                         </div>
@@ -62,7 +64,7 @@
                                               <label>Apellido Paterno</label>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="text"  formControlName="apellidoP" id="app" disabled>
+                                              <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.apellidoP" disabled>
                                 
                                             </div>
                                         </div>
@@ -71,7 +73,7 @@
                                                 <label>Apellido Materno</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="text" formControlName="apellidoM"  disabled>
+                                                <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.apellidoM"  disabled>
                                               </div>
                                         </div>
                                         <div class="row">
@@ -80,40 +82,21 @@
                                               </div>
                                               <div class="col-md-6">
                                                 <div class="input-group">
-                                                  <input class="form-control" [minDate]="minDate" formControlName="fechaNac" [maxDate]="maxDate" placeholder="dd/mm/aaaa" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" disabled>
-                                                  <div class="input-group-btn">
-                                                      <button type="button" class="btn btn-calendar" (click)="dp.show() " disabled><i class="fas fa-calendar-alt"></i></button>
-                                                  </div>
+                                                  <input class="form-control"  [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.fechaNac" disabled>
                                                 </div>
                                               </div>
                                         </div>
                                         <div class="row">
-                                              <div class="col-md-6">
-                                                <label>Número de seguro social</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <input class="form-control" type="number" value="35156488412345" formControlName="nss" disabled>
-                                              </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                            <label>Status</label>
-                                          </div>
-                                          <div class="col-md-6">
-                                            <input class="form-control" type="text" value="Activo" id="idStatus" disabled>
-                                          </div>
-                                    </div> 
-                                    <div class="row">
-                                        <div class="col-md-6" >
-                                          <label>Contraseña</label>
-                                          <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.contrasena.valid"></i>
-                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.contrasena.invalid &&
-                                            modalumnoForm.controls.contrasena.touched"></i>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input class="form-control" type="password" id="contra" formControlName="contrasena" >
-                                        </div>
-                                    </div>                                                  
+                                            <div class="col-md-6" >
+                                              <label>Contraseña</label>
+                                              <i class="fa fa-check-circle check" *ngIf="modalumnoForm.controls.contrasena.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="modalumnoForm.controls.contrasena.invalid &&
+                                                modalumnoForm.controls.contrasena.touched"></i>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input class="form-control" type="password" id="contra" formControlName="contrasena" >
+                                            </div>
+                                        </div>                                                  
                                       </div>
                                       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                           <div class="row">
@@ -121,8 +104,7 @@
                                                 <label>Correo electrónico</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="email"  formControlName="email" id="correo" disabled>
-                                                
+                                                <input class="form-control" type="email"   [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.email" disabled>
                                               </div>
                                           </div>  
                                           <div class="row">
@@ -130,8 +112,7 @@
                                               <label>Teléfono</label>
                                             </div>
                                             <div class="col-md-6">
-                                              <input class="form-control" type="number"  formControlName="telefono"  pattern="[0-9]{7}" disabled >
-                                             
+                                              <input class="form-control" type="number"  [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.telefono" disabled >
                                             </div>
                                           </div>
                                           <div class="row">
@@ -139,8 +120,7 @@
                                                 <label>Celular</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="number" value="6682325850" formControlName="celular" id="idCelular" pattern="[0-9]{10}" disabled>
-                                               
+                                                <input class="form-control" type="number" [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.celular" disabled>
                                               </div>
                                           </div>
                                           <div class="row">
@@ -148,8 +128,7 @@
                                                 <label>Domicilio</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="text" value="Ejido Plan de Guadalupe" formControlName="idDom" id="idDom" disabled >
-                                               
+                                                <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.colonia" disabled >
                                               </div>
                                           </div> 
                                           <div class="row">
@@ -157,7 +136,7 @@
                                                 <label>Municipio</label>
                                               </div>
                                               <div class="col-md-6">
-                                                  <input class="form-control" type="text" value="Ejido Plan de Guadalupe" formControlName="idMunicipio"  disabled >
+                                                  <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"  [(ngModel)] ="municipio"  disabled >
                                               </div>
                                           </div> 
                                           <div class="row">
@@ -165,7 +144,7 @@
                                                 <label>Estado</label>
                                               </div>
                                               <div class="col-md-6">
-                                                  <input class="form-control" type="text" value="Ejido Plan de Guadalupe" formControlName="idEstado"  disabled >
+                                                  <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"  [(ngModel)] ="estado"  disabled >
                                               </div>
                                           </div>
                                           <div class="row">
@@ -173,7 +152,7 @@
                                                 <label>código Postal</label>
                                               </div>
                                               <div class="col-md-6">
-                                                <input class="form-control" type="number"  formControlName="cp" pattern="[0-9]{5}" disabled>
+                                                <input class="form-control" type="number" [ngModelOptions]="{standalone: true}"  [(ngModel)] ="alumno.cp" disabled>
                                               </div>
                                           </div>          
                                       </div>
