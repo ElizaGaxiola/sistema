@@ -81,50 +81,50 @@ export class CreargruposComponent implements OnInit {
     .subscribe((data: any) => {
       this.chRef.detectChanges();
       for (let item of data) {
-        switch(item.diaSemana) { 
-          case "1": {
-            this.dia ="Domingo"; 
-            break; 
-          } 
-          case "2": { 
-            this.dia ="Lunes"; 
-            break; 
-          } 
-          case "3": { 
-            this.dia ="Martes"; 
-            break; 
-          } 
-          case "4": { 
-            this.dia ="Miércoles"; 
-            break; 
-          } 
-          case "5": { 
-            this.dia ="Jueves"; 
-            break; 
-          }
-          case "6": { 
-            this.dia ="Viernes"; 
-            break; 
-          }
-          case "7": { 
-            this.dia ="Sábado"; 
-            break; 
-          }    
-          default: { 
-            break; 
-          } 
-        } 
+        console.log(item);
         this.abc.getAula(item.idAula).subscribe((aula: any) =>{
           this.abc.getEdificio(aula.idEdificio).subscribe((edificio: any) =>{
+            switch(item.diaSemana) { 
+              case "1": {
+                this.dia ="Domingo"; 
+                break; 
+              } 
+              case "2": { 
+                this.dia ="Lunes"; 
+                break; 
+              } 
+              case "3": { 
+                this.dia ="Martes"; 
+                break; 
+              } 
+              case "4": { 
+                this.dia ="Miércoles"; 
+                break; 
+              } 
+              case "5": { 
+                this.dia ="Jueves"; 
+                break; 
+              }
+              case "6": { 
+                this.dia ="Viernes"; 
+                break; 
+              }
+              case "7": { 
+                this.dia ="Sábado"; 
+                break; 
+              }    
+              default: { 
+                break; 
+              } 
+            }
             this.horarios.push({dia:this.dia,edificio:edificio.descripcion,aula:aula.descripcion,horaIni:item.horaIni,horaFin:item.horaFin,idHorario:item.idHorario});
+            this.chRef.detectChanges();
+            // Now you can use jQuery DataTables :
+            const table: any = $('table');
+            table.DataTable();
           });
         });
       }
-      console.log(this.horarios);
-      
-      // Now you can use jQuery DataTables :
-      const table: any = $('#table_horario');
-      table.DataTable();
     });
   }
 
@@ -236,13 +236,13 @@ export class CreargruposComponent implements OnInit {
       this.grupo = this.saveGrupo();
       this.abc.insertGrupo(this.grupo).subscribe(res => {
         $("#modal").modal('hide');
+        this.obtenerGruposTable();
         this._success.next('Datos agregados con éxito');
       }, (err) => {
         console.log(err);
         this._danger.next('A ocurrido un error intentalo de nuevo');
       }
      );
-     this.obtenerGruposTable();
     }else if (this.modal == 'agregar-horario'){
       this.horario = this.saveHorario();
       console.log(this.horario);
@@ -413,7 +413,7 @@ export class CreargruposComponent implements OnInit {
       this.data=data;
       this.chRef.detectChanges();
       // Now you can use jQuery DataTables :
-      const table: any = $('#table');
+      const table: any = $('table');
       table.DataTable();
     });
   }

@@ -19,7 +19,7 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                    <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                    <table class="row-border hover">
                         <thead>
                         <tr>
                             <th style="width: 20%">
@@ -143,7 +143,7 @@
                                             <input  class="form-control" id="nss" type="text" formControlName="nss" pattern="[0-9]{11}">
                                             <p class="alert alert-danger" *ngIf="docenteForm.controls.nss.invalid &&
                                             docenteForm.controls.nss.touched">
-                                            El campo Número de Seguro Social es obligatorio</p>
+                                            El campo Número de Seguro Social es obligatorio 11 digitos</p>
                                           </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">

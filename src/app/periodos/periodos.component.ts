@@ -109,15 +109,15 @@ administradorUser:Administrador={
     this.abc.getPeriodos(this.administradorUser.idEscuela)
     .subscribe((data: any) => {
       this.data=data;
-      this.chRef.detectChanges();
       for (let item of data) {
         this.abc.getCarrera(item.idCarrera).subscribe((carrera: any) =>{
           this.datosTable.push({descripcion:item.descripcion,carrera: carrera.descripcion,idPeriodo:item.idPeriodo,idSeccion:item.idSeccion,idCarrera:item.idCarrera});
+          this.chRef.detectChanges();
+          // Now you can use jQuery DataTables :
+          const table: any = $('table');
+          this.dataTable = table.DataTable();
         });
       }
-      // Now you can use jQuery DataTables :
-      const table: any = $('table');
-      this.dataTable = table.DataTable();
     });
   }
   ngOnInit(): void {

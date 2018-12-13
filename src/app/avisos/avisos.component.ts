@@ -149,8 +149,8 @@ export class AvisosComponent implements OnInit {
       }
       this.chRef.detectChanges();
       // Now you can use jQuery DataTables :
-      
-      this.dataTable = this.table.DataTable();
+      const table: any = $('table');
+      this.dataTable = table.DataTable();
     });
   }
 

@@ -223,8 +223,9 @@ export class InscripcionesComponent implements OnInit {
         if(resp.status){
           this.idAlumno = resp.msg;
           this.contra = resp.contra;
-          this.inscripcionForm.reset();
+         
           $("#modal").modal();
+          this.inscripcionForm.reset();
         }else{
           this._danger.next('A ocurrido un error, por favor vuelve a intentarlo');
         }

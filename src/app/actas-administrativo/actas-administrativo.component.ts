@@ -97,17 +97,16 @@ export class ActasAdministrativoComponent implements OnInit {
           this.abc.getPeriodo(d.idPeriodo,d.idSeccion,d.idCarrera).subscribe((per:any)=>{
             this.abc.getCarrera(d.idCarrera).subscribe((carr:any)=>{
                 this.data = [...this.data, {seccion:sec.descripcion, periodo: per.descripcion,carrera:carr.descripcion,numEvaluacion:d.numEvaluacion,fechaIni:d.fecahIni,fechaFin:d.fechaFin}];
-            });
+                this.chRef.detectChanges();
+                // Now you can use jQuery DataTables :
+                const table: any = $('table');
+                this.dataTable = table.DataTable();
+              });
 
           });
 
         });
       }
-      
-      this.chRef.detectChanges();
-      // Now you can use jQuery DataTables :
-      const table: any = $('table');
-      this.dataTable = table.DataTable();
     });
   }
   public inicializarForm(){

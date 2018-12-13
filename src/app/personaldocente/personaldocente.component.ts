@@ -71,7 +71,6 @@ export class PersonaldocenteComponent implements OnInit {
     this.inicializarForm();
     this.modal = 'agregar';
     $("#modal").modal();
-    alert('enter');
   }
   public modificar(idDocente:number){
     this.modal = 'modificar';
@@ -169,7 +168,7 @@ export class PersonaldocenteComponent implements OnInit {
     }else{
       this.abc.insertDocenete(this.docente).subscribe(res => {
         this.obtenerDocentes();
-        $("#modal-modificar").modal('hide');
+        $("#modal").modal('hide');
         this._success.next('Datos modificados con éxito');
       }, (err) => {
         console.log(err);

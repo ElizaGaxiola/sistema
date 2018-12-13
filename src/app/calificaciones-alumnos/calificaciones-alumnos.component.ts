@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AbcService } from '../abc.service';
 import { DocenteService } from '../docente.service';
@@ -45,7 +45,8 @@ export class CalificacionesAlumnosComponent implements OnInit {
   };
   cicloSelect: any[]=[];
   subcicloSelect: any[]=[];
-  constructor(private pf: FormBuilder,private abc: AbcService) { }
+  dataTable: any;
+  constructor(private pf: FormBuilder,private abc: AbcService,private chRef: ChangeDetectorRef) { }
   public changeCiclo(){
     console.log(this.idCiclo);
     this.subcicloSelect=[]; 
@@ -72,7 +73,10 @@ export class CalificacionesAlumnosComponent implements OnInit {
             this.cont++;
             this.data = [...this.data, {materia: mat.nombre, docente: doc.nombre+' '+doc.apellidoP, calificacion:cal}];
             this.promedio=this.promedio/this.cont;
-            console.log(this.data);
+            this.chRef.detectChanges();
+                    // Now you can use jQuery DataTables :
+                    const table: any = $('table');
+                    this.dataTable = table.DataTable();
           });
         });
       }

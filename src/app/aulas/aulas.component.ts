@@ -148,7 +148,7 @@ export class AulasComponent implements OnInit {
     }else{
       this.abc.insertAula(this.aula).subscribe(res => {
         this.obtenerAulas();
-        $("#modal-modificar").modal('hide');
+        $("#modal").modal('hide');
         this._success.next('Datos modificados con éxito');
       }, (err) => {
         console.log(err);

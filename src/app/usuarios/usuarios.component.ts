@@ -136,6 +136,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const table: any = $('table');
+    this.dataTable = table.DataTable();
     setTimeout(() => this.staticAlertClosed = true, 20000);
     this._success.subscribe((message) => this.successMessage = message);
     this._success.pipe(
