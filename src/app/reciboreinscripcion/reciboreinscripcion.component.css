@@ -5,3 +5,12 @@ table {
     width: 25%;
     text-align: left;
  }
+ button.btn.btn-fill.btn-rose {
+   margin-top: 30px;
+   margin: 0 auto;
+   overflow: hidden;
+   align-items: center;
+   justify-content: space-around;
+   display: flex;
+   float: none;
+}
