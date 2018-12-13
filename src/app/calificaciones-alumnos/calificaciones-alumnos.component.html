@@ -5,24 +5,41 @@
       <app-head [nombre]="modulo"></app-head>
       <div class="container">
         <div class="row">
-          <!-- Materia -->
-          <div class="col-sm-6 col-md-6">
+          <!-- Promedio -->
+          <div class="col-sm-12 col-md-4">
               <div class="form-group row">
                   <label for="idGrupo" class="col-2 form-label">Promedio:</label>
                   <div class="col-4">
-                    <input class="form-control" type="text" value="10" id="idGrupo" disabled>
+                    <input class="form-control" type="text" [(ngModel)] ="promedio" disabled>
                   </div>
               </div>
             </div>
-          <!-- Grado -->
-          <div class="col-sm-6 col-md-6">
-              <div class="form-group row">
-                  <label for="materia" class="col-2 form-label">Grado:</label>
-                  <div class="col-4">
-                      <ngx-select-dropdown [config]="config" [options]="dataModel" aria-placeholder="Seleccionar"></ngx-select-dropdown>
-                  </div>
+          <!-- Ciclo -->
+          <div class="form-group col-sm-12 col-md-4" >
+              <label for="postal-code">Ciclo</label>
+              <div class="col-12">
+                  <ng-select [items]="cicloSelect"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="Selecciona"
+                    (change)="changeCiclo()"
+                    [(ngModel)]="idCiclo">
+                  </ng-select>
               </div>
-          </div>
+            </div>
+          <!-- Subciclo -->  
+            <div class="form-group col-sm-12 col-md-4" >
+                <label for="postal-code">SubCiclo</label>
+                <div class="col-12">
+                    <ng-select [items]="subcicloSelect"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="Selecciona"
+                      (change)="changeSub()"
+                      [(ngModel)]="idSubciclo">
+                    </ng-select>
+                </div>
+            </div>
         </div>
         <div class="row">
           <div class="col-sm-12">

@@ -19,6 +19,16 @@ export class AbcService {
 
   //ABC ConfCal
 
+  
+  //Obtener candidato Curp
+  getCalificacionesAlumno(idAlumno: number,idCiclo:number,idSubciclo:number): Observable<any>{
+    return this.http.get('/api/calificacionesAlumno?idAlumno='+idAlumno+'&idCiclo='+idCiclo+'&idSubciclo='+idSubciclo)
+      .pipe(map(result => {
+        return result;
+    }))  
+  }
+
+
   getGruposAlumno(idAlumno:number): Observable<any>{
     return this.http.get('/api/GrupoA?idAlumno='+idAlumno)
       .pipe(map(result => {
